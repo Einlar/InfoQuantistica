@@ -1,0 +1,258 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+
+\begin{document}
+
+\section{Teletrasporto quantistico}
+\lesson{3}{6/3/2019}
+L'idea del teletrasporto quantistico\index{Teletrasporto quantistico} consiste nel partire da un \textbf{qubit}, definito da una funzione d'onda generica $\ket{\psi}$ \textbf{non nota}, e trasmettere l'informazione in esso contenuta ad un qubit di un altro laboratorio. Dato che non è possibile \textbf{clonare} $\ket{\psi}$, il teletrasporto ha come effetto la distruzione del qubit originale.\\
+\textbf{Nota}: stiamo comunque parlando di un trasporto di \textbf{informazione}, non di materia. Nel laboratorio di arrivo deve essere presente una particella a cui \q{applicare} il qubit trasportato.\\
+
+Il protocollo di teletrasporto quantistico che esamineremo richiede:
+\begin{itemize}
+\item Due qubit in uno stato EPR (cioè in stato \textit{massimamente entangled}), che vengono separati e portati uno al laboratorio di Alice ($A$) e l'altro a quello di Bob ($B$).
+\item Un qubit (C) nel laboratorio di Alice il cui contenuto sarà \textit{teletrasportato} nel qubit $B$ di Bob.
+\item Due bit classici che permettano ad Alice di registrare il risultato di due misurazioni, e trasmettere tale esito a Bob mediante un \textit{canale di comunicazione classico}. Poiché tale passaggio di informazione può avvenire solo a velocità $v < c$, si ha che il teletrasporto quantistico non può essere un processo superluminale, e quindi non viola la relatività speciale. 
+\end{itemize}
+
+Consideriamo quindi il setup di figura \ref{fig:setup-sperimentale}.
+
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/teletrasporto.tex}
+\caption{Setup sperimentale per il teletrasporto quantistico
+\label{fig:setup-sperimentale}}
+\end{figure}
+
+Presso i laboratori di Alice e Bob sono disponibili i qubit $A$ e $B$, nello stato \textit{entangled} dato da:
+\begin{align*}
+\ket{\psi}_{AB} = \frac{1}{\sqrt{2}}(\ket{00}_{AB} +\ket{11}_{AB})
+\end{align*}
+Perciò se una misura di $A$ trova un risultato $0$ o $1$, una qualsiasi successiva misura di $B$ troverà lo stesso esito.\\
+
+Alice ha poi anche il qubit $C$, nello stato generico $\ket{\psi_c}$ non noto, che vogliamo trasferire a Bob.\\
+
+Mettendo tutto insieme, si ha che lo stato iniziale $\ket{\Phi}_{ABC}$ del sistema è dato da:
+\begin{align*}
+\ket{\Phi_0}_{ABC} = \ket{\psi}_C \otimes \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)_{AB} \qquad \ket{\psi}_C = \alpha \ket{0}+\beta \ket{1}
+\end{align*}
+
+Il \textbf{protocollo} di teletrasporto quantistico consiste in una serie di operazioni che possiamo schematizzare come un \textbf{circuito quantistico} (figura \ref{fig:teletrasporto-circuito}).
+
+
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/protocolloTeletrasporto.tex}
+\caption{Schema circuitale del protocollo per il teletrasporto quantistico
+\label{fig:teletrasporto-circuito}}
+\end{figure}
+
+Alla fine del circuito Alice misura i qubit $A$ e $C$, registra i risultati in una coppia di bit classici e li trasmette a Bob che, a seconda del loro valore, esegue una certa operazione $V$ sul qubit $B$ che possiede. L'algoritmo fa sì che, dopo aver applicato $V$, il qubit $B$ sia esattamente pari al $C$ iniziale, il cui contenuto è stato quindi \q{teletrasportato} da Alice a Bob.\\
+
+Esaminiamo perciò passo per passo l'azione del circuito, indicando con $\ket{\Phi_0}$ lo stato iniziale, $\ket{\Phi_1}$ lo stato a seguito del primo CNOT, e $\ket{\Phi_2}$ lo stato prima della misura di Alice. Si ha che:
+\begin{align} \nonumber
+\ket{\Phi_1} &= U_{\op{CNOT}} \ket{\Phi_0} = U_{\op{CNOT}}\left[\alpha\ket{0}_C\left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right) _{AB}+ \beta\ket{1}_C \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)_{AB}\right] =\\ \label{eqn:Phi-1}
+&= \alpha\ket{0}_C \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)_{AB} + \beta\ket{1}_C \left(\frac{\hlc{Yellow}{\ket{01}+\ket{10}}}{\sqrt{2}}\right)_{AB}\\
+\nonumber \ket{\Phi_2} &=H_C \ket{\Phi_1} = \frac{1}{2}\left[\alpha (\ket{0} + \ket{1})_C (\ket{00}+\ket{11})_{AB} + \beta(\ket{0}-\ket{1})_{C}(\ket{10}+\ket{01})_{AB}\right] =\\ \nonumber
+&=\frac{1}{2}\Big[\ket{00}_{AC} (\alpha\ket{0}+\beta\ket{1})_B \quad+\\ \nonumber
+&+\quad\>\,  \ket{01}_{AC}(\alpha\ket{1} + \beta\ket{0})_B \quad+\\ \nonumber
+&+\quad\>\,
+\ket{10}_{AC} (\alpha\ket{0} - \beta\ket{1})_{B} \quad+\\
+&+\quad\>\,
+\ket{11}_{AC}(\alpha\ket{1}-\beta\ket{0})_B \Big]
+\label{eqn:Phi-2}
+\end{align}
+A questo punto Alice misura i qubit $A$ e $C$, collassando lo stato $\ket{\Phi_2}$ in \textbf{uno solo} dei $4$ termini di cui è formato, per poi comunicare i risultati a Bob, che ora sa esattamente in qualche combinazione di $\ket{0}$ e $\ket{1}$ si trova lo stato di $B$, e può \textit{manipolarlo} per ricondurlo allo stato di $C$.\\
+
+Per esempio, se Alice misura $00$ per $AC$ (con $p=1/4$), allora lo stato di $B$ è dato dalla prima riga di (\ref{eqn:Phi-2}), ossia: $\ket{\phi}_B = \alpha\ket{0}+\beta\ket{1}=\ket{\psi}_C$. Troviamo quindi che, in questo caso, il qubit $B$ posseduto da Bob ha assunto \textit{lo stesso stato} del qubit $C$ che aveva Alice.\\
+
+Negli altri casi $B$ si trova in uno stato diverso, che però, se si è a conoscenza della misura di Alice, si può ricondurre a quello di $C$ effettuando di conseguenza un'opportuna operazione $V$, come mostrato in tabella \ref{tab:teletrasporto-quantistico}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}\toprule
+Alice (AC) & Bob ($\ket{\phi}_B$) & V \\ \midrule
+00 & $\alpha\ket{0}+\beta\ket{1}=\ket{\psi}$ & $\bb{I}_B$ \\
+01 & $\alpha\ket{1}+\beta\ket{0}$ & $\hat{X}=\begin{pmatrix}0 & 1\\1 & 0 \end{pmatrix}$ \\
+10 & $\alpha\ket{0}-\beta\ket{1}$ & $\hat{Z}$ \\
+11 & $\alpha\ket{1}-\beta\ket{0}$ & $\hat{Z}\hat{X}$ \\ \bottomrule
+\end{tabular}
+\caption{Le prime due colonne riportano i possibili risultati della misura di Alice e il conseguente stato di $B$. Per ricondurre $B$ allo stato del qubit $C$ che si voleva teletrasportare, Bob deve eseguire l'operazione $V$ indicata, dove indichiamo con $\hat{X}$ e $\hat{Z}$ gli operatori dati dalle rispettive matrici di Pauli $\sigma_x$ e $\sigma_z$\label{tab:teletrasporto-quantistico}}
+\end{table}
+
+Per esempio, se Alice misura $01$ per $AC$, troviamo che $\ket{\phi}_B = \alpha\ket{1} + \beta\ket{0}$, che è corrisponde allo stato di $C$ $\ket{\psi}_C = \alpha\ket{0} + \beta\ket{1}$ ottenuto \textit{scambiando} $\ket{0}\leftrightarrow \ket{1}$. Basta allora applicare un NOT quantistico a $B$ - che in notazione matriciale corrisponde alla $\sigma_x$ di Pauli. Avremo quindi:
+\begin{align*}
+\ket{\phi'}_B = \op{NOT}(\ket{\phi}_B) = \op{NOT}(\alpha\ket{1}+\beta\ket{0})=\alpha \ket{0}+ \beta\ket{1} = \ket{\psi}_C
+\end{align*}
+
+Quando Alice misura $10$ per $AC$, invece, $\ket{\phi}_B = \alpha\ket{0} -\beta\ket{1}$. Per ricondursi a $\ket{\psi}_C$ basta correggerne la fase relativa, aggiungendo un $\pi$ tramite la porta logica di \textit{phase-shift} - la cui forma matriciale diviene pari, in questo caso, a quella della $\sigma_z$ di Pauli:
+\begin{align*}
+\delta(\pi) = \begin{pmatrix}1 & 0\\0& e^{i\pi}\end{pmatrix} =\begin{pmatrix} 1 & 0\\ 0 & -1\end{pmatrix} =\hat{X}
+\end{align*}
+
+Per l'ultimo caso (Alice che misura $11$ per $AC$) basta combinare le due manipolazioni appena esaminate.\\
+
+
+Notiamo due cose:
+\begin{itemize}
+\item Bob ottiene in $B$ esattamente lo stato di $C$ solo in un caso su $4$. Per ricondursi allo stato di $C$ è necessario effettuare una certa operazione, che è determinata dagli esiti delle misure di Alice. Perciò Bob \textbf{deve conoscere} tali risultati, che devono essere comunicati tramite un canale \textit{classico} (soggetto al limite di velocità $c$).
+\item Dato che Alice effettua una misura su $C$, lo stato originale $\ket{\psi}_C$ viene distrutto nel processo. Ritroviamo quindi, come già dimostrato, che \textbf{non è possibile clonare} stati quantistici arbitrari.
+\end{itemize}
+
+\section{Misure quantistiche}
+Consideriamo uno stato $\ket{\psi}$ e un'osservabile\marginpar{III postulato della \MQ} $\hat{A}$, che consideriamo a spettro discreto e non degenere. Si ha quindi che gli autoket $\ket{a_n}$ di $\hat{A}$, tali da soddisfare l'equazione agli autovalori:
+\begin{align*}
+\hat{A}\ket{a_n} = a_n \ket{a_n}
+\end{align*}
+formano una base ortonormale di $\hs$, e perciò possiamo rappresentare (per il teorema spettrale) l'azione di $\hat{A}$ hermitiana su un generico vettore come la combinazione lineare di proiettori su tale base:
+\begin{align*}
+\hat{A} = \sum_n a_n \underbrace{\ket{a_n}\bra{a_n}}_{\hat{P}_n} = \sum_n a_n \hat{P}_n
+\end{align*}
+Effettuando una misura (ideale di prima specie) di $\hat{A}$ sullo stato $\ket{\psi}$ si ottiene uno stato $\ket{\phi}$ dato, per il \textbf{postulato di proiezione di von Neumann}\index{Postulato!Proiezione di Von Neumann}, da:
+\begin{align*}
+\ket{\phi} = \frac{\hat{P}_n \ket{\psi}}{\sqrt{\bra{\psi_n}\hat{P}_n \ket{\psi_n}}}
+\end{align*}
+In altre parole, se una misura di $\hat{A}$ sullo stato iniziale $\ket{\psi}$ è pari a $a_n$, lo stato finale $\ket{\psi}$ è pari alla componente di $\ket{\psi}$ \textit{parallela} all'autoket $\ket{a_n}$, opportunamente normalizzata.\\
+
+Poiché abbiamo supposto $\hat{A}$ a spettro discreto non degenere, vale infine la completezza di Dirac nella sua versione più semplice:
+\begin{align*}
+\sum_n \hat{P}_n = \bb{I} \qquad \hat{P}_n \hat{P}_m = \delta_{mn}\hat{P}_m \qquad P^2 = P
+\end{align*}
+
+Sperimentalmente abbiamo accesso \textbf{solo ai valor medi} ottenuti da misure (ripetute). Risulta quindi utile definire $p_n$ come la media di $\hat{P}_n$ nello stato $\ket{\psi}$:
+\begin{align*}
+p_n = \bra{\psi}\hat{P}_n \ket{\psi}
+\end{align*}
+In questi termini, il valor medio di $A$ e la sua fluttuazione $\Delta A$ sono dati da:
+\begin{align*}
+\langle A \rangle = \sum_n a_n p_n \qquad \langle \Delta A \rangle =
+\sqrt{\langle A^2 \rangle - \langle A\rangle^2}
+\end{align*}
+
+\section{Misura senza interazione}
+
+\subsection{Il Beam Splitter quantistico}
+Normalmente possiamo pensare che il limite minimo per una misurazione si ottenga con una \textit{singola interazione}, per esempio lanciando un solo fotone contro un ostacolo. In realtà è possibile, con una variazione del setup delle due fenditure, effettuare una misura \textit{senza alcuna possibile interazione} con l'oggetto che si vuole misurare.\\
+
+Per poter comprendere il protocollo di misura senza interazione introduciamo un elemento di \textbf{ottica quantistica} (che non staremo a discutere, dato che esula dagli obiettivi del corso):
+
+\begin{itemize}
+\item \textbf{Specchio semiriflettente}\marginpar{Beam-splitter}\index{Porte logiche!Beam-splitter} (o \textit{Beam-splitter} \cite{beam-splitter}): si tratta di un elemento ottico in grado di riflettere il $50\%$ della radiazione incidente, lasciando passare il restante $50\%$ ($R=1/2, T=1/2$). Possiamo interpretare ciò anche a livello di singoli fotoni, pensando che ciascuno di essi abbia una probabilità pari a $1/2$ di essere riflesso o trasmesso (figura \ref{fig:beam-splitter}).
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/beamSplitter.tex}
+\caption{Schema del funzionamento del Beam Splitter.
+\label{fig:beam-splitter}}
+\end{figure}
+L'effetto di un beam-splitter può essere schematizzato come quello di un opportuno \textbf{gate quantistico} $U_{B.S.}$, tale che:
+\begin{align*}
+\ket{1}^A_{in}\ket{0}^B_{in} \xrightarrow{U_{B.S.}} \frac{1}{\sqrt{2}}\ket{1}^A_{out} \ket{0}^B_{out} + \frac{i}{\sqrt{2}}\ket{0}^A_{out}\ket{1}^B_{out}
+\end{align*}
+Per cui un fotone che arriva da \textit{fuori} (cioè da $A$) può essere rimandato fuori (di nuovo in $A$) o dentro (in $B$), con ugual probabilità. Nel caso di \textbf{trasmissione} il fotone acquisisce una fase $i$ (cioè di $\pi/2$).\\
+Vale la relazione analoga nel caso un fotone arrivi \q{da dentro}, ossia da $B$:
+\begin{align*}
+\ket{0}^A_{in}\ket{1}^B_{in} \xrightarrow{U_{B.S.}} \frac{i}{\sqrt{2}}\ket{1}^A_{out}\ket{0}^B_{out} + \frac{1}{\sqrt{2}}\ket{0}^A_{out}\ket{1}^B_{out}
+\end{align*}
+Possiamo sintetizzare queste due relazioni scrivendo $U_{BS}$ in notazione matriciale nella base $\{\ket{1}^A \ket{0}^B, \ket{0}^A \ket{1}^B \}$:
+\begin{align*}
+\ket{\psi_{out}} = \frac{1}{\sqrt{2}}\begin{pmatrix}1 & i\\i & 1\end{pmatrix}\ket{\psi_{in}}
+\end{align*}
+\end{itemize}
+
+\subsection{Interferometro di Mach-Zehnder quantistico}
+Un modo per effettuare una misura senza interazione avviene tramite l'uso di un \textbf{interferometro di Mach-Zehnder}\index{Interferometro di Mach-Zehnder}, rappresentato in figura \ref{fig:interferometro}.
+
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/MachZender.tex}
+\caption{Schema dell'interferometro di Mach-Zehnder.
+\label{fig:interferometro}}
+\end{figure}
+
+Consideriamo un fotone che parte da $A$. Al primo passaggio attraverso il \textit{beam-splitter} avremo con $p=1/2$ una riflessione verso l'alto e con $p=1/2$ una trasmissione verso destra $B$. In entrambi i casi il fotone incide poi contro un normale specchio, e viene riflesso verso il secondo \textit{beam-splitter}. In \MQ entrambi i percorsi sono esplorati contemporaneamente, e interferiscono tra loro al ricongiungimento nel secondo \textit{BS}.\\
+
+Innanzitutto, in entrambi i percorsi si ha una riflessione su uno specchio normale, che introduce in ciascun caso una fase\footnote{Dato che il materiale riflettente ha un indice di rifrazione per forza maggiore di quello del vuoto} $\pi$, senza però variare la differenza tra le fasi delle due \q{versioni} del fotone: possiamo perciò trascurare questo dettaglio. Percorriamo allora il circuito, seguendo i due possibili percorsi, partendo da un fotone che inizialmente è \q{in fase con se stesso}:  
+\begin{itemize}
+\item Se il fotone viene inizialmente riflesso dal primo BS, allora non acquisisce nessuna fase. Dopo aver oltrepassato il secondo BS, avremo quindi una possibilità con fase $1$ ($\theta = 0$) appena prima del detector in $A$, dovuta ad una seconda riflessione sul BS, e una con fase ancora $i$ prima del detector $B$, prodotta dalla trasmissione attraverso il BS.
+\item Se il fotone viene trasmesso dal primo BS, allora arriva al secondo con una fase $i$. A questo punto, per raggiungere il detector $A$ deve essere nuovamente trasmesso attraverso il BS, acquisendo un'ulteriore fase $i$ e arrivando ad una fase totale $i^2$. Se invece viene riflesso verso il detector $B$ mantiene la sua fase di $i$.
+\end{itemize}
+Notiamo allora che prima del detector $A$, due versioni dello stesso fotone con \textit{fase opposta} ($i^2 = -1$, e $1$) interagiscono tra loro in modo \textit{distruttivo}, e quindi il rivelatore in $A$ non troverà alcun segnale.\\
+D'altro canto, davanti a $B$ le \q{due versioni del fotone} interagiscono con la \textit{stessa fase} $i$, e quindi avremo \textit{interferenza costruttiva} e il rivelatore $B$ osserverà \textbf{sempre} la presenza del fotone.\\
+
+In maniera analoga si può ricavare il funzionamento nel caso il fotone parta da $B$ e non da $A$, ottenendo una $p=1$ di rivelazione al detector $A$.\\
+
+Un modo più semplice per capire tutto ciò è schematizzare l'interferometro come l'applicazione consecutiva di due gate $U_{BS}$, come mostrato in figura \ref{fig:circuito-B.S}.
+
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/UBSDueVolte.tex}
+\caption{Schema con porte logiche quantistiche dell'interferometro di Mach-Zehnder.\label{fig:circuito-B.S}}
+\end{figure}
+
+Effettuando allora la computazione passo a passo:
+\begin{align*}
+\ket{0} \xrightarrow{U_{BS}} \frac{\ket{0}+i\ket{1}}{\sqrt{2}} \xrightarrow{U_{BS}} \frac{1}{2}\left[\ket{0}+i\ket{1}+i(i\ket{0}+\ket{1})\right] = i\ket{1}
+\end{align*}
+
+Alternativamente si ottiene lo stesso risultato calcolando il quadrato della matrice di $U_{BS}$:
+\begin{align*}
+U_{BS}^2 = \begin{pmatrix}
+0 & i\\i & 0
+\end{pmatrix}
+\end{align*}
+
+\begin{comment}
+\textbf{Q.A.}
+\begin{itemize}
+\item Una CNOT \textbf{non} effettua una misura sul bit di controllo, ma instaura una correlazione \textit{senza modificarne} lo stato quantistico
+\item Si può invertire l'ordine dei gate in un circuito quantistico senza cambiare l'operatore che esso rappresenta se e solo se tali operatori commutano tra loro (nell'esempio dell'esercizio 2 della scorsa volta succede, ma è un caso particolare)
+\item Prova a cercare la rappresentazione della CPHASE in termini delle altre porte logiche (CNOT e phase shift)
+\end{itemize}
+\end{comment}
+
+\subsection{Il test della bomba di Elitzur–Vaidman}
+Siamo partiti dicendo che, tramite l'interferometro di Mach-Zehnder, risulta possibile effettuare una misura senza interazione. Vediamo allora come fare, con un esempio \textit{fortemente drammatico}.\index{Elitzur-Vaidman bomb tester}\\
+Un terrorista ha costruito una \textit{bomba}, dotandola di un detonatore che può essere attivato dall'interazione con un \textit{singolo fotone}. Tale bomba è nascosta in una scatola trasparente, che viene posta lungo il cammino dell'interferometro di Mach-Zehnder (figura \ref{fig:interferometro-bomba}), ma a priori non sappiamo se si tratti di un \textit{bluff} (cioè di una scatola vuota) o di un effettivo pericolo (la scatola contiene la bomba). Scopo dell'esperimento è distinguere i due casi \textit{senza attivare la bomba}.
+
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/noInterazione1.tex}
+\caption{Interferometro di Mach-Zehnder utilizzato per misure senza interazione.
+\label{fig:interferometro-bomba}}
+\end{figure}
+
+Se proviamo ad iniettare in $A$ della luce classica, il $50\%$ del raggio viene trasmesso verso la bomba, che quindi esplode. Chiaramente, in \MC il problema non è risolvibile.\\
+Proviamo allora ad effettuare lo stesso esperimento in regime quantistico, utilizzando un singolo fotone alla volta.\\
+Abbiamo due possibilità:
+\begin{itemize}
+\item Se la \textbf{scatola è vuota}, allora il fotone arriva all'uscita percorrendo entrambe le vie, e valgono le considerazioni fatte in precedenza per lo schema di figura \ref{fig:interferometro}. Per il detector all'uscita $A$ avremo interferenza distruttiva, e quindi $p_A=0$, mentre in $B$ si ha interferenza costruttiva, e $p_B=1$. Perciò il fotone viene rivelato sempre dal detector $B$.
+\item Se la \textbf{scatola è piena}, allora al $50\%$ il fotone raggiunge la bomba e la fa saltare in aria. Nell'altro $50\%$, tuttavia, il fotone viene riflesso nel primo BS, giungendo al secondo, dove stavolta non vi è alcuna interferenza (figura \ref{fig:interferometro-boom}). Avremo quindi due possibilità: un $25\%$ che si trasmetta in $B$, e un $25\%$ che si rifletta in $A$.
+
+\begin{figure}[H]
+\centering
+\input{Tikz/06_3/noInterazione2.tex}
+\caption{Nel caso in cui vi sia effettivamente una bomba, solo uno dei due percorsi è possibile, e perciò non si ha alcuna interferenza nel secondo beam-splitter.\label{fig:interferometro-boom}}
+\end{figure}
+\end{itemize}
+
+Notiamo che se la scatola è vuota, il rivelatore $A$ non trova mai il fotone. Perciò, se troviamo il fotone in $A$ sappiamo immediatamente che la bomba è presente. Ciò succede in un caso su $4$: abbiamo allora un modo per misurare la presenza  o meno di un oggetto \textbf{senza} interagire con esso in alcun modo.\\
+Per quanto ciò sia paradossale, tale setup - il cosiddetto \textit{detector di bombe} di Elitzur-Vaidman - è stato realizzato sperimentalente (sostituendo la bomba con un ostacolo meno pericoloso).\\
+Per di più si trova (\cite{detection-free}) che è possibile concatenare tanti circuiti simili per aumentare (arbitrariamente) la probabilità di rivelazione senza interazione.\\
+
+Possibilità del genere hanno applicazione, per esempio, per ridurre la quantità di radiazioni assorbite da un tessuto durante una radiografia, dato che parte dei fotoni utilizzati portano \textit{informazione utile} senza interazione con il paziente.
+
+\section{Effetto Zenone quantistico}
+\subsection{I paradossi di Zenone}
+I \textbf{paradossi di Zenone} furono una serie di paradossi ideati nell'antica Grecia.\\
+Il più conosciuto è quello di \textit{Achille e la tartaruga}, che percorre il seguente ragionamento:
+\begin{enumerate}
+\item Achille (detto \textit{pie' veloce} per la sua formidabile rapidita) viene sfidato da una tartaruga ad una gara di corsa. Per rendere un minimo più equa la competizione, alla tartaruga è concesso partire con una certa distanza di vantaggio.
+\item Achille raggiunge la tartaruga in un certo tempo $t_1$, percorrendo la distanza $x$ a velocità $v_A$. Ma nel frattempo la tartaruga si è spostata di un ulteriore $x_2 = v_t t_1$.
+\item Achille copre la distanza $x_2$ in un tempo $t_2$, ma nel frattempo la tartaruga si posta ancora di una distanza $x_3 = v_t t_2$, e così via. 
+\end{enumerate}
+Poiché la serie \textit{continua all'infinito}, si potrebbe pensare che Achille non possa mai raggiungere la tartaruga. Serviranno i concetti di analisi matematica, per cui una serie infinita può convergere a un valore finito, per risolvere il problema.\\
+
+Un altro paradosso è quello della \textbf{freccia}, secondo cui un dardo non può mai raggiungere nessuna destinazione, poiché ad ogni istante di tempo è \textit{fermo}, e la somma di \textit{infiniti istanti stazionaria} non può - almeno in principio - costituire un moto.\\
+
+L'esperienza comune dimostra come il moto avvenga in realtà senza alcun problema. Il vero paradosso sorge allora quando, in \MQ, si scopre che il \textit{paradosso della freccia} è davvero possibile: misurando \textit{tante} volte una particella è possibile \textit{arrestare} la sua evoluzione temporale!
+\end{document}
+
