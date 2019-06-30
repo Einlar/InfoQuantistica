@@ -1,0 +1,190 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+\usepackage{amstext}
+
+\begin{document}
+
+\section{Titolo}
+\lesson{2}{5/6/2019}
+
+Dati due stati puri $\ket{\phi}$ e $\ket{\psi}$, avevamo trovato un limite superiore per la distanza di Batthacharyya:
+\begin{align*}
+\left|\cos^{-1}|\braket{\phi|\psi} \right| = \max_{\bb{E}} \cos^{-1}\left( \sum_i \sqrt{p_i^{\bb{E}}(\phi) p_i^{\bb{E}}(\psi)} \right)
+\end{align*}
+
+Dimostrare ciò permette di introdurre alcune tecniche interessanti che potrebbero tornare utili più avanti - e perciò così faremo.\\
+
+Ricordando che $0 \leq E_i \leq \bb{I}$, $\sum_i E_i = \bb{I}$, possiamo scrivere:
+\begin{align*}
+\braket{\phi|\psi} = \sum_i \bra{\phi}E_i \ket{\psi}
+\end{align*}
+Prendendo il valore assoluto e applicando la disuguaglianza triangolare:
+\begin{align*}
+|\braket{\phi|\psi}| = |\sum_i \bra{\phi}E_i \ket{\psi}| \leq \sum_i |\underbrace{\bra{\phi}\sqrt{E_i}}_{\bra{\tilde{\phi}_i}}\underbrace{\sqrt{E_i} \ket{\psi}}_{\ket{\tilde{\psi}_i}}| = \sum_i |\braket{\tilde{\phi}_i|\tilde{\psi}_i}|
+\end{align*}
+dove la radice quadrata di un operatore è ben definita dato che $E_i$ sono semidefiniti positivi. Applichiamo ora la disuguaglianza di Cauchy-Schwarz:
+\begin{align*}
+\leq \sum_i \norm{\sqrt{E_i}\ket{\phi}} \norm{\sqrt{E_i} \ket{\psi}}
+\end{align*}
+Espandendo le norme:
+\begin{align*}
+= \sum_i \underbrace{\sqrt{ \bra{\phi}E_i \ket{\phi}}}_{\sqrt{p_i(\phi)}}\underbrace{\sqrt{\bra{\psi}E_i \ket{\psi}}}_{\sqrt{p_i(\psi)}} = \sum_i \sqrt{p_i(\phi) p_i(\psi)}
+\end{align*}
+Applicando $\cos^{-1}$ ad entrambi i membri della disuguaglianza si inverte il verso (dato che $\cos^{-1}$ è monotona decrescente), e quindi:
+\begin{align*}
+\cos^{-1}|\braket{\phi|\psi}| \geq \cos^{-1}\left( \sum_i \sqrt{p_i^{\bb{E}}(\phi)} \sqrt{p_i^{\bb{E}}(\psi)} \right)
+\end{align*}
+
+Per dimostrare l'uguaglianza, notiamo che il set delle POVM è dato da:
+\begin{align*}
+\bb{E} = \{ \ket{\phi}\bra{\phi}, \underbrace{\ket{\phi_1}\bra{\phi_1}, \dots, \ket{\phi_{d-1}}\bra{\phi_{d-1}}}_{\mathrm{span } \ket{\phi}\bra{\phi}^\perp} \}
+\end{align*}
+E quindi prendendo $E_1 = \ket{\phi}\bra{\phi}$ come POVM (proiettore sullo stato $\ket{\phi}$ si realizza immediatamente l'uguaglianza.
+
+\section{Parameter estimation}
+Calcoliamo ora la distanza di Batthacharyya tra due distribuzioni di probabilità \textit{infinitesimamente vicine}:
+\begin{align*}
+\underbrace{d_B ( \vec{p}, \vec{p} + d\vec{p})}_{ds} = \cos^{-1}\left\{ \sum_i \sqrt{p_i(p_i+\frac{dp_i}{\color{Red}{p_i}} \color{Red}{p_i})} \right\} = \cos^{-1}\left\{\sum_i p_i \sqrt{1 + \frac{dp_i}{p_i}}\right\}
+\end{align*}
+Usando l'espansione della radice:
+\begin{align*}
+\sqrt{1+x} = 1 + \frac{1}{2}x-\frac{1}{8}x^2 + o_1(x^3)
+\end{align*}
+otteniamo:
+\begin{align*}
+= \cos^{-1} \left[ \sum_i p_i \left( 1+ \frac{1}{2}\frac{dp_i}{p_i} - \frac{1}{8}\left(\frac{dp_i}{p_i}\right)^2 \right) \right] = \cos^{-1} \left\{ 1+ \cancel{\frac{1}{2}\sum_i dp_i} - \sum_i \frac{(dp_i)^2}{p_i} + o_1(x^3) \right \}
+\end{align*}
+dato che:
+\begin{align*}
+\sum_i p_i = 1 \Rightarrow \sum_i dp_i = 0
+\end{align*}
+Applicando $\cos$ ad entrambi i membri e troncando la serie:
+\begin{align*}
+\cos ds = 1-\frac{1}{8} \sum_i \frac{(dp_i)^2}{p_i}
+\end{align*}
+Espandendo in serie il $\cos$ e troncando al II ordine:
+\begin{align*}
+1-\frac{1}{2} ds_B^2 = 1-\frac{1}{8} \sum_i \frac{(dp_i)^2}{p_i}
+\end{align*}
+Otteniamo la \textbf{metrica di Fisher}:
+\begin{align*}
+ds_B^2 = \frac{1}{4}\sum_i \frac{(dp_i)^2}{p_i}
+\end{align*}
+Usando la notazione standard di una metrica, con $p_i = p_i(\lambda)$, con $dp_i = \sum_\mu (\partial_\mu p_i) d\lambda_\mu$, dove $\lambda$ sono parametri:
+\begin{align*}
+\lambda \in \mathcal{M} \equiv \{ \text{manifold of control parameters of dim $n$}\}
+\end{align*}
+ si ottiene:
+\begin{align*}
+ds_B^2 = \sum_{\mu\nu} g_{\mu\nu} d \lambda_\mu d\lambda_\nu \Rightarrow g_{\mu\nu} = \frac{1}{4} \sum_i \frac{(\partial _\mu p_i) (\partial_\nu p_i)}{p_i}
+\end{align*}
+In altre parole, le probabilità $p_i$ dipendono da parametri $\lambda$ - che possono essere per esempio quelli del \textit{modello} utilizzato per spiegare dei \textit{dati}. Un problema centrale nelle scienze è quindi la stima di $\lambda$ che \textit{massimizzano} l'aderenza del modello ai risultati sperimentali.\\
+
+Introducendo della notazione, si definisce una funzione $P_\theta(x)$, detta \textbf{Stimatore} (unbiased), dove $x$ è una variabile casuale. Detta $\Theta$ una variabile casuale, si definisce il suo valore atteso $\theta$ rispetta:
+\begin{align*}
+\langle \Theta \rangle = \theta = \int dx p_\theta(x) \Theta(x)
+\end{align*}
+Derivando rispetto a $\theta$ entrambi i membri:
+\begin{align*}
+1 = \int dx p_\theta'(x) \Theta(x) = \int dx \textcolor{Red}{p_\theta(x)} \frac{p_\theta'(x)}{\textcolor{Red}{p_\theta(x)}}\Theta(x) \equiv  \langle \frac{p_\theta'}{p_\theta},\Theta \rangle_p
+\end{align*}
+con il prodotto scalare:
+\begin{align*}
+\braket{f,g}_p \equiv \int dx\, p(x)f(x)g(x)
+\end{align*}
+Possiamo sempre sottrarre $\theta$, definendo $\bar{\Theta}=\Theta -\theta$, dato che il termine aggiuntivo che così si aggiunge è nullo:
+\begin{align*}
+-\theta\int p_\theta'(x)dx = -\theta \frac{d}{dx}\int p_\theta(x)dx = -\theta \frac{d}{dx} 1 = 0 
+\end{align*}
+Sostituendo $\Theta \to \bar{\Theta}$ e applicando C-S (e usando il fatto che il modulo quadro di $1$ è ancora $1$) otteniamo:
+\begin{align*}
+1 \leq \norm{\frac{p_\theta'}{p_\theta}}^2_p \norm{\bar{\Theta}}_p^2 &= \left( \int dx p_\theta(x) \frac{(p'_\theta)^2}{(p_\theta)^2} \right) \left(\int dx p(x) \bar{\Theta} \right) =\\
+&=\underbrace{ \left( \int dx \frac{(p'_\theta)^2}{p_\theta} \right)}_{F} \underbrace{\left( \int dx p_\theta(x) (\Theta(x)-\theta)^2 \right)}_{\op{Var}(\theta)}
+\end{align*}
+dove $F$ è la metrica di Fisher. Abbiamo quindi trovato il \textbf{limite di Cramer-Rao}:
+\begin{align*}
+\op{Var}(\Theta) \geq \frac{1}{F}
+\end{align*}
+
+Vogliamo ora \textit{quantizzare} tutto ciò. Consideriamo quindi matrici densità $\rho$ e $\rho_\theta$. Innanzitutto non possiamo subito scrivere $\op{Tr}(\rho \rho^\dag \rho_\theta' \hat\Theta)$, poiché si incorre nel problema che mentre espressioni come $x^{-1}y=x^{-1/2}yx^{-1/2}=...$ sono valide in algebre abeliane (commutative) non lo sono più se coinvolgono operatori che \textit{non commutano}! Perciò diventa problematico replicare quantisticamente $\rho'/\rho$ (cos'è la divisione per un operatore?).\\
+
+Partiamo allora definendo l'\textit{anticommutatore} (Lyapunov equation):
+\begin{align*}
+L_\rho(X) \equiv \frac{1}{2}(\rho X + X\rho) = \rho'
+\end{align*}
+Symmetric Logarithmic Derivative (SLD).\\
+Si ha quindi:
+\begin{align*}
+\op{Tr}(\rho_\theta' \bar{\Theta} ) = 1
+\end{align*}
+E vale:
+\begin{align*}
+\frac{1}{2}\op{Tr}\left[ (\rho X + X \rho) \bar{\Theta} \right]  = \left| \op{Re}\op{Tr}(\rho X \bar{\Theta} ) \right| \leq |\op{Tr}(\rho X \bar{\Theta})|^2 
+\end{align*}
+Si definisce il prodotto scalare (\textbf{claim} - verifica che lo sia):
+\begin{align*}
+\langle X, Y \rangle_\rho \equiv \op{Tr}(\rho X^\dag Y)
+\end{align*}
+e quindi:
+\begin{align*}
+1 \leq |\op{Tr}(\rho X \bar{\Theta} ) |^2 = |\braket{X,\bar{\Theta}}_\rho |^2 
+\end{align*} 
+Applicando di nuovo C-S:
+\begin{align*}
+1 \leq \norm{X}^2_\rho \norm{\bar{\Theta}}_\rho^2 = \op{Tr}(\rho X^2 ) \op{Tr}(\rho (\Theta-\theta)^2 )
+\end{align*}
+In analogia a quanto avevamo prima, riconosciamo in $\op{Tr}(\rho(\Theta-\theta)^2)$ la varianza di $\theta$, e perciò:
+\begin{align*}
+\op{Tr}(\rho(\Theta-\theta)^2) = \op{Var}(\theta); \quad \op{Tr}(\rho X^2) \equiv F_Q
+\end{align*}
+e abbiamo quindi trovato l'espressione quantistica per la metrica di Fisher. Vale allora la disuguaglianza:
+\begin{align*}
+\op{Var}(\Theta) \geq \frac{1}{F_Q}
+\end{align*}
+Scrivendo $\rho$ nella base che lo diagonalizza:
+\begin{align*}
+\rho =\ \sum_i p_i \ket{i}\bra{i}
+\end{align*}
+e ricordando $\rho' = 1/2 (\rho X + X \rho)$ si trova (\textbf{ESERCIZIO}):
+\begin{align*}
+X_{ij} = \frac{2}{p_i + p_j} \bra{i}\rho'\ket{j}
+\end{align*}
+Nella stessa base si trova che:
+\begin{align*}
+F_Q = \op{Tr}(\rho X^2) = \sum_i p_i \bra{i}X^2 \ket{i} 
+\end{align*}
+Inserendo la completezza di Dirac:
+\begin{align*}
+F_Q &= \sum_{ij} p_i \bra{i}X\ket{k}\ket{j}\bra{j}X \ket{i} =\\
+&= \sum_{ij} p_i \frac{2}{p_i + p_j} \bra{i} \rho' \ket{j}\bra{j}\rho'\ket{i} \frac{2}{p_i + p_j} =\\
+&= 2 \sum_{ij} \frac{|\bra{i} \rho' \ket{j}|^2}{p_i + p_j}
+\end{align*}
+e questa è l'espressione standard della \textbf{Quantum-Fisher metric} (verifica i conti per esercizio)\\
+In effetti, è possibile trovare tale espressione ottimizzando su \textit{tutte le POVM} l'informazione di Fisher classica.\\
+
+Calcolare $F_Q$ per stati puri risulta in un problema, dato che qui abbiamo $p_i \in \{1,0\}$ (dato che $\rho=\rho^2$), e quindi il denominatore potrebbe essere nullo.\\
+Stando attenti a ciò si può dimostrare (come vedremo nella prossima lezione) che, per $\rho_\theta = \ket{\psi_\theta}\bra{\psi_\theta}$, vale la formula:
+\begin{align*}
+F_Q^{\mathrm{pure}} \sim \braket{\phi'_\theta|\psi'_\theta} - |\braket{\psi'_\theta|\psi_\theta}|^2
+\end{align*}
+dove:
+\begin{align*}
+\psi' = \frac{\partial}{\partial \theta}\psi
+\end{align*}
+
+Facciamo un passo indietro. Riprendiamo l'equazione di Lyapunov:
+\begin{align*}
+\frac{1}{2}(\rho X + X\rho) = \rho'
+\end{align*}
+Osserviamo che per un proiettore $\Pi$ si ha:
+\begin{align*}
+\Pi = \ket{\psi}\bra{\psi} \Pi^2 = \Pi 
+\end{align*}
+Derivando rispetto a $\theta$ si trova:
+\begin{align*}
+\Pi'\Pi + \Pi \Pi' = \Pi'
+\end{align*}
+e ritroviamo l'equazione di Lyapunov. Una soluzione è quindi immediatamente $2\Pi' = X$.\\
+\textbf{Esercizio}: provare $F_Q^{\mathrm{pure}}$ usando quest'ultimo passaggio. 
+
+\end{document}
+

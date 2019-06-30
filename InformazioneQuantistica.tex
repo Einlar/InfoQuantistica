@@ -1,6 +1,5 @@
 \documentclass[12pt]{report} %Modalità draft settata qui
 
-
 %%%HEADER%%%
 \usepackage{subfiles} %Struttura modulare
 \newcommand{\onlyinsubfile}[1]{#1}
@@ -33,6 +32,7 @@
 \usepackage{marginnote}
 \usepackage{float}
 \usetikzlibrary{tikzmark}
+\usetikzlibrary{quantikz}
 \usepackage{graphicx}
 \usepackage{cancel}
 \usepackage{bm}
@@ -49,7 +49,6 @@
 \usepackage{enumerate}
 \usepackage{mathdots}
 \usepackage[framemethod=tikz]{mdframed} %Added 16/10
-\usepackage[italian]{babel} %Added 16/10
 \usepackage{amssymb} %Added
 \usepackage{enumitem}
 \usepackage{array}
@@ -196,15 +195,26 @@
 \newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 \newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
 %
+
+\usepackage[italian]{babel} %Added 16/10
 \usepackage[inline,marginclue,lang=italian]{fixme}
 
+%%RICHIAMI
+\newcommand{\danger}{{\textcolor{Red}{\fontencoding{U}\fontfamily{futs}\selectfont\char 66\relax}}}
+\newcommand{\reddot}{\href{http://bit.ly/2Tj5OEj}{\tikz\draw[red,fill=red] (0,0) circle (.5ex);}}
+\newcommand{\bluedot}{\href{\tikz\draw[blue,fill=blue] (0,0) circle (.5ex);}{http://bit.ly/2Tj5OEj}}
+\newcommand{\greendot}{\href{http://bit.ly/2Tj5OEj}{\tikz\draw[green,fill=green] (0,0) circle (.5ex);}}
+\newcommand{\orangedot}{\href{http://bit.ly/2Tj5OEj}{\tikz\draw[orange,fill=orange] (0,0) circle (.5ex);}}
 
 %%%%%%%%%%%%
 
+\usepackage[type={CC}, lang=italian, modifier={by-nc-sa}, version={4.0}]{doclicense}
 
 \usepackage{imakeidx} %Indice analitico
 \usepackage{hyperref} %hyperref va caricato sempre dopo footmisc, altrimenti le footnotes si buggano e riportano tutte alla prima pagina
+\usepackage{adjustbox}
 \makeindex[columns=2, title=Indice analitico, options= -s indexstyle.ist]
+
 
 \begin{document}
 \renewcommand{\onlyinsubfile}[1]{}
@@ -229,7 +239,11 @@
         [0.2cm]
         \textsc{\normalsize A cura di: \textit{Francesco Manzali}, \textit{Mattia Morgavi}}\\
                 \textsc{\normalsize Anno accademico 2018-2019}\\ 
-        {\scriptsize Compilato il \today}
+        {\scriptsize Compilato il \today}\\
+        \vspace{-0.5em}
+        {\scriptsize Sorgente: \url{https://github.com/Einlar/InfoQuantistica}}\\
+        \vspace{-0.5em}
+        {\scriptsize \doclicenseLongText}
 \end{center}
 
 \newgeometry{inner=20mm,
@@ -267,7 +281,7 @@ Buon viaggio! :)
     \centering
     \begin{tabular}{|cm{3cm}m{5cm}m{3cm}|}\toprule
         Data & Aggiunte & Errata corrige & Commenti\\\midrule
-        \textbf{23/10/2018} & Prima pubblicazione & & \\
+        \textbf{30/6/2019} & Prima pubblicazione & & \\
         \bottomrule
     \end{tabular}
     \caption{Cronologia di modifiche/aggiornamenti agli appunti}
@@ -289,6 +303,28 @@ Buon viaggio! :)
 \subfile{AppuntiGiornalieri/Marzo/13_3.tex}
 
 \subfile{AppuntiGiornalieri/Marzo/14_3.tex}
+
+\subfile{AppuntiGiornalieri/Marzo/20_3.tex} 
+
+\subfile{AppuntiGiornalieri/Marzo/21_3.tex}
+
+\subfile{AppuntiGiornalieri/Marzo/27_3.tex}
+
+\subfile{AppuntiGiornalieri/Marzo/28_3.tex}
+
+\subfile{AppuntiGiornalieri/Aprile/3_4.tex}
+
+\subfile{AppuntiGiornalieri/Aprile/4_4.tex}
+
+\subfile{AppuntiGiornalieri/Aprile/17_4.tex}
+
+\subfile{AppuntiGiornalieri/Aprile/18_4.tex}
+
+\subfile{AppuntiGiornalieri/Giugno/5_6.tex}
+
+\subfile{AppuntiGiornalieri/Giugno/6_6.tex}
+
+\subfile{AppuntiGiornalieri/Giugno/12_6.tex}
 
 %Comandi utili
 %\missingfigure{Testo}
@@ -331,6 +367,33 @@ François Hénault
 Noam Nisan, Shimon Schocken
 \textit{From Nand To Tetris Course}
 Coursera, \url{https://www.coursera.org/learn/build-a-computer/home/welcome}
+
+\bibitem{benenti}
+Giuliano Benenti, Giulio Casati, Giuliano Strini
+\textit{Principles of Quantum Computation and Information}
+
+\bibitem{Bell-nonlocality}
+Nicolas Brunner, Daniel Cavalcanti et. al., \textit{Bell nonlocality}, Rev. Mod. Phys. 86, 419 (2014), \url{https://arxiv.org/abs/1303.2849}
+
+\bibitem{Bell-causality}
+Travis Norsen, 
+\textit{John S. Bell’s concept of local causality},  Am. J. Phys., Vol. 79, No. 12, December 2011
+
+\bibitem{Stanford-beables}
+Sheldon Goldstein et al. (2011), \textit{Bell's theorem}, 
+Scholarpedia, 6(10):8378.
+
+\bibitem{quantum-classical}
+Reinhard F. Werner, \textit{Quantum states with Einstein-Podolsky-Rosen correlations admitting a hidden-variable model}, Phys. Rev. A, Vol. 40, n. 8, 1989.
+
+\bibitem{relative-entropy}
+V. Vedral, \textit{The role of relative entropy in quantum information theory}, Reviews of Modern Physics, Vol. 74, January 2002
+
+\bibitem{Fermi-rule}
+Emmanuel N. Koukaras, \textit{Fermi's Golden Rule}, A.M. 198. \url{http://staff.ustc.edu.cn/~yuanzs/teaching/Fermi-Golden-Rule-No-II.pdf}
+
+\bibitem{MIT-Time}
+B. Zwiebach, \textit{Time Dependent Perturbation Theory}, MIT 8.06 Quantum Physics III - Spring 2018 lecture notes, \url{https://ocw.mit.edu/courses/physics/8-06-quantum-physics-iii-spring-2018/lecture-notes/MIT8_06S18ch4.pdf}
 \end{thebibliography}
 
 %%INDICE ANALITICO

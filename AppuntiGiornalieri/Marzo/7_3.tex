@@ -4,7 +4,7 @@
 
 \onlyinsubfile{\section{L'effetto Zenone quantistico}}
 \subsection{Introduzione}
-\lesson{4}{7/3/2019}
+\lesson{4 \greendot}{7/3/2019}
 L'idea dell'effetto Zenone quantistico sta nel fatto che, osservando \textit{ripetutamente} e \textit{frequentemente} una particella quantistica la si può \textit{bloccare} nello stesso stato di partenza.\\
 
 In questa sezione \marginpar{Schema dei paragrafi} ci occuperemo di derivare matematicamente l'effetto, usando solo l'operatore di evoluzione temporale unitaria e il postulato di proiezione di von Neumann, seguendo lo schema riportato in \cite{zeno}. Mostreremo quindi un esempio di sistema che esibisce tale fenomeno, e daremo un cenno a come ciò possa essere esito di una \textit{interazione} con l'ambiente, dando un significato \q{più fisico} alle proiezioni geometriche finora usate.\\
@@ -444,29 +444,40 @@ La (\ref{eqn:H-finale}) ha la struttura dell'equazione di Schr\"odinger non staz
 Perciò, \textbf{riepilogando}, il sistema \textit{completo} evolve con una $H$ hermitiana (\ref{eqn:hamiltoniana-interagente-totale}) in modo unitario, mentre la parte legata al qubit si evolve in modo \textit{non unitario} tramite una $H$ non hermitiana, poiché le transizioni da $\ket{1}$ agli stati $\ket{\omega}$ esterni vengono qui interpretate come una \textit{perdita di probabilità} del sistema.\\
 Se il coupling con l'ambiente (regolato da $\Gamma$ o, equivalentemente, da $V$) è sufficientemente forte, controintuitivamente, l'evoluzione del sistema viene \q{stallata} dall'effetto di interazione - e la stessa cosa succede nel caso eseguissimo sul sistema una serie di \textit{proiezioni di Von Neumann}. Questa è l'essenza dell'\textbf{effetto Zenone quantistico}. Perciò, in un certo senso, potremmo dire che l'ambiente effettua delle \q{misurazioni continue} sul sistema, con una frequenza proporzionale al coupling $\Gamma$ (o $V$).
 
-\section{Esercizio \theEsercizio} \stepcounter{Esercizio}
-\index{Esercizio!Hamiltoniana NOT quantistica}
-Per realizzare \textit{fisicamente} una porta logica dobbiamo trovare un \textit{sistema} che abbia la giusta Hamiltoniana per produrre l'evoluzione temporale desiderata. Si tratta, in altre parole, di risolvere l'equazione di Schr\"odinger dipendente dal tempo \q{al cotnrario}.\\
+\section{Implementazione di porte logiche}
+Per realizzare \textit{fisicamente} una porta logica dobbiamo trovare un \textit{sistema} che abbia la giusta Hamiltoniana per produrre l'evoluzione temporale desiderata. Si tratta, in altre parole, di risolvere l'equazione di Schr\"odinger dipendente dal tempo \q{al contrario}.\\
 
-In alcuni casi ciò si riesce a fare. Un esempio è la porta logica NOT quantistica, per cui si trova $H$ data da:
+Un caso che può essere risolto analiticamente è quello della porta logica \textbf{NOT} quantistica, che si realizza con un sistema che effettua \textit{oscillazioni di Rabi} analogo a quello visto in (\ref{eqn:rabi-oscillation-H}). L'idea sta nel controllare la presenza o meno di oscillazioni tra i livelli, e la loro pulsazione $\Omega$. In maniera sintetica, il comportamento diviene:
+\begin{enumerate}
+\item Il sistema parte da un generico stato $\ket{\psi_i}$, che prendiamo pari a $\ket{0}$ per semplicità
+\item Si \q{accende} l'oscillazione, e si aspetta un certo tempo $\tau$ affinché il sistema completi un mezzo ciclo. In questo modo, la componente lungo $\ket{0}$ di $\ket{\psi_i}$ viene \textit{ruotata} lungo $\ket{1}$, e quella lungo $\ket{0}$ verso $\ket{1}$.
+\item Il sistema finale è (a meno di fasi) $\ket{1}$, cioè l'opposto dello stato di partenza.
+\end{enumerate}
+
+Vediamo, nel dettaglio, un esempio di implementazione fisica di tutto ciò.\\
+Consideriamo una particella di spin $1/2$ isolata (il qubit di partenza) in presenza di un campo magnetico $B_0$ stazionario lungo $\hat{z}$, e uno oscillante $B_1$ che ruota attorno a $\hat{z}$, mantenendosi sul piano $\hat{x}\hat{y}$.\\
+L'Hamiltoniana di tale sistema è data da:
 \begin{align*}
-H = - \mu B_0 \hat{\sigma}_z + B_1 [\cos(\omega t) \hat{\sigma}_x + \sin(\omega t) \hat{\sigma}_y] 
+H = - \mu \left\{ B_0 \hat{\sigma}_z + B_1 [\cos(\omega t) \hat{\sigma}_x + \sin(\omega t) \hat{\sigma}_y]\right\}
 \end{align*}
+dove $\hat{\sigma_i}$ sono le matrici di Pauli.\\
 
+Come \textbf{esercizio}\footnote{Vedi Es. 3.22 pag. 180 di \cite{benenti}.}, vogliamo:
 \begin{enumerate}
 \item Studiare l'equazione di Schr\"odinger
-\item Studiare la soluzione per il caso $\omega = - 2\mu B/\hbar$.
+\item Studiare la soluzione per il caso $\omega = - 2\mu B_0/\hbar$ in cui il campo oscillante è \textit{in risonanza} con la transizione energetica tra i due livelli.
 \end{enumerate}
 
 \textbf{Soluzione}
 \begin{enumerate}
 \item Uno stato generico $\ket{\psi(t)}$ è dato da:
-\begin{align*}
+\begin{align}
 \ket{\psi(t)} = \alpha(t) \ket{0} + \beta(t) \ket{1} = \begin{pmatrix}
 \alpha(t)\\
 \beta(t)
 \end{pmatrix}
-\end{align*}
+\label{eqn:generic-psi}
+\end{align}
 dove per la forma matriciale stiamo usando la base computazionale $\{\ket{0},\ket{1}\}$.\\
 Scriviamo allora l'equazione Schr\"odinger dipendente dal tempo:
 \begin{align*}
@@ -474,28 +485,33 @@ i\hbar \frac{d}{dt}{\ket{\psi(t)}} = H\ket{\psi(t)}
 \end{align*}
 Inserendovi $\ket{\psi(t)}$
 otteniamo, in forma matriciale:
-\begin{align*}
-i\hbar \frac{d}{dt}\begin{pmatrix}\alpha(t)\\ \beta(t) \end{pmatrix} = \begin{pmatrix} -\mu B_0 & B_1 \left[\cos(\omega t)-i\sin(\omega t)\right]\\
-B_1\left[ \cos(\omega t) + i\sin(\omega t)\right] & +\mu B_0\end{pmatrix}
+\begin{align*}\hspace{-1em}
+i\hbar \frac{d}{dt}\begin{pmatrix}\alpha(t)\\ \beta(t) \end{pmatrix} = \begin{pmatrix} -\mu B_0 & -\mu B_1 \left[\cos(\omega t)-i\sin(\omega t)\right]\\
+-\mu B_1\left[ \cos(\omega t) + i\sin(\omega t)\right] & +\mu B_0\end{pmatrix} \begin{pmatrix}
+\alpha(t)\\
+\beta(t) \end{pmatrix}
 \end{align*}
 Usando l'identità di Eulero $e^{ix}=\cos(x)+i\sin(x)$, giungiamo a:
 \begin{align*}
 i\begin{pmatrix}
-\alpha(t)\\
-\beta(t)
+\dot{\alpha}(t)\\
+\dot{\beta}(t)
 \end{pmatrix}
 =\frac{1}{\hbar}\begin{pmatrix}
--\mu B_0 & B_1 e^{-i\omega t}\\
-B_1 e^{i\omega t} & \mu B_0
-\end{pmatrix} =\begin{pmatrix}
-\frac{\omega_0}{2} \alpha(t) & \frac{\omega_1}{2}e^{-i\omega t}B_1\\
+-\mu B_0 & -\mu B_1 e^{-i\omega t}\\
+-\mu B_1 e^{i\omega t} & \mu B_0
+\end{pmatrix}\begin{pmatrix}\alpha(t)\\\beta(t)\end{pmatrix} =\begin{pmatrix}
+\frac{\omega_0}{2} \alpha(t) & \frac{\omega_1}{2}e^{-i\omega t}\beta(t)\\
 \frac{\omega_1}{2}e^{i\omega t} \alpha(t) & -\frac{\omega_0}{2}\beta(t)
-\end{pmatrix} \quad \begin{cases}
-\omega_0 = -2\mu \frac{B_0}{\hbar}\\
-\omega_1 = 2\frac{B_1}{\hbar}
-\end{cases}
+\end{pmatrix}
 \end{align*}
-Che equivale ad un sistema lineare di equazioni differenziali:
+dove abbiamo introdotto le pulsazioni $\omega_0$ e $\omega_1$:
+\begin{align*}
+\omega_0 = -2\mu\frac{B_0}{\hbar} \qquad \omega_1 = -2\mu \frac{B_1}{\hbar}
+\end{align*}
+\textbf{Nota}: il fattore $2$ che evidenziamo serve a prepararsi per la risoluzione del secondo punto, in cui studieremo il caso con $\omega = -2\mu B_0/\hbar = \omega_0$.\\
+
+L'equazione matriciale equivale ad un sistema lineare di due equazioni differenziali:
 \begin{align*}
 \begin{cases}
 i\dot{\alpha}(t) = \frac{\omega_0}{2}\alpha(t) + \frac{\omega_1}{2}e^{-i\omega t}\beta(t)\\
@@ -538,14 +554,15 @@ a(t)\\b(t)\end{pmatrix}=\frac{1}{2}\begin{pmatrix}
 Moltiplicando entrambi i membri della forma matriciale per $\hbar$ ci riconduciamo all'equazione di Schr\"odinger dipendente dal tempo, per un sistema con un'Hamiltoniana $\tilde{H}$ data da:
 \begin{align}
 \tilde{H} = \frac{\hbar}{2}\begin{pmatrix}
--\Delta \omega & \omega_1\\
-\omega_1 & \Delta \omega \end{pmatrix}
+\Delta \omega_0 & \omega_1\\
+\omega_1 & -\Delta \omega_0 \end{pmatrix} \qquad \Delta \omega_0 \equiv \omega_0-\omega
 \label{eqn:H-tilda}
 \end{align}
-Tale $\tilde{H}$ è decisamente più semplice di quella da cui siamo partiti, e perciò conviene studiare l'evoluzione temporale in questo sdr. Indicando con $\ket{\tilde{\psi}(t)}$ la funzione d'onda nelle coordinate $\{a,b\}$, avremo:
-\begin{align*}
+Tale $\tilde{H}$ è decisamente più semplice di quella da cui siamo partiti, e perciò conviene studiare l'evoluzione temporale in questo sdr. Indicando con $\ket{\tilde{\psi}(t)}$ la funzione d'onda nelle coordinate $\{a,b\}$ del sdr ruotato, avremo:
+\begin{align}
 \ket{\tilde{\psi}(t)} = a(t) \ket{0} + b(t) \ket{1} \qquad \ket{\tilde{\psi}(t)} = \exp\left(-\frac{i}{\hbar}\tilde{H}t\right)\ket{\tilde{\psi}(0)}
-\end{align*}
+\label{eqn:generic-rotated-psi}
+\end{align}
 
 Se scriviamo il cambio di coordinate in forma matriciale:
 \begin{align}
@@ -555,7 +572,7 @@ Se scriviamo il cambio di coordinate in forma matriciale:
 \end{pmatrix}
 \label{eqn:cambio-coord-rotanti}
 \end{align}
-ci accorgiamo che stiamo usando una matrice di rotazione di spin. Identificando per esempio $\ket{0}$ e $\ket{1}$ della base computazionale con gli autostati di $S_z$, ricordiamo che, fissato un versore $\hat{n}$ ad angolo $\theta$ con $\hat{z}$ e $\varphi$ con $\hat{x}$, l'operatore di spin in tale direzione si scrive\footnote{Vedi pag. 241 degli appunti di Fisica Teorica \cite{note-MQ}}:
+ci accorgiamo che stiamo usando una matrice di rotazione di spin. Identificando per esempio $\ket{0}$ e $\ket{1}$ della base computazionale con gli autostati di $S_z$, ricordiamo che, fissato un versore $\hat{n}$ ad angolo $\theta$ con $\hat{z}$ e $\varphi$ con $\hat{x}$, l'operatore di spin in tale direzione si scrive\footnote{Vedi pag. 241 degli appunti di Fisica Teorica}:
 \begin{align*}
 \hat{S}(\theta,\varphi) = \begin{pmatrix}
  \cos\left(\frac{\theta}{2}\right)e^{-i\varphi/2} & \sin\left(\frac{\theta}{2}\right) e^{-i\varphi/2}\\
@@ -584,17 +601,17 @@ Ci manca solo calcolare l'esponenziale di $\tilde{H}$. Per farlo conviene riscri
 \end{align*}
 Partendo allora da (\ref{eqn:H-tilda}), cerchiamo gli autovalori $\lambda_{1,2}$ della matrice senza il prefattore $\hbar/2$:
 \begin{align*}
-\op{det}(\frac{2}{\hbar}\tilde{H}-\lambda \bb{I}) = \left[(\Delta \omega)^2 - \lambda^2 + \omega_1^2 \right]\overset{!}{=}0 \Rightarrow  \lambda^2 = (\Delta \omega)^2 + \omega_1^2\\
-\Rightarrow \lambda_{1,2}= \pm \sqrt{(\Delta \omega)^2+\omega_1^2}\span
+\op{det}\left(\frac{2}{\hbar}\tilde{H}-\lambda \bb{I}\right) = \left[-(\Delta \omega_0)^2 + \lambda^2 - \omega_1^2 \right]\overset{!}{=}0 \Rightarrow  \lambda^2 = (\Delta \omega_0)^2 + \omega_1^2\\
+\Rightarrow \lambda_{1,2}= \pm \sqrt{(\Delta \omega_0)^2+\omega_1^2}\span
 \end{align*}
-E reinserendo il fattore $\hbar/2$:
+E reinserendo il fattore $\hbar/2$:\marginpar{Autovalori di $\tilde{H}$}
 \begin{align*}
-\mathcal{E}_1 = \frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \mathcal{E}_2 = -\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \Delta \omega_0 = \omega- \omega_0
+\bm{\mathcal{E}_1} = \frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \bm{\mathcal{E}_2} = -\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \Delta \omega_0 = \omega_0-\omega
 \end{align*}
 
 Per l'autovettore $\ket{\mathcal{E}_1}$ cerchiamo il ker di $\tilde{H}-\mathcal{E}_1 \bb{I}$, che è lo spazio dei vettori $(a, b)^T$ che soddisfano l'equazione:
 \begin{align*}
-a(-\Delta \omega - \sqrt{(\Delta \omega)^2 - \omega_1^2} )+b\omega_1 = 0 \Rightarrow b \frac{\omega_1}{\Delta \omega_0} = a\left(1+\sqrt{1+\frac{\omega_1^2}{(\Delta \omega_0)^2}}\right)
+a(\Delta \omega_0 - \sqrt{(\Delta \omega_0)^2 + \omega_1^2} )+b\omega_1 = 0 \Rightarrow -b \frac{\omega_1}{\Delta \omega_0} = a\left(1-\sqrt{1+\frac{\omega_1^2}{(\Delta \omega_0)^2}}\right)
 \end{align*}
 Possiamo trovare una soluzione in forma migliore ponendo:
 \begin{align*}
@@ -602,25 +619,121 @@ Possiamo trovare una soluzione in forma migliore ponendo:
 \end{align*}
 In questo modo all'interno della radice possiamo usare l'identità trigonometrica $1+\tan^2\theta=\sec^2\theta$, e giungere a:
 \begin{align*}
-b\tan\theta = a \left(1+\frac{1}{\cos\theta}\right) \Rightarrow a \underset{(a)}{=} b\frac{\sin \theta}{\frac{1+\cos\theta}{2}}\frac{1}{2} \underset{(b)}{=} b\frac{\cancel{2}\sin\frac{\theta}{2}\cos\frac{\theta}{2}}{\cos^2 \frac{\theta}{2}}\frac{1}{\cancel{2}} = b \tan\frac{\theta}{2}
+-b\tan\theta = a \left(1-\frac{1}{\cos\theta}\right) \Rightarrow a \underset{(a)}{=} b\frac{\sin \theta}{\frac{1-\cos\theta}{2}}\frac{1}{2} \underset{(b)}{=} b\frac{\cancel{2}\sin\frac{\theta}{2}\cos\frac{\theta}{2}}{\sin^2 \frac{\theta}{2}}\frac{1}{\cancel{2}} = b \frac{\cos \frac{\theta}{2}}{\sin\frac{\theta}{2}} 
 \end{align*}
 dove in (a) e in (b) si sono usate rispettivamente la formula di bisezione del $\cos$ e di duplicazione del $\sin$. Poiché $b$ si può scegliere arbitrariamente, poniamo $b=\sin \theta/2$ per semplicità, ottenendo per il primo autovettore:
 \begin{align*}
 \ket{\mathcal{E}_1} = \begin{pmatrix} \cos\frac{\theta}{2} \\ \sin\frac{\theta}{2}\end{pmatrix}
 \end{align*}
 
-Conti analoghi (con una sola differenza di segno) portano a trovare anche $\ket{\mathcal{E}_2}$, giungendo così alla fine a:
+Conti analoghi (con una sola differenza di segno) portano a trovare anche $\ket{\mathcal{E}_2}$, giungendo così alla fine a:\marginpar{Autovettori di $\tilde{H}$}
 \begin{align*}
-\ket{\mathcal{E}_1} = \begin{pmatrix} \cos\frac{\theta}{2} \\ \sin\frac{\theta}{2}\end{pmatrix} \qquad \ket{\mathcal{E}_2}=\begin{pmatrix} -\sin\frac{\theta}{2}\\ \cos\frac{\theta}{2}\end{pmatrix} \qquad \tan \theta = \frac{\omega_1}{\Delta \omega_0}
+\bm{\ket{\mathcal{E}_1}} = \begin{pmatrix} \cos\frac{\theta}{2} \\ \sin\frac{\theta}{2}\end{pmatrix} \qquad \bm{\ket{\mathcal{E}_2}}=\begin{pmatrix} -\sin\frac{\theta}{2}\\ \cos\frac{\theta}{2}\end{pmatrix} \qquad \tan \theta = \frac{\omega_1}{\Delta \omega_0}
 \end{align*}
 
-Ponendo allora $\ket{\psi(0)}=\ket{0}$ possiamo calcolare l'esponenziale, e quindi l'evoluzione temporale cercata:
+Ponendo allora $\ket{\psi(0)}=\ket{0}$ possiamo calcolare l'esponenziale, e quindi l'\textbf{evoluzione temporale }cercata:
 \begin{align*}
-\ket{\tilde{\psi}(t)} &= \sum_{i=1}^2 c_i \exp\left(-\frac{i}{\hbar}t\mathcal{E}_i\right) \ket{\mathcal{E}_i} \qquad c_i = \braket{\mathcal{E}_i|0}\\
+\bm{\ket{\tilde{\psi}(t)}} &= \sum_{i=1}^2 c_i \exp\left(-\frac{i}{\hbar}t\mathcal{E}_i\right) \ket{\mathcal{E}_i} \qquad c_i = \braket{\mathcal{E}_i|0}\\
 &= \cos\frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t\mathcal{E}_1\right) \ket{\mathcal{E}_1} -\sin\frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t\mathcal{E}_2\right) \ket{\mathcal{E}_2}
 \end{align*}
-[Continua in una lezione futura]
+
+Possiamo ora calcolare la survival probability per lo stato $\ket{1}$: \marginpar{\danger La parte seguente è ancora in lavorazione}
+\begin{align*}
+p_1(t) &= |\braket{1|\psi(t)}|^2 = |\beta(t)|^2 \underset{(a)}{=}
+|\braket{\tilde{1}|\tilde{\psi}(t)}|^2=|b(t)|^2=
+\\
+&= \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} \sin^2 \left(\underbrace{\sqrt{(\omega_0-\omega_1)^2 + \omega_1^2}}_{\Omega}\frac{t}{2}\right)
+\end{align*}
+In (a) si è usato il fatto che la trasformazione \textbf{unitaria} $R_z(\omega t)$ che collega le due autofunzioni \textit{preserva} i prodotti scalari (geometricamente si intuisce dal fatto che una rotazione preserva le lunghezze).
+dove $\Omega$ è detta \textbf{frequenza di Rabi}.\\
+Graficando la probabilità che il sistema, partito dallo stato $\ket{0}$, si evolva nello stato $\ket{1}$ otteniamo l'andamento in figura \ref{fig:plot-rabi}.
+
+\missingfigure{fig:plot-rabi}
+
+che mostra un'oscillazione sinusoidale di periodo $T=(2\pi)/\Omega$.\\
+
+Per ottenere una porta logica NOT imponiamo che la probabilità massima valga $1$:
+\begin{align*}
+p_1^{\max} \overset{!}{=} 1 \Rightarrow \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} = 1 \Rightarrow \begin{cases}
+\Omega = \omega_1\\
+\omega_0 = \omega
+\end{cases}
+\end{align*}
+Fisicamente ciò significa avere la pulsazione della radiazione che incide sul sistema in risonanza con quella relativa alla transizione energetica tra i due livelli $\ket{0}$ e $\ket{1}$ considerati (che si calcola mediante $\hbar$).\\
 \end{enumerate}
-%Dov'è il comportamento del NOT?
+
+\begin{comment}
+\section{Esercizio - parte 2}
+CFR: 
+
+\begin{align*}
+H = - \mu \left\{ B_0 \hat{\sigma}_z + B_1 [\cos(\omega t) \hat{\sigma}_x + \sin(\omega t) \hat{\sigma}_y ] \right\}
+\end{align*}
+Una generica funzione d'onda:
+\begin{align*}
+\ket{\psi(t)} = \alpha(t) \ket{0} + \beta(t) \ket{1}
+\end{align*}
+E avevamo effettuato il passaggio di sdr:
+\begin{align*}
+a(t) &= \alpha(t) e^{i\omega t/2}\\
+b(t) &= \beta(t) e^{-i\omega t/2}
+\end{align*}
+Giungendo all'Hamiltoniana nel sdr rotante data da:
+\begin{align*}
+\tilde{H} = \frac{\hbar}{2} \begin{pmatrix} \Delta \omega_0 & \omega_1 \\ \omega_1 & -\Delta \omega_0 \end{pmatrix} \qquad \begin{cases}
+\omega_0 = -2\mu B_0/\hbar\\
+\omega_1 = -2\mu B_1/\hbar
+\end{cases}
+\end{align*}
+Diagonalizzando la matrice possiamo esprimere la funzione d'onda $\ket{\tilde{\psi}(t)}$ nel sdr rotante in termini degli autoket di $\tilde{H}$:
+\begin{align*}
+\ket{\tilde{\psi}(t)}=\sum c_i e^{-i\mathcal{E}_i t/\hbar} \ket{\mathcal{E}_i} = \cos\frac{\theta}{2}e^{-i\mathcal{E}_1t/\hbar} \ket{\mathcal{E}_1} - \sin\frac{\theta}{2}\exp\left(-\frac{i}{\hbar}\mathcal{E}_2 t\right) \ket{\mathcal{E}_2}
+\end{align*}
+con:
+\begin{align*}
+\tan \theta = \frac{\omega_1}{\Delta \omega_0} \qquad \mathcal{E}_1=\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \mathcal{E}_2 = -\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 - \omega_1^2}
+\end{align*}
+
+Calcoliamo allora la survival probability:
+\begin{align*}
+p_1(t) = |\braket{1|\psi(t)}|^2 = |\beta(t)|^2 = |b(t)|^2 = \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} \sin^2 \left(\underbrace{\sqrt{(\omega_0-\omega_1)^2 + \omega_1^2}}_{\Omega}\frac{t}{2}\right)
+\end{align*}
+dove $\Omega$ è detta \textbf{frequenza di Rabi}.\\
+Graficando la probabilità che il sistema, partito dallo stato $\ket{0}$, si evolva nello stato $\ket{1}$ otteniamo l'andamento in figura \ref{fig:plot-rabi}.
+
+\missingfigure{fig:plot-rabi}
+
+che mostra un'oscillazione sinusoidale di periodo $T=(2\pi)/\Omega$.\\
+
+Per ottenere una porta logica NOT imponiamo che la probabilità massima valga $1$:
+\begin{align*}
+p_1^{\max} \overset{!}{=} 1 \Rightarrow \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} = 1 \Rightarrow \begin{cases}
+\Omega = \omega_1\\
+\omega_0 = \omega
+\end{cases}
+\end{align*}
+Fisicamente ciò significa avere la pulsazione della radiazione che incide sul sistema in risonanza con quella relativa alla transizione energetica tra i due livelli $\ket{0}$ e $\ket{1}$ considerati (che si calcola mediante $\hbar$).\\
+
+\end{comment}
+
+\section{Implementazione di un gate a 2 qubit} \marginpar{\danger Da ricontrollare}
+Per realizzare un gate a 2 qubit sarà necessario \q{farli interagire} in un qualche modo.\\
+Uno dei casi più semplici si basa sull'Hamiltoniana:
+\begin{align*}
+H_S &= -(\mu_1 \hat{\sigma}_z^1 + \mu_2 \hat{\sigma}_z^2 )B_0 + J \sigma_z^1 \sigma_z^2  =\\
+&= \begin{pmatrix}
+_B(\mu_1+\mu_2)+J & 0 & 0 & 0\\
+0 & B(-\mu_1+\mu_2)- J & 0 & 0\\
+0 & 0 & B(\mu_1-\mu_2)-J & 0\\
+0 & 0 & 0 & B(\mu_1 + \mu_2) + J
+\end{pmatrix}
+\end{align*}
+(dove con la moltiplicazione tra matrici si intende un prodotto tensore: $\sigma_z^1 \sigma_z^2 = \sigma_z \otimes \sigma_z^2$ e nella somma tra $\sigma_z^1$ e $\sigma_z^2$ stiamo sottintendendo dei prodotti tensori con l'identità: $\sigma_z^1\otimes \bb{I} + \bb{I}\otimes \sigma_z^2$).\\
+Gli autovalori sono le entrate sulla diagonale, e gli autovettori sono gli stati della base computazionale. Stiamo quindi descrivendo un sistema a quattro livelli, con due coppie di livelli con differenza di energie:
+\begin{align*}
+\Delta \mathcal{E} = - 2(\mu_2 B - J) \qquad \Delta\mathcal{E} = -2(\mu_2 B + J)
+\end{align*}
+Inserendo quindi una radiazione in risonanza con le due transizioni avremo oscillazioni di Rabi per entrambi.\\
+Se settiamo $J=0$, i due qubit non interagiscono tra loro, ed è possibile mandare in risonanza ciascuno singolarmente. Tuttavia, contando l'interazione, lo stato del secondo qubit modula la differenza di energia tra i livelli del primo, e perciò l'oscillazione si ha solo in certi casi, e in altri no. Questa è, in breve, la ricetta per una CNOT.
 \end{document}
 

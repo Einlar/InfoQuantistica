@@ -1,0 +1,188 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+\usepackage{amsbsy}
+
+\begin{document}
+
+\section{Distances over Quantum States Space}
+\lesson{1}{4/6/2019} 
+L'informazione relativa ad un sistema quantistico è codificata in stati quantistici, che ne descrivono le probabilità di tutte le possibili misure. Lo spazio di tutti gli stati quantistici è uno spazio metrico, e vi sono diversi possibili modi per equipaggiarlo con una funzione di distanza, e ciascuna di esse è utile per determinati protocolli di teoria dell'informazione.\\
+Nella lezione di oggi tratteremo:
+\begin{itemize}
+\item Trace Norm distance $\Rightarrow$ State discrimination theory
+\item Bhattacharyya distance
+\begin{itemize}
+\item Fisher Metric, \textit{relevant to} Parameter estimation
+\item Fubini-Study metric \textit{relevant to} Many-body physics, Quantum Phase Transition. 
+\end{itemize}
+\end{itemize}
+
+\subsection{Reminder}
+La struttura formale di una teoria quantistica è costituita da \textbf{Stati} e \textbf{Osservabili}.\\
+Un sistema $S$ è associato ad uno spazio di Hilbert $\hs$. I vettori di $\hs$ non sono direttamente stati - bisogna piuttosto usare uno spazio proiettivo $P\hs$. Anche ignorando tale distinzione, come spesso si fa nei corsi introduttivi di MQ, i vettori di $\hs$ possono descrivere al più stati puri. Per trattare dei sistemi interagenti - cosa che serve sempre nella pratica, dato che nessun sistema è completamente isolato, è tuttavia necessario tener conto di \textit{correlazioni} (\textit{entanglement}), o di \textit{misture statistiche}.\\
+Per avere la massima generalità, perciò, identifichiamo gli stati $\rho$ di un sistema $S$ con \textbf{matrici densità}. Le osservabili sono allora date da operatori hermitiani su $\hs$.\\
+
+Esplicitamente l'insieme degli stati è $S(\hs) = \{\rho \mid \rho \geq 0 \land \op{Tr} \rho = 1\}$, dove con $\rho \geq 0$ si intendono \textit{forme semidefinite positive}, ossia tali che $\forall \phi \in \hs \Rightarrow  \braket{\phi, \rho \phi} \geq 0$, e tali che $\rho = \rho^\dag$.\\
+Con $\sigma(\rho)$ intendiamo lo \textbf{spettro} di $\rho$, che è dato da una successione di probabilità $\{p_i\}_{i=1}^d$, con $d=\op{dim}(\hs)<\infty$ (tratteremo solo sistemi finito-dimensionali), con $p_i \geq 0$ e $\sum_i p_i = 1$. Si distingue qui tra probabilità \textit{epistematiche} e \textit{intrinseche}. Le prime sono \q{probabilità in senso classico}, dovute ad un'ignoranza dello sperimentatore, mentre le seconde sono una caratteristica inevitabile della MQ, e non possono mai essere rimosse.\\
+
+Consideriamo un sistema a $2$ stati (\textbf{qubit}), con $\hs \cong \bb{C}^2$, e quindi $\op{dim}\hs =\ 2$. Uno stato generico di $S$ è dato da:
+\begin{align*}
+\rho = \frac{1}{2} \left( \bb{I} + \vec{\lambda} \cdot \vec{\sigma} \right) 
+\end{align*} 
+dove $\vec{\lambda} = (\lambda_x, \lambda_y, \lambda_z) \in \bb{R}^3$ è il \textbf{vettore di Bloch}, e $\vec{\sigma} = (\sigma_x, \sigma_y, \sigma_z)$ è il vettore delle matrici di Pauli:
+\begin{align*}
+\sigma_x = \begin{pmatrix}0 & 1\\ 1 & 0\end{pmatrix}; \quad \sigma_y = \begin{pmatrix} 0 & -i\\ i & 0 \end{pmatrix}; \quad \sigma_z = \begin{pmatrix}1 & 0 \\ 0 & -1\end{pmatrix}
+\end{align*}
+
+\textbf{Esercizio}: prova che questa $\rho$ è davvero una matrice densità (cioè rispetta le caratteristiche prima elencate), e che tutti gli stati possibili di un qubit sono davvero dati da una $\rho$ del genere.\\
+
+
+Notiamo che:
+\begin{align*}
+\lambda = \norm{\vec{\lambda}} =\ \sqrt{\lambda_x^2 + \lambda_y^2 +\lambda_z^2 } \leq 1
+\end{align*}
+Se $\lambda=1$, allora $\rho^2 = \rho$ e quindi $\rho=\ket{\psi}\bra{\psi}$ per un qualche $\ket{\psi}\in \hs$. Ciò significa che $\rho$ è un certo \textbf{stato puro}. Per $\lambda < 1$, invece, avremo $\rho$ che descrivono \textbf{stati misti}.\\
+
+Geometricamente gli stati possibili formano uno spazio \textit{convesso} - una \textbf{palla}, il cui interno sono stati misti, e la cui superficie sono stati puri.\\
+Notiamo che ciò è molto diverso dalla rappresentazione delle probabilità classiche. Se prendiamo un sistema che può assumere due stati con due probabilità $p_1+p_2=1$, tutti gli stati possibili si trovano su un \textit{segmento}. Per un sistema a tre stati si ha un triangolo, per $4$ un tetraedo, etc.\\
+Le probabilità classiche formano quindi dei \textit{simplessi}.\\
+
+\section{State Discrimination}
+Cercheremo ora delle \textbf{metriche} per tali spazi. Ne esistono infinite - ci concentreremo solo su quelle che hanno applicazioni interessanti per la teoria informazione.\\
+
+Partiamo con un primo obiettivo: vogliamo poter discriminare due stati $A$ e $B$ con la \textit{massima probabilità}, potendo effettuare \textit{qualsiasi} misurazione quantistica.
+
+\subsection{Classical probability theory}
+Consideriamo due vettori di probabilità:
+\begin{align*}
+\vec{p} \equiv (p_i)_{i=1}^d; \quad \vec{q}=(q_i)_{i=1}^d
+\end{align*}
+Definiamo una distanza:
+\begin{align*}
+d_1(\vec{p},\vec{q}) = \sum_{i=1}^d |p_i - q_i|
+\end{align*}
+
+\textbf{Claim} (da verificare a casa): questa è una metrica sullo spazio dei vettori di distribuzioni di probabilità classiche.
+
+\subsection{Quantum generalization}
+Possiamo applicare questa funzione a stati quantistici $\rho$ e $\sigma$ (matrici densità)?\\
+No, perché non è detto che $[\rho,\sigma]\neq 0$, e quindi non vi è un modo \textit{standard} per poter inserire le matrici dentro l'espressione, dato che se non commutano non esiste una base che le diagonalizzi entrambe. Si potrebbe usare una differenza tra elementi di matrice (la cosiddetta metrica-$L_1$), ma è scomodo - così facendo si ottiene per esempio un qualcosa che dipende dalla base utilizzata per scrivere le due matrici, e quindi non di \textit{indipendente e ben definito} come vorremmo.\\
+
+Proviamo un altro approccio. Per ogni osservabile $A$ è definito il valore atteso di una misura di $A$ sullo stato $\rho$ come:
+\begin{align*}
+A \xrightarrow{}[\rho] \langle A \rangle_\rho \equiv \op{Tr}(\rho A)
+\end{align*}
+Potremmo allora pensare di \textit{discriminare} due stati $\rho$ e $\sigma$ cercando una certa osservabile $A$ che produca valori in media \textit{massimamente diversi}:
+\begin{align*}
+\sup_A |\langle A \rangle_\sigma - \langle A\ \rangle _\rho|
+\end{align*}
+Problema: così facendo potremmo semplicemente riscalare $A$ e aumentare la distanza. Perciò normalizziamo $A$:
+\begin{align*}
+\sup_{\norm{A}=1} |\langle A\ \rangle_\sigma -\langle A \rangle_\rho|
+\end{align*}
+dove la norma di un operatore è definita come:
+\begin{align*}
+\norm{A} \equiv \sup_{\psi \in \hs \setminus 0} \frac{\norm{A \psi}}{\norm{\psi}}
+\end{align*}
+Allora otteniamo:
+\begin{align*}
+\sup_{\norm{A}=1} \left| \op{Tr}(A\rho) - \op{Tr}(A\sigma) \right| = \sup_{\norm{A}=1} |\op{Tr}[A(\rho-\sigma)]|
+\end{align*}
+Notiamo ora che:
+\begin{align*}
+|\op{Tr}(AB)| = |\sum_i b_i \bra{i}A \ket{i}| \leq \sum_i |b_i| \underbrace{|\bra{i}A \ket{i}|}_{\leq \norm{A} (\mathrm{CLAIM})} \leq \norm{A} \sum_i |b_i| = \norm{A} \op{Tr} |B| \equiv \norm{A} \norm{B}_1
+\end{align*}
+dove con $\norm{\cdot}_1$ intendiamo la \textit{trace-norm}:
+\begin{align*}
+\norm{\rho}_1 = \op{Tr}\sqrt{\rho \rho^\dag}
+\end{align*} Vale allora:
+\begin{align*}
+|\op{Tr}(AB)|\leq \norm{A}\norm{B}
+\end{align*}
+E quindi, inserendola nell'espressione di sopra:
+\begin{align*}
+\sup_{\norm{A}=1} |\op{Tr}[A(\rho-\sigma)]| \leq \underbrace{\norm{A}}_{=1}\norm{\rho-\sigma}_1
+\end{align*}
+Effettivamente, si può dimostrare un risultato più forte\footnote{Per farlo si usa la \textit{polar decomposition}, ma non lo faremo qui}:
+\begin{align*}
+\sup_{\norm{A}=1} |\op{Tr}[A(\rho-\sigma)]| \hlc{Yellow}{\bm{=}} \norm{\rho-\sigma}_1
+\end{align*}
+Si verifica che se $\rho$ e $\sigma$ commutano, la distanza così definita ritorna lo stesso risultato della \textit{distanza classica} che avevamo pensato prima. Perciò la distanza definita in questo modo è la \textit{naturale generalizzazione} di quello che si ha in MC.\\
+
+Spesso si aggiunge un fattore $1/2$ nella definizione. Infatti ricordiamo dalla disuguaglianza triangolare:
+\begin{align*}
+\norm{A + B} \leq \norm{A} + \norm{B}
+\end{align*}
+E perciò $\norm{\rho- \sigma}_1 \leq 2$, ma vorremmo che sia limitata da $1$ (perché è bello) e quindi si scrive:
+\begin{align*}
+D(\rho, \sigma) = \frac{1}{2}\norm{\rho- \sigma}_1
+\end{align*}
+
+In MQ, oltre alle solite misure proiettive, sono però possibili \textbf{misure generalizzate}, in cui si usa un sistema ancilla che viene correlato al sistema da misurare, e poi si effettua una misura proiettiva solo sull'ancilla. In generale, una misura generalizzata è rappresentata da POVM, \textit{Positive Operator Valued Measurement}, ossia una classe di operatori $\{E_i\}_{i=1}^n$, con $E_i\geq 0$, $\sum_i E_i = \bb{I}$. Una misura generalizzata porta all'\textit{outcome} $i$ con probabilità $p_i = \op{Tr}(\rho E_i)$.\\
+Poniamoci lo stesso problema di prima:\ vogliamo discriminare tra due generici stati $\rho$ e $\sigma$ con la massima efficienza.\\
+
+Consideriamo allora una POVM da $2$ elementi $E_1, E_2 \geq 0$, tali che $E_1 + E_2 = \bb{I}$. Avremo due stati $\rho_1$ e $\rho_2$ da discriminare - vogliamo che l'outcome $1$ sia associato a $\rho_1$, e il $2$ a $\rho_2$. La probabilità che la misura sia \textit{giusta} è quindi data da:
+\begin{align*}
+P_{\mathrm{succ}} = \frac{1}{2}[ \op{Tr}(E_1 \rho_1) + \op{Tr}(E_2 \rho_2)]
+\end{align*}
+che corrisponde alla probabilità di ottenere $1$ quando lo stato è $\rho_1$ e $2$ quando lo stato è $\rho_2$.\\
+Analogamente, la probabilità di ottenere una discriminazione sbagliata è data da:
+\begin{align*}
+P_{\mathrm{err}} = \frac{1}{2}[\op{Tr}(E_1 \rho_2) + \op{Tr}(E_2 \rho_1 ) ]
+\end{align*}
+che è la probabilità di trovare $1$ quando lo stato è effettivamente $\rho_2$, o di trovare $2$ quando invece lo stato è $\rho_1$.\\
+Per ottimizzare la discriminazione possiamo equivalentemente massimizzare $P_{\mathrm{succ}}$ o minimizzare $P_{\mathrm{err}}$. Procediamo con la prima strada. Usando la normalizzazione $E_1 + E_2 = \bb{I}$:
+\begin{align*}
+P_{\mathrm{succ}} = \frac{1}{2}[\op{Tr}(E_1 \rho_1) + \op{Tr}[(\bb{I}-E_1) \rho_2 ] = \frac{1}{2} \left \{
+1+\op{Tr}[E_1(\rho_1-\rho_2)]\right\}
+\end{align*}
+Vogliamo trovare $E_1$ che massimizza tale quantità.\\
+
+\textbf{Teorema}\footnote{Prova a dimostrarlo! Hint: prova a diagonalizzare, e nota che $E_1$ potrebbe essere un proiettore sugli autovalori positivi o cose del genere... c'è una scelta unica per l'ottimizzazione} (Helstrom optimal measurement)
+\begin{align*}
+P_{\mathrm{succ}}^{\mathrm{optimal}} = \frac{1}{2}\left \{ 1+ \frac{1}{2} \norm{\rho_1 - \rho_2}_1 \right\}
+\end{align*}
+Intuitivamente: più gli stati $\rho_1$ e $\rho_2$ sono \textit{distanti} (nel senso definito nella sezione precedente), più è \textit{facile distinguerli}, ossia maggiore è la probabilità di una discriminazione svolta \textit{con successo}. D'altro canto, per stati molto vicini - con $\rho_1 \approx \rho_2$ - la probabilità di successo è circa $1/2$, ossia non si può far nulla di più che un \q{random guess}.
+
+\section{Batthacharyya distance}
+Partiamo nuovamente dal caso \textbf{classico}, con due vettori di probabilità:
+\begin{align*}
+\vec{p} = (p_i)_{i=1}^d; \quad \vec{q} = (q_i)_{i=1}^d
+\end{align*}
+con le solite proprietà delle probabilità (non-negative e sommano a $1$).\\
+Definiamo i due vettori:
+\begin{align*}
+\vec{V}_p = (\sqrt{p_i})_{i=1}^d; \quad \vec{V}_q = (\sqrt{q_i})_{i=1}^d
+\end{align*}
+Tali vettori sono normalizzati: $\norm{\vec{V}_p}=\norm{\vec{V}_q}=1$. Inoltre vale:
+\begin{align*}
+\sum_{i} (\sqrt{p_i})^2 \sum_i (\sqrt{q_i})^2 = 1
+\end{align*}
+Definiamo la distanza di Batthacharyya (\textbf{claim} - verifica che sia una distanza):
+\begin{align*}
+d_B(\vec{p},\vec{q}) = \cos^{-1}\left(\vec{V}_p\cdot \vec{V}_q\right) = \cos^{-1}\left( \sum_{i=1}^d \sqrt{p_i q_i} \right) \in \left(0, \frac{\pi}{2}\right)
+\end{align*}
+Geometricamente $\vec{V}_q$ e $\vec{V}_p$ sono vettori unitari, e $d_B(\vec{p}, \vec{q})$ è l'\textbf{angolo} tra tali due vettori.\\
+
+Come possiamo \textit{quantizzare} tutto ciò? Di nuovo, non è immediato - classicamente una densità di probabilità definisce completamente il problema, mentre quantisticamente  una matrice densità definisce \textit{infinite} densità di probabilità (per le infinite POVM che si possono effettuare).\\
+Partiamo dal caso di $\rho$ e $\sigma$ stati puri:
+\begin{align*}
+\rho = \ket{\phi}\bra{\phi}; \quad \sigma = \ket{\psi}\bra{\psi}
+\end{align*}
+Consideriamo una POVM $\bb{E}=\{E_i\}_i$, che definisce una distribuzione di probabilità:
+\begin{align*}
+p_\phi^{\bb{E}} (i) &= \op{Tr}(E_i \rho) = \bra{\phi}E_i \ket{\phi}\\
+p_\psi^{\bb{E}}(i) &= \op{Tr}(E_i \sigma) = \bra{\psi}E_i \ket{\psi}
+\end{align*}
+Applicando la formula di Batthacharyya:
+\begin{align*}
+d_B(\vec{P}_\psi^{\>\bb{E}}, \vec{P}_{\phi}^{\>\bb{E}}) = \cos^{-1}\left( \sum_i \sqrt{\bra{\phi}E_i \ket{\phi} \bra{\psi}E_i \ket{\psi}}\right)
+\end{align*}
+vogliamo ottimizzare su tutte le possibili POVM. Fortunatamente esiste un'espressione analitica per la misura ottimale: (\textbf{teorema} - prova a dimostrarlo)
+\begin{align*}
+d_B(\phi, \psi) \equiv \sup_{\bb{E}} d_B(\vec{P}_{\psi}^{\>\bb{E}}, \vec{P}_\phi^{\>\bb{E}}) \equiv \cos^{-1}\left(|\braket{\phi|\psi}|\right)
+\end{align*}
+In effetti questo è il risultato della metrica di Fubini-Study.\\
+Ciò ha interpretazioni geometriche e legate alla teoria dell'informazione che esamineremo nella lezione di domani.
+
+\end{document}
+

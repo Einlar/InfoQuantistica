@@ -3,7 +3,7 @@
 \begin{document}
 
 \section{Qubit}
-\lesson{2}{28/2/2019}
+\lesson{2 \greendot}{28/2/2019}
 \textbf{Riepilogando}, abbiamo sostituito lo \textit{stato classico} di un bit con uno \textit{stato quantistico}, dato da un \textbf{qubit}\index{Qubit}, costituito da una combinazione lineare di due stati fondamentali $\ket{0}$ e $\ket{1}$:
 \begin{align*}
 \ket{\psi} = \cos\frac{\theta}{2} \ket{0} + e^{i\varphi} \sin\frac{\theta}{2}\ket{1}
@@ -333,6 +333,10 @@ Ma allora deve essere:
 cosa che \textbf{non è vera} in generale per ogni stato. Perciò \textit{non è possibile} clonare un generico stato senza conoscerlo.\\
 Dal risultato trovato, tuttavia, notiamo che stati ortogonali, per cui $\braket{\varphi|\psi}=0$, possono però essere clonati senza problemi: possiamo quindi clonare tutti gli stati \textit{di una base ortonormale}, ma non le loro generiche combinazioni (che formano stati generici).
 
+\begin{appr}
+    Dimostrazione alternativa: proviamo a clonare una sovrapposizione, e in un caso otteniamo uno stato separabile \(U (\ket{x} + \ket{y}) \otimes \ket{0} = (\ket{x} + \ket{y}) ^{\otimes 2} \). Ma per linearità di $U$ possiamo anche guardarla come \(U (\ket{x} + \ket{y}) \otimes \ket{0} = \ket{x} \ket{x} + \ket{y} \ket{y} \), che in generale sarà uno stato entangled.
+\end{appr}
+
 \section{Classi di complessità algoritmica}
 I computer quantistici permettono di raggiungere una maggiore efficienza rispetto ai computer classici. Per quantificare tale fenomeno si utilizza una definizione di \textbf{classi di complessità}\index{Classi di complessità}, che permettono di quantificare \q{quanto un algoritmo è complesso}. L'idea è quella di esaminare come la quantità di tempo/risorse necessarie a risolvere un problema \textit{scali} al crescere della dimensione del problema.\\
 Per esempio, se consideriamo un algoritmo per scomporre un numero in numeri primi, la sua complessità è legata a \textit{quanto velocemente} il tempo o le risorse necessarie alla computazione crescano all'aumentare del \textit{numero di cifre} del numero dato in input.\\
@@ -569,12 +573,18 @@ F= |\braket{\psi_1|\psi_2}|^2 = |\bra{\psi_1}U^\dag U\ket{\psi_2}|^2 \underset{(
 \end{align}
 \setcounter{enumi}{0}
 \item Vogliamo mostrare che $F$ è una funzione monotona della norma $L_2$ della differenza tra i vettori dei due stati $\norm{\ket{\psi_1}- \ket{\psi_2}}_2$. Ricordiamo che tale norma è definita da:
+
 \begin{align*}
-\norm{\ket{\phi}}_2  = \sqrt{|\braket{\phi|\phi}|^2} = |\braket{\phi|\phi}|
+\norm{\ket{\phi}}_2  = \sqrt{|\braket{\phi|\phi}|}
 \end{align*}
-Procediamo calcolando direttamente la norma della differenza:
+% Non sono convinto da questa cosa
+% Io direi che
+% $\norm{\ket{\phi}}_2  = \sqrt{|\braket{\phi|\phi}|}$
+%Mi torna, correggo.
+
+Procediamo calcolando direttamente la norma (quadra) della differenza:
 \begin{align*}
-\norm{\ket{\psi_1}-\ket{\psi_2}} &=
+\norm{\ket{\psi_1}-\ket{\psi_2}}^2 &=
 |(\bra{\psi_1}-\bra{\psi_2})(\ket{\psi_1}-\ket{\psi_2})|=\\
 &=|\underbrace{\braket{\psi_1|\psi_1}}_{1} - \braket{\psi_1|\psi_2} - \braket{\psi_2|\psi_1} + \underbrace{\braket{\psi_2|\psi_2}}_{1}| =\\
 &= |2-(\braket{\psi_1|\psi_2}+\braket{\psi_2|\psi_1})| \underset{(a)}{=} |2-2\op{Re}(\braket{\psi_1|\psi_2})|=\\
@@ -584,7 +594,11 @@ dove in (a) si è usata la definizione di parte reale di un numero complesso $a 
 \begin{align*}
 \op{Re}a = \frac{a+a^*}{2} \Rightarrow a+a^* =2\op{Re}a
 \end{align*}
-Dato che $\braket{\psi_1|\psi_2}$ e $\braket{\psi_2|\psi_1}$ sono complessi coniugati.
+Dato che $\braket{\psi_1|\psi_2}$ e $\braket{\psi_2|\psi_1}$ sono complessi coniugati.\\
+Otteniamo perciò:
+\begin{align*}
+    \norm{\ket{\psi_1} - \ket{\psi_2}}_2 = \sqrt{2(1-\sqrt{F})}
+\end{align*}
 
 \end{enumerate}
 \end{document}

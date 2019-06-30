@@ -3,7 +3,7 @@
 \begin{document}
 
 \section{Matrici densità - parte 2}
-\lesson{6}{14/3/2019}
+\lesson{6 \orangedot}{14/3/2019}
 
 \subsection{Correlazioni tra stati}
 Nella sezione precedente abbiamo notato che $\rho_{12}=\rho_1 \otimes \rho_2$ vale solo se $\rho_1$ e $\rho_2$ sono \textbf{indipendenti}, cioè \textbf{scorrelati}. Se così non è, come nella maggior parte dei casi, $\rho_1$ e $\rho_2$ codificano solo una parte delle informazioni del sistema composto $\rho_{12}$, dato che mancano i termini di \textit{interazione} tra i due sottosistemi, che effettivamente in tal caso non hanno una individualità ben definita.\\
@@ -412,9 +412,43 @@ Ne deriva che $S$ mappa matrici densità in matrici densità.\\
 Inoltre $S$ ha altre caratteristiche utili:
 \begin{itemize}
 \item \textbf{Proprietà di gruppo}. Si possono comporre due mappe di Kraus una dopo l'altra:
-\begin{align*}
-\rho(0) \xrightarrow{S_1} \rho_1 \xrightarrow{S_2} \rho_2
-\end{align*}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\begin{center}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da4078450591380367] 
+\draw    (186,145.5) -- (238.25,145.5) ;
+\draw [shift={(240.25,145.5)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Straight Lines [id:da9736233485654777] 
+\draw    (269,146) -- (321.25,146) ;
+\draw [shift={(323.25,146)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+%Curve Lines [id:da5450320200035714] 
+\draw    (184.25,159.5) .. controls (220.88,188.21) and (281.52,184.09) .. (318.15,158.29) ;
+\draw [shift={(319.25,157.5)}, rotate = 504.02] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+
+% Text Node
+\draw (165,143.83) node   {$\rho ( 0)$};
+% Text Node
+\draw (256.33,144.17) node   {$\rho _{1}$};
+% Text Node
+\draw (340.5,144) node   {$\rho _{2}$};
+% Text Node
+\draw (253,193.5) node   {$S$};
+% Text Node
+\draw (210.5,128.5) node   {$S_{1}$};
+% Text Node
+\draw (295,129.5) node   {$S_{2}$};
+
+
+\end{tikzpicture}
+\end{center}
+
 e il risultato è ancora una mappa di Kraus $S(\rho) = (S_2 \circ S_1)(\rho) = S_2(S_1(\rho))$ che gode ancora di tutte le proprietà di $S$.
 \item \textbf{Invertibilità}. Data $S$, $S^{-1}$ esiste solo se è anche unitaria. Se non lo è significa, fisicamente, che vi è stata un'interazione tra $A$ e $B$ che non è racchiusa nella descrizione di $A$ data da $\rho_A$, cioè si è persa dell'informazione nel passaggio da $\rho_{A+B}$ alla singola $\rho_A$.
 \end{itemize}
@@ -461,76 +495,7 @@ dove in (a) abbiamo usato la ciclicità della traccia, cioè l'invarianza per pe
 \begin{comment}
 Con operazioni di questo tipo possiamo esplorare stati \q{all'interno} della sfera di Bloch, considerando quindi un'evoluzione non unitaria, dato che si perde la reversibilità. Per esempio, l'origine della sfera di Bloch corrisponde allo stato massimamente misto, e chiaramente un'evoluzione che porta dalla superficie della sfera di Bloch all'origine non può essere reversibile, dato che l'informazione del punto di partenza viene persa nel tragitto.
 
-\section{Esercizio - parte 2}
-CFR: Ex 3.22 Casati-Bonenti (pag. 180)
 
-\begin{align*}
-H = - \mu \left\{ B_0 \hat{\sigma}_z + B_1 [\cos(\omega t) \hat{\sigma}_x + \sin(\omega t) \hat{\sigma}_y ] \right\}
-\end{align*}
-Una generica funzione d'onda:
-\begin{align*}
-\ket{\psi(t)} = \alpha(t) \ket{0} + \beta(t) \ket{1}
-\end{align*}
-E avevamo effettuato il passaggio di sdr:
-\begin{align*}
-a(t) &= \alpha(t) e^{i\omega t/2}\\
-b(t) &= \beta(t) e^{-i\omega t/2}
-\end{align*}
-Giungendo all'Hamiltoniana nel sdr rotante data da:
-\begin{align*}
-\tilde{H} = \frac{\hbar}{2} \begin{pmatrix} \Delta \omega_0 & \omega_1 \\ \omega_1 & -\Delta \omega_0 \end{pmatrix} \qquad \begin{cases}
-\omega_0 = -2\mu B_0/\hbar\\
-\omega_1 = -2\mu B_1/\hbar
-\end{cases}
-\end{align*}
-Diagonalizzando la matrice possiamo esprimere la funzione d'onda $\ket{\tilde{\psi}(t)}$ nel sdr rotante in termini degli autoket di $\tilde{H}$:
-\begin{align*}
-\ket{\tilde{\psi}(t)}=\sum c_i e^{-i\mathcal{E}_i t/\hbar} \ket{\mathcal{E}_i} = \cos\frac{\theta}{2}e^{-i\mathcal{E}_1t/\hbar} \ket{\mathcal{E}_1} - \sin\frac{\theta}{2}\exp\left(-\frac{i}{\hbar}\mathcal{E}_2 t\right) \ket{\mathcal{E}_2}
-\end{align*}
-con:
-\begin{align*}
-\tan \theta = \frac{\omega_1}{\Delta \omega_0} \qquad \mathcal{E}_1=\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \mathcal{E}_2 = -\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 - \omega_1^2}
-\end{align*}
-
-Calcoliamo allora la survival probability:
-\begin{align*}
-p_1(t) = |\braket{1|\psi(t)}|^2 = |\beta(t)|^2 = |b(t)|^2 = \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} \sin^2 \left(\underbrace{\sqrt{(\omega_0-\omega_1)^2 + \omega_1^2}}_{\Omega}\frac{t}{2}\right)
-\end{align*}
-dove $\Omega$ è detta \textbf{frequenza di Rabi}.\\
-Graficando la probabilità che il sistema, partito dallo stato $\ket{0}$, si evolva nello stato $\ket{1}$ otteniamo l'andamento in figura \ref{fig:plot-rabi}.
-
-\missingfigure{fig:plot-rabi}
-
-che mostra un'oscillazione sinusoidale di periodo $T=(2\pi)/\Omega$.\\
-
-Per ottenere una porta logica NOT imponiamo che la probabilità massima valga $1$:
-\begin{align*}
-p_1^{\max} \overset{!}{=} 1 \Rightarrow \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} = 1 \Rightarrow \begin{cases}
-\Omega = \omega_1\\
-\omega_0 = \omega
-\end{cases}
-\end{align*}
-Fisicamente ciò significa avere la pulsazione della radiazione che incide sul sistema in risonanza con quella relativa alla transizione energetica tra i due livelli $\ket{0}$ e $\ket{1}$ considerati (che si calcola mediante $\hbar$).\\
-
-\section{Implementazione di un gate a 2 qubit}
-Per realizzare un gate a 2 qubit sarà necessario \q{farli interagire} in un qualche modo.\\
-Uno dei casi più semplici si basa sull'Hamiltoniana:
-\begin{align*}
-H_S &= -(\mu_1 \hat{\sigma}_z^1 + \mu_2 \hat{\sigma}_z^2 )B_0 + J \sigma_z^1 \sigma_z^2  =\\
-&= \begin{pmatrix}
-_B(\mu_1+\mu_2)+J & 0 & 0 & 0\\
-0 & B(-\mu_1+\mu_2)- J & 0 & 0\\
-0 & 0 & B(\mu_1-\mu_2)-J & 0\\
-0 & 0 & 0 & B(\mu_1 + \mu_2) + J
-\end{pmatrix}
-\end{align*}
-(dove con la moltiplicazione tra matrici si intende un prodotto tensore: $\sigma_z^1 \sigma_z^2 = \sigma_z \otimes \sigma_z^2$ e nella somma tra $\sigma_z^1$ e $\sigma_z^2$ stiamo sottintendendo dei prodotti tensori con l'identità: $\sigma_z^1\otimes \bb{I} + \bb{I}\otimes \sigma_z^2$).\\
-Gli autovalori sono le entrate sulla diagonale, e gli autovettori sono gli stati della base computazionale. Stiamo quindi descrivendo un sistema a quattro livelli, con due coppie di livelli con differenza di energie:
-\begin{align*}
-\Delta \mathcal{E} = - 2(\mu_2 B - J) \qquad \Delta\mathcal{E} = -2(\mu_2 B + J)
-\end{align*}
-Inserendo quindi una radiazione in risonanza con le due transizioni avremo oscillazioni di Rabi per entrambi.\\
-Se settiamo $J=0$, i due qubit non interagiscono tra loro, ed è possibile mandare in risonanza ciascuno singolarmente. Tuttavia, contando l'interazione, lo stato del secondo qubit modula la differenza di energia tra i livelli del primo, e perciò l'oscillazione si ha solo in certi casi, e in altri no. Questa è, in breve, la ricetta per una CNOT.
 \end{comment}
 
 \end{document}

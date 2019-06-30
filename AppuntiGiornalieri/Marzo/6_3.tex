@@ -3,7 +3,7 @@
 \begin{document}
 
 \section{Teletrasporto quantistico}
-\lesson{3}{6/3/2019}
+\lesson{3 \greendot}{6/3/2019}
 L'idea del teletrasporto quantistico\index{Teletrasporto quantistico} consiste nel partire da un \textbf{qubit}, definito da una funzione d'onda generica $\ket{\psi}$ \textbf{non nota}, e trasmettere l'informazione in esso contenuta ad un qubit di un altro laboratorio. Dato che non è possibile \textbf{clonare} $\ket{\psi}$, il teletrasporto ha come effetto la distruzione del qubit originale.\\
 \textbf{Nota}: stiamo comunque parlando di un trasporto di \textbf{informazione}, non di materia. Nel laboratorio di arrivo deve essere presente una particella a cui \q{applicare} il qubit trasportato.\\
 
@@ -237,6 +237,10 @@ Abbiamo due possibilità:
 Notiamo che se la scatola è vuota, il rivelatore $A$ non trova mai il fotone. Perciò, se troviamo il fotone in $A$ sappiamo immediatamente che la bomba è presente. Ciò succede in un caso su $4$: abbiamo allora un modo per misurare la presenza  o meno di un oggetto \textbf{senza} interagire con esso in alcun modo.\\
 Per quanto ciò sia paradossale, tale setup - il cosiddetto \textit{detector di bombe} di Elitzur-Vaidman - è stato realizzato sperimentalente (sostituendo la bomba con un ostacolo meno pericoloso).\\
 Per di più si trova (\cite{detection-free}) che è possibile concatenare tanti circuiti simili per aumentare (arbitrariamente) la probabilità di rivelazione senza interazione.\\
+
+\begin{expl}
+\textbf{Interpretazione del tester Elitzur-Vaidman}. Un modo di pensare gli esiti dell'esperimento sta nel considerare la bomba come un \textit{sistema interagente}. Se è presente, allora interagisce con la funzione d'onda del fotone, e la fa collassare su uno dei due percorsi possibili. Se non è presente, invece, non avviene alcun collasso, e la funzione d'onda è libera di interferire con se stessa nel secondo BS. In un certo senso, perciò, l'apparato non sta facendo altro che determinare se una interazione sia avvenuta o meno. Interpretando tale interazione non unitaria come una \textit{misurazione}, pittorescamente si potrebbe affermare che il tester Elitzur-Vaidman \q{misura l'avvenire o meno di un'altra misura}.
+\end{expl}
 
 Possibilità del genere hanno applicazione, per esempio, per ridurre la quantità di radiazioni assorbite da un tessuto durante una radiografia, dato che parte dei fotoni utilizzati portano \textit{informazione utile} senza interazione con il paziente.
 

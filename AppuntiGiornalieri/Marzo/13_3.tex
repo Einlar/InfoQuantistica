@@ -1,7 +1,7 @@
 \documentclass[../../InformazioneQuantistica.tex]{subfiles}
 
 \begin{document}
-\lesson{5}{13/3/2019}
+\lesson{5 \greendot}{13/3/2019}
 
 \onlyinsubfile{
 \section{Note organizzative}
@@ -9,6 +9,7 @@ $2$ visite in laboratorio organizzate in turni (saranno organizzati via Moodle).
 Per entrare in laboratorio bisogna seguire un corso online di sicurezza, e firmare una certificazione da consegnare all'entrata dei laboratori. Il link sarà inserito a breve su Moodle.
 }
 
+\chapter{Stati e misure}
 \section{Matrici densità}
 In questa sezione ci occuperemo di introdurre una notazione più avanzata e flessibile per trattare gli \textbf{stati} di un sistema quantistico nella loro più ricca generalità.\\
 Non sempre, infatti, è possibile caratterizzare un sistema con una precisa funzione d'onda, dato che ciò comporta possedere la \textit{massima informazione} possibile (stato puro). Spesso si ha a che fare con incertezze o informazioni parziali (stati misti), e saper trattare tali frequenti situazioni permette di accedere ad un insieme di possibilità computazionali molto più ampio.
@@ -257,6 +258,13 @@ Perciò uno dei due (es. $\lambda_1$) è identicamente $1$, e l'altro è nullo. 
 
 Perciò, si ha che tutte le scelte di $\norm{\vec{r}}<1$, che corrispondono ad altrettante possibilità per $\rho$, codificano\marginpar{Stati misti $\leftrightarrow$ $\norm{\vec{r}}<1$} \textbf{stati misti}.\\
 Perciò, tra tutte le $\rho$ possibili per un sistema a \textbf{1 qubit} (date da generici vettori nella sfera di Bloch) la maggior parte è prodotta da stati misti (l'interno). Considerare misture statistiche (nella notazione della matrici di densità) permette di sfruttare tale numero molto più ampio di possibilità.\\
+
+\begin{figure}
+    \centering
+    \input{Tikz/13_3/sfera_bloch.tex}
+    \caption{La sfera di Bloch comprende tutti gli stati possibili per un sistema a $1$ qubit. Gli stati \textit{interni} sono \textbf{stati misti}, mentre quelli \textit{sulla superficie} sono \textbf{stati puri}}
+    \label{fig:sfera-bloch-stati}
+\end{figure}
 
 In questa notazione vettoriale possiamo visualizzare la genesi di uno stato misto come \textit{somma} di vettori di stati puri opportunamente pesati da probabilità. Il caso più semplice è quello in cui $\vec{r}$ è distribuito uniformemente su tutta la superficie della sfera unitaria, e corrisponde alla \textbf{mistura} di tutti gli stati puri possibili, ossia allo \textbf{stato massimamente misto}. Possiamo calcolare analiticamente la $\rho$ risultante integrando sulla superficie della sfera di Bloch (dove l'integrazione si intende su ciascun elemento di (\ref{eqn:rho-qubit})):
 \begin{align*}

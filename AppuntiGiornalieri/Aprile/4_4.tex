@@ -1,0 +1,330 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Quantum Noiseless Coding}
+\lesson{12 \greendot}{4/4/2019}
+Il teorema di noiseless coding può essere generalizzato al caso quantistico facendo uso dell'entropia di Von Neumann.\\
+
+Supponiamo che Alice trasmetta un \textbf{messaggio} di $n$ lettere a Bob, scelte indipendentemente l'una dall'altra da un alfabeto $\mathcal{A} = \{\ket{\psi_1}, \dots, \ket{\psi_k}\}$, con $\ket{\psi_i}$ stati puri. Ciascuna lettera comapare in una qualsiasi posizione del messaggio con probabilità $p_i$ conosciuta a \textit{priori}, tale che $p_i\geq 0$ e $\sum_i p_i = 1$. Il messaggio è quindi caratterizzato da un set di $k$ probabilità $\{p_1, \dots, p_k\}$, e ciascuna lettera è descritta da una mistura statistica $\rho$ dei $k$ stati possibili con tali probabilità $p_i$:
+\begin{align*}
+\rho = \sum_{i=1}^k p_i \ket{\psi_i}\bra{\psi_i}
+\end{align*}
+Poiché abbiamo assunto che tutte le lettere siano indipendenti l'una dall'altra, l'intero messaggio $\rho^n$ non è altro che il prodotto tensore di $n$ stati di lettera singola, tutti pari a $\rho$:
+\begin{align*}
+\rho^n = \rho^{\otimes n} = \underbrace{\rho \otimes \rho \otimes \cdots \otimes \rho}_{n\text{ volte}}
+\end{align*}
+
+\begin{thm}\marginpar{Teorema del quantum noiseless coding di Schumacher}\index{Teorema!Quantum Noiseless Coding}
+Dato un messaggio di $n$ lettere costituite da stati puri scelti indipendentemente dall'alfabeto $\mathcal{A} = \{\ket{\psi_1}, \dots, \ket{\psi_k}\}$ con probabilità a priori $\{p_1, \dots, p_k\}$, esiste, asintoticamente nella lunghezza del messaggio ($n\to \infty$), un codice ottimale che comprime il messaggio a $S(\rho)$ qubit per lettera senza perdita di informazione, con $\rho = \sum_{i=1}^k p_i \ket{\psi_i}\bra{\psi_i}$.
+\end{thm}
+
+\textbf{Dimostrazione} omessa.\\
+
+In completa analogia con il caso classico, perciò, è possibile comprimere un messaggio (sufficientemente lungo) usando solo $S(\rho)$ qubit per lettera. Come visto nel precedente paragrafo, tuttavia, in generale $S(\rho) \leq H(p)$ - e perciò la \MQ consente \textit{rate di compressione maggiori} rispetto agli analoghi classici.
+
+
+\section{Caratterizzazione dell'Entanglement}
+Facendo uso degli strumenti appena introdotti, possiamo finalmente passare a \textit{quantificare le correlazioni quantistiche}. Ci limiteremo al caso di correlazioni generate dall'\textit{entanglement}, dato che sono quelle che compaiono nelle \textit{applicazioni interessanti} come il teletrasporto quantistico o il dense coding. Oltre che dal punto di vista teorico, \textit{quantificare l'entanglement} risulta importante anche sperimentalmente, dato che i limiti di misurazione rendono necessario lavorare con stati le cui correlazioni sono \q{sufficientemente ampie} da poter essere rilevate agevolmente.
+
+\subsection{Stati classicamente correlati}
+Consideriamo due sistemi $A$ e $B$, in uno stato $\rho_{AB}$ dato da una mistura statistica di stati separabili:
+\begin{align}
+\rho_{AB}^S = \sum_i p_i \rho_i^A \otimes \rho_i^B
+\label{eqn:rho-classical}
+\end{align}
+\marginpar{Matrici densità non entangled: forma generale}
+Matrici densità che hanno tale forma sono ovviamente \textit{non entangled}, e presentano solamente \textit{correlazioni classiche}. Si trova\cite{quantum-classical} infatti che una qualsiasi $\rho_{AB}$ di questo tipo può essere prodotta da LOCC, ossia \textit{Local operations \& Classical Communications}\index{LOCC}. Ciò significa che, se il qubit A è presso Alice e il qubit B è presso Bob, il sistema AB può essere configurato in un qualsiasi $\rho_{AB}$ del tipo (\ref{eqn:rho-classical}) mediante sequenze di operazioni locali (ossia compiute da Alice e Bob sui rispettivi qubit) con la possibilità di comunicazioni classiche tra i due (Alice può comunicare a Bob l'esito di una sua misura).\\
+
+\textbf{Esempio}:\index{Esempio!Stati con correlazioni classiche} Alice con probabilità $50\%$ prepara il suo qubit a $\ket{0}$, e nei casi restanti a $\ket{1}$. Comunica poi a Bob la sua scelta, e Bob prepara il suo stato allo stesso modo. Lo stato del sistema è allora dato da:
+\begin{align*}
+\rho = \frac{1}{2}\ket{00}\bra{00} + \frac{1}{2}\ket{11}\bra{11}
+\end{align*}
+
+Analogamente, se Alice e Bob preparano \textit{in uno stato casuale} i rispettivi qubit si otterrà uno stato finale pari a:
+\begin{align*}
+\rho=\frac{1}{4}\left(\ket{00}\bra{00} + \ket{01}\bra{01} + \ket{10}\bra{10} + \ket{11}\bra{11}\right)
+\end{align*}
+
+In entrambi i casi la $\rho$ ottenuta è del tipo (\ref{eqn:rho-classical}).\\
+
+\textbf{Nota}: Esistono stati $\rho$ che \textbf{non} possono essere scritti in tale forma:
+\begin{align*}
+\rho \neq \rho_{AB}^S
+\end{align*}
+e che quindi presentano correlazioni non classiche.
+
+\subsection{Misura di Entanglement} 
+Partiamo elencando alcune proprietà che vorremmo da una qualsiasi \textbf{misura di entanglement} $\rho \mapsto E(\rho)$ \cite{relative-entropy} per un sistema bipartito $AB$: \marginpar{Caratteristiche di una misura di entanglement}
+\begin{enumerate}
+\item Se $\rho$ è \textbf{separabile} l'entanglement deve essere nullo:
+\begin{align*}
+\forall \rho \text{ separabile} \Rightarrow E(\rho) = 0
+\end{align*}
+In altre parole, sistemi completamente indipendenti non sono entangled.
+\item \textbf{Invarianza} per trasformazioni locali unitarie:
+\begin{align*}
+E(\rho) = E[(U_A \otimes U_B) \rho (U_A^\dag \otimes U_B^\dag)]
+\end{align*}
+Ciò significa che operazioni unitarie sui singoli qubit (es. una rotazione) non possono variare la \q{quantità di entanglement} associata alla coppia di qubit.
+\item L'entanglement \textbf{non può aumentare} a seguito di LOCC e operazioni di \textit{subselection} (ossia operazioni che \q{scartano} alcuni degli stati). Tali operazioni, infatti, possono al più creare correlazioni classiche tra $A$ e $B$, e perciò possono solo ridurre (o al limite mantenere costante) la \q{quantità di entanglement} associata alla coppia di qubit.\\
+Più precisamente, l'azione di LOCC è schematizzabile come una trasformazione \textit{separabile} $A_i \otimes B_i$ sullo stato iniziale $\rho$ con probabilità $p_i$. In altre parole, Alice e Bob possono operare trasformazioni locali che sono correlate da probabilità comuni $p_i$. Dopo una di queste operazioni, si ottiene uno stato $\sigma_i$:
+\begin{align*}
+    \sigma_i = \frac{1}{p_i}(A_i \otimes B_i) \rho (A_i^\dag \otimes B_i^\dag)
+\end{align*}
+con una probabilità $p_i$ data da:
+\begin{align*}
+    p_i = \op{Tr}((A_i \otimes B_i) \rho (A_i^\dag \otimes B_i^\dag))
+\end{align*}
+Perciò, uno stato iniziale $\rho$ a seguito di LOCC diviene una mistura statistica degli stati $\sigma_i$, ciascuno pesato dalla relativa probabilità $p_i$:
+\begin{align*}
+    \rho' = \sum_i p_i \sigma_i
+\end{align*}
+Poiché le LOCC non generano entanglement, deve quindi essere:
+\begin{align*}
+    E(\rho) \geq E(\rho')
+\end{align*}
+\end{enumerate}
+
+Se $\rho_{AB}$ è pura, una buona misura di entanglement è data direttamente dall'entropia di Von Neumann della matrice densità ridotta di uno (qualsiasi) dei due sottosistemi\footnote{Bennett, Bernstein, et. al., 1996}:\marginpar{Entanglement per stati puri}
+\begin{align*}
+\bm{E(\rho) = S_V(\rho_A)}
+\end{align*}
+Ciò è conseguenza del fatto che per uno stato puro, ossia $\rho_{AB} = \ket{\psi}\bra{\psi}$ per un qualche $\ket{\psi} \in \hs_{AB}$, è definita la decomposizione di Schmidt, e perciò le matrici ridotte dei due sottosistemi hanno una \q{struttura} precisa e ben definita.\\  
+Ciò non succede in generale se $\rho_{AB}$ è una mistura statistica, ossia se ammette una scrittura del tipo:
+\begin{align*}
+    \rho_{AB} = \sum_{j=1}^k p_j \ket{\psi_j}\bra{\psi_j} \qquad \ket{\psi_j} \in \hs_{AB}
+\end{align*}
+In questo caso non è nemmeno ben definita la famiglia di stati puri $\{\ket{\psi_j}\}$ che \textit{compongono} $\rho_{AB}$. Per esempio, si può sempre diagonalizzare $\rho_{AB}$, trovando un'espressione equivalente:
+\begin{align*}
+    \rho_{AB} = \sum_{n=1}^k \lambda_n \ket{\lambda_n}\bra{\lambda_n} \qquad \ket{\lambda_n} \in \hs_{AB}
+\end{align*}
+con $\ket{\lambda_n}$ autovettori di $\rho_{AB}$ di autovalore $\lambda_n$. In generale, perciò, esistono \textit{famiglie diverse di stati puri} che compongono lo stesso stato misto. Si hanno perciò diverse possibilità - completamente equivalenti - per calcolare le matrici densità ridotte, che potrebbero portare a differenti entropie di Von Neumann.\\
+Nella misura dell'\textbf{entanglement of formation}\index{Entanglement of formation}, perciò, l'idea è di considerare \textit{tutte} le possibili realizzazioni di $\rho_{AB}$, ossia la famiglia di tutte le possibili matrici ridotte che si possono ottenere scegliendo diversi stati per la composizione di $\rho_{AB}$.\\
+Procediamo per gradi. Scegliamo una generica famiglia $\{\ket{\psi_j}\bra{\psi_j}\}$ di stati puri che forma $\rho_{AB}$. Allora con probabilità $p_i$ il sistema si trova nello stato puro $\ket{\psi_i}\bra{\psi_i}$, che ha matrice ridotta:
+\begin{align*}
+    \rho_A^i = \underset{B}{\op{Tr}}(\ket{\psi_i}\bra{\psi_i})
+\end{align*}
+e di cui è ben definita l'entropia di Von Neumann. Per la famiglia scelta, calcoliamo l'entanglement pesando le varie entropie con le loro probabilità:
+\begin{align*}
+    E_F(\rho)_{\{\ket{\psi_j}\}} = \sum_i p_i S(\rho_A^i)
+\end{align*}
+Ripetiamo questo conto per \textit{tutte} le possibili famiglie che compongono $\rho_{AB}$, e definiamo l'entanglement di $\rho_{AB}$ come il \textbf{minimo} valore ottenuto:\marginpar{Entanglement per stati misti}
+\begin{align*}
+    \bm{E_F(\rho) \equiv \min_{\text{famiglie } \ket{\psi_j}} \sum_{i=1}^k p_i S(\rho_A^i)} 
+\end{align*}
+
+
+Tale calcolo è in genere molto complesso. Fortunatamente, nel caso di un sistema a $2$ qubit esiste un algoritmo, detto \textbf{concurrence}, che consente di ottenere un risultato per stati generici - come esaminiamo nel seguente esempio.\\
+
+
+\textbf{Esempio}.\index{Esempio!Correlazioni classiche vs quantistiche} Consideriamo il caso di Alice e Bob che producono uno stato usando solamente LOCC, cercando di creare una qualche correlazione. Per esempio supponiamo che A disponga di un generatore di numeri casuali (puramente classico) e produca un qubit $\ket{0}$ con $p=0.5$ e $\ket{1}$ altrimenti, comunicando a B di fare lo stesso. Lo stato finale dei due qubit di Alice e Bob è una mistura statistica \textit{classicamente correlata}:
+\begin{align*}
+\rho^c &= \frac{1}{2}\ket{00}\bra{00}+ \frac{1}{2}\ket{11}\bra{11} = \frac{1}{2}\left(\begin{array}{cc|cc}1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\ \hline
+0 & 0 & 0 & 0\\ 0 & 0 & 0 & 1
+\end{array}\right)
+%\end{align*}
+\intertext{dove la matrice è scritta nella base computazionale $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$.}
+\intertext{Confrontiamo tale sistema con quello di uno \textbf{stato di Bell}, che sappiamo essere entangled:}
+%\begin{align*}
+\ket{\psi} &= \frac{1}{\sqrt{2}}(\ket{00}+\ket{11})\\
+\Rightarrow  \rho^b &= \ket{\psi}\bra{\psi} = \frac{1}{2}(\ket{00}\bra{00} + \ket{00}\bra{11} + \ket{11}\bra{00} + \ket{11}\bra{11}) =\\
+&= \frac{1}{2}\left( \begin{array}{cc|cc}
+1 & 0 & 0 & 1\\
+0 & 0 & 0 & 0\\ \hline
+0 & 0 & 0 & 0\\
+1 & 0 & 0 & 1
+\end{array} \right) 
+\end{align*}
+
+Notiamo che: \marginpar{Caratteristiche di $\rho^b$ e $\rho^c$}
+\begin{itemize}
+    \item In $\rho^b$ compaiono termini fuori dalla diagonale (detti \textit{coerenze quantistiche}) che non sono presenti in $\rho^c$. Ciò significa che nella base computazionale scelta sono \textit{visibili} sovrapposizioni quantistiche di stati - ma ciò non consente di stabilire la presenza di correlazioni quantistiche (del resto ogni $\rho$ è diagonale in un'opportuna base).
+    \item $\rho^b$ è uno \textbf{stato puro}, dato che per costruzione $\rho^b = \ket{\psi}\bra{\psi}$. Lo si può notare anche dal fatto che $(\rho^b)^2 = \rho^b$ (e quindi la purità $\op{Tr}((\rho^b)^2)=1$), oppure da $\op{rk}\rho^b = 1$, dato che tutti gli stati puri sono proiettori unidimensionali.\\
+    D'altro canto, $\rho^c$ è uno \textbf{stato misto}. Lo si nota dalla costruzione, poiché si è usato un generatore di numeri casuali per produrre \textit{probabilità classiche}, oppure dal fatto che ha $\op{rk} > 1$ - essendo una matrice diagonale con due termini non nulli.
+\end{itemize}
+
+Esaminiamo le \textbf{correlazioni} delle misure dell'osservabile $\sigma^z$: \marginpar{Correlazioni di un'osservabile diagonale}
+\begin{align*}
+\op{corr}(\sigma^z) = \langle \sigma_A^z \sigma_B^z\rangle - \langle \sigma_A^z\rangle \langle \sigma_B^z\rangle 
+\end{align*}
+Se le misure sono completamente scorrelate, avremo $\langle \sigma_A^z \sigma_B^z \rangle = \langle \sigma_A^z \rangle \langle \sigma_B^z \rangle$ e quindi $\op{corr}(\sigma^z) = 0$.\\
+
+Partiamo svolgendo i conti per lo stato $\rho^b$.
+\begin{align*}
+\langle \sigma_A^z\rangle = \op{Tr}(\sigma_A^z \rho_A^b)
+\end{align*}
+dove $\rho_A$ è la matrice ridotta:
+\begin{align*}
+\rho_A^b &= \underset{B}{\op{Tr}}\rho_{AB}^b = \sum_{i=1}^{\op{dim}\hs_B} \bra{i}_B \rho_{AB}^b \ket{i}_B = \bra{0}_B \rho^b_{AB} \ket{0}_B + \bra{1}_B \rho^b_{AB} \ket{1}_B =\\
+&= \frac{1}{2}\ket{0}_A\bra{0}_A + \frac{1}{2}\ket{1}_A \bra{1}_A = \frac{1}{2}\begin{pmatrix}1 & 0\\0 & 1\end{pmatrix}
+\end{align*}
+che corrisponde ad uno stato misto (dato che la purità $\op{Tr}(\rho_A^2)=1/2 < 1$).\\
+Possiamo ora calcolare il valor medio cercato:
+\begin{align*}
+    \langle \sigma_A^z \rangle = \op{Tr} \left[ \frac{1}{2} \begin{pmatrix}1 & 0\\ 0 & -1
+    \end{pmatrix}\begin{pmatrix}1 & 0\\ 0 & 1 \end{pmatrix} \right ] = \frac{1}{2}\op{Tr}\begin{pmatrix}1 & 0 \\ 0 & -1 \end{pmatrix} = 0
+\end{align*}
+Ciò ha senso, poiché $\rho_A$ descrive uno stato che la metà delle volte ha \q{spin negativo} e per l'altra metà ha \q{spin positivo}, e perciò, mediamente, ha \q{magnetizzazione nulla}.\\
+In maniera simmetrica otteniamo $\langle \sigma_B^z \rangle = \op{Tr}(\sigma_B^z \rho_B^b) = 0$.\\
+
+D'altro canto, il valor medio delle misure simultanee è dato da:
+\begin{align*}
+\langle \sigma_A^z \sigma_B^z \rangle = \op{Tr}((\sigma_A^z \otimes \sigma_B^z) \rho_{AB}^b ) = \op{Tr}\left[\left(
+\begin{array}{cc|cc}
+1 & 0 & 0 & 0\\
+0 & -1 & 0 & 0\\ \hline
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & 1
+\end{array}
+\right) \rho_{AB}^b \right]= 1
+\end{align*}
+
+Si trova perciò che lo stato di Bell è completamente correlato:
+\begin{align*}
+\op{corr}(\sigma^z, \sigma^z)_{\rho^b} = \langle \sigma_A^z \sigma_B^z\rangle_{\rho^b} - \langle \sigma_A^z\rangle_{\rho^b} \langle \sigma_B^z\rangle_{\rho^b} = 1
+\end{align*}
+
+Ripetiamo ora gli stessi calcoli nel caso dello stato classicamente correlato $\rho^c$.\\
+La matrice densità ridotta $\rho_A^c$ è data da:
+\begin{align*}
+\rho_A^c &= \underset{B}{\op{Tr}}(\rho_{AB}^c) = \bra{0}_B \rho_{AB}^c \ket{0}_B + \bra{1}_B \rho_{AB}^c \ket{1}_B = \frac{1}{2}\begin{pmatrix}1 & 0 \\ 0 & 1 \end{pmatrix}
+\end{align*}
+Otteniamo la stessa matrice densità ridotta di prima: $\rho_A^c = \rho_{A}^b$. In altre parole, misure su un singolo qubit nei due stati sono completamente equivalenti: non è possibile distinguere correlazioni classiche da correlazioni quantistiche con misure singole.\\
+
+Allo stesso modo, la correlazione tra i due qubit è non nulla:
+\begin{align*}
+\langle \sigma_A^z \sigma_B^z\rangle_{\rho^c} = \op{Tr}(\sigma_A^z \sigma_B^z \rho_{AB}^c) = \op{Tr}\left[
+\left( \begin{array}{cc|cc} 1 & 0 & 0 & 0\\ 0 & -1 & 0 & 0 \\ \hline 0 & 0 & -1 & 0 \\ 0 & 0 & 0 & 1 \end{array}\right)
+\left( \begin{array}{cc|cc}1/2 & 0 & 0 & 0\\ 0 & 0 & 0 & 0\\ \hline 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1/2 \end{array}\right)
+\right] = 1
+\end{align*}
+
+E perciò anche qui:
+\begin{align*}
+\op{corr}(\sigma^x)_{\rho^c} = \langle \sigma_A^z \sigma_B^z\rangle_{\rho^c} - \langle \sigma_A^z\rangle_{\rho^c} \langle \sigma_B^z\rangle_{\rho^c} = 1
+\end{align*}
+
+Ciò non sorprende: $\sigma_A^z \otimes \sigma_B^z$ è una matrice diagonale, e gli stati $\rho^b$ e $\rho^c$ hanno gli stessi valori sulla diagonale, per cui il valor medio $\langle \sigma_A^z \sigma_B^z \rangle$ è lo stesso in entrambi i casi.\\ \marginpar{Correlazioni di osservabili non diagonali}
+Chiaramente non tutte le osservabili hanno questa caratteristica. Per esempio, esaminando le correlazioni di $\sigma^x$ (misura di \textit{spin} lungo un altro asse), di nuovo $\langle \sigma_{A,B}^x \rangle_{\rho_{b,c}} = 0$, ma stavolta $\langle \sigma_A^x \sigma_B^x \rangle_{\rho_b} = 1$, mentre $\langle \sigma_A^x \sigma_B^x \rangle_{\rho_c} = 0$. Perciò:
+\begin{align*}
+    \op{corr}(\sigma^x)_{\rho_b} = 1 \neq \op{corr}(\sigma^x)_{\rho_c} = 0
+\end{align*}
+
+Tali correlazioni quantistiche sono quantificate dalla misura di entanglement.\\ \marginpar{Entanglement per $\rho^b$ e $\rho^c$}
+Nel caso di $\rho^b$, che è uno stato puro, essa coincide con l'entropia di Von Neumann di una delle matrici ridotte:
+\begin{align*}
+S_V(\rho_{A}^b) = -\frac{1}{2} \log_2 \frac{1}{2} -\frac{1}{2}\log_2 \frac{1}{2} = 1
+\end{align*}
+che è quello che ci si aspetta, dato che $\rho_A^b$ è una mistura statistica equiprobabile, a cui quindi è associata una \textit{massima incertezza} (ossia una massima informazione).\\
+
+Caratterizzare l'entanglement di $\rho^c$, uno stato misto, è invece molto più complesso. Non si può procedere calcolando l'entropia di Von Neumann di una matrice ridotta - cosa che del resto porterebbe allo stesso risultato ottenuto per $\rho^b$, visto che $\rho_A^b = \rho_A^c$.\\
+Utilizzare l'\textit{entanglement of formation} risulta poi molto complesso, dato che bisogna considerare tutte le possibili decomposizioni di $\rho_{AB}$. Introduciamo perciò il metodo di \textbf{concurrence}\index{Concurrence}\marginpar{Concurrence}, che ci permette di arrivare al risultato nel caso di sistemi a soli $2$ qubit. Ne esamineremo solo il processo, senza dimostrarlo.\\
+Definiamo:
+\begin{align*}
+C(\rho) = \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4)
+\end{align*}
+dove i $\lambda_i$ sono gli autovalori in ordine decrescente della matrice $R$ data da:
+\begin{align*}
+R = \rho_{AB}\>\tilde{\rho}_{AB} \qquad \tilde{\rho}_{AB} = (\sigma_y \otimes \sigma_y) \rho (\sigma_y \otimes \sigma_y)
+\end{align*}
+con
+\begin{align*}
+    (\sigma^y \otimes \sigma^y) = \left (
+    \begin{array}{cc|cc}
+        0 & 0 & 0 & -1\\
+        0 & 0 & 1 & 0 \\ \midrule
+        0 & 1 & 0 & 0\\
+        -1 & 0 & 0 & 0
+    \end{array}
+    \right )
+\end{align*}
+
+Concretizzando tutto ciò per $\rho^c$ notiamo che $\tilde{\rho}^c = \rho^c$, da cui $R$ è data da:
+\begin{align*}
+R=(\rho^c)^2 = \left( \begin{array}{cc|cc}1/4 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0\\ \hline
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1/4 \end{array}\right)
+\end{align*}
+Da cui $\lambda_1=\lambda_2=1/4$ e $\lambda_3=\lambda_4=0$, e di conseguenza $C(\rho^c)=0$.\\
+
+D'altro canto, lo stesso calcolo per $\rho_{AB}^b$ restituisce lo stesso risultato che abbiamo ottenuto precedentemente con l'entropia di Von Neumann della matrice densità ridotta:
+\begin{align*}
+C(\rho_{AB}^b) = 1
+\end{align*}
+come ci si aspetta, dato che la \textit{concurrence} è una misura di entanglement.\\
+
+
+Infine, può essere interessante confrontare l'entropia di Von Neumann degli stati $\rho^b$ e $\rho^c$:\marginpar{Entropia di $\rho^b$ e $\rho^c$}
+\begin{align*}
+S_V(\rho^c) &= -\sum p_i \log_2 p_i = -\frac{1}{2}\log_2 \frac{1}{2}-\frac{1}{2}\log_2 \frac{1}{2} = \log_2 2 = 1
+\end{align*}
+Ciò ha senso, dato che $\rho^c$ è una mistura statistica di due stati, e quindi si ha un certo grado di \textit{ignoranza a priori} sulle \q{lettere} di cui è composta. Del resto non si tratta di uno stato ad entropia massima, che si ottiene per una mistura equiprobabile di tutti e $4$ i vettori della base computazionale.\\
+D'altro canto, poiché gli autovalori di $\rho_{AB}^b$ sono tutti nulli tranne uno, che è pari a $1$, avremo:
+\begin{align*}
+S_V(\rho_{AB}^b) = 0
+\end{align*}
+Infatti qui abbiamo \textbf{certezza} sullo stato in cui si trova il sistema (che infatti è puro).
+
+\subsection{Dense Coding e correlazioni classiche}
+Mostriamo con un esempio come sia impossibile implementare algoritmi che necessitano di correlazione quantistiche utilizzando solo correlazioni classiche.\\
+
+Nello specifico, proviamo a implementare l'algoritmo di Dense Coding usando lo stato creato da una mistura statistica equiprobabile $\rho^c$ degli stati $\ket{00}$, $\ket{11}$:
+
+\begin{align*}
+\rho^c = \left( \begin{array}{cc|cc}1/2 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 \\ \hline
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1/2\end{array} \right)
+\end{align*}
+
+A seconda della scelta dei due bit da inviare, Alice effettua una certa operazione sul suo qubit. Per esempio, per trasmettere $00$ applica l'identità (per cui $\rho$ non cambia), mentre per $01$ applica $\sigma^z$. Lo stato prodotto è quindi:
+\begin{align*}
+\rho' &= (\sigma^z \otimes \bb{I}) \rho^c (\sigma^z \otimes \bb{I})^\dag =
+\left( \begin{array}{cc|cc} 1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 \\ \hline 
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1 \end{array}\right)\rho^c \left( \begin{array}{cc|cc} 1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 \\ \hline 
+0 & 0 & -1 & 0\\
+0 & 0 & 0 & -1 \end{array}\right)=\\
+&= \left(\begin{array}{cc|cc}1/2 & 0 & 0 & 0\\
+0 & 0 & 0 & 0\\ \hline
+0 & 0 & 0 & 0\\
+0 & 0 & 0 & 1/2 \end{array}\right)
+\end{align*}
+che però è esattamente pari a $\rho^c$ iniziale!\\
+
+D'altro canto, per trasmettere $10$ Alice applica $\sigma^x$, ottenendo:
+\begin{align*}
+\rho'' = (\sigma^x \otimes \bb{I})\rho^c (\sigma^x \otimes \bb{I})^\dag = \frac{1}{2}(\ket{01}\bra{01}+ \ket{10}\bra{10})
+\end{align*}
+Infine, per trasmettere $11$ Alice applica $\sigma^y$, ma anche qui riottiene $\rho''' = \rho''$.\\
+
+Perciò, nonostante Alice possa applicare $4$ possibili operazioni, gli stati finali saranno solo $2$, e perciò può essere trasmesso un solo bit classico - esattamente come il caso di una qualsiasi comunicazione classica.\\
+Deduciamo perciò che i vantaggi offerti dal protocollo di dense coding sono dati dalla possibilità di utilizzare i maggiori gradi di libertà offerti dalle correlazioni \textbf{quantistiche}, che non hanno alcun analogo classico.
+
+\subsection{Esercizio} [TO DO]
+\begin{enumerate}
+\item Data una matrice densità della forma $\rho = \rho_A \otimes \rho_B$  calcolare la matrice densità ridotta di $A$ e $B$.
+\item Partendo dallo stato $\ket{\psi}= (\ket{0}+\ket{1})/\sqrt{2} \otimes \ket{0}$ applicare un CNOT e mostrare che $\rho_{12}\neq \rho_A \otimes \rho_B$.
+\item Calcolare le correlazioni $C=\langle x y\rangle - \langle x \rangle \langle y\rangle$ presenti in un sistema descritto da $\rho_{AB}=\rho_A \otimes \rho_B$.
+\end{enumerate}
+
+\textbf{Soluzione}
+\begin{enumerate}
+\item Calcoliamo le tracce parziali:
+\begin{align*}
+\underset{B}{\op{Tr}} (\rho) &= \sum_{i=1}^{\op{dim}\hs_B} \bra{i}_B \rho_A \otimes \rho_B \ket{i}_B =\\
+&\underset{(a)}{=} \sum_{i=1}^{\op{dim}\hs_B}
+\bra{i}_B \left(\sum_{j=1}^{\op{dim}\hs_A} \lambda_j^A \ket{j}_A\bra{j}_A\right)\left( \sum_{k=1}^{\op{dim}\hs_B}\lambda_k^B \ket{k}_B\bra{k}_B\right)\ket{i}_B =\\
+&= \left(\sum_j \lambda_j \ket{j}_A\bra{j}_A\right) \left(\sum_k \lambda_k^B \right) = \rho_A
+\end{align*}
+dove in (a) abbiamo scelto $\{\ket{i}_B\}$ e $\{\ket{k}_B\}$ come la stessa base ON di $\hs_B$ che diagonalizza $\rho_B$. \item (Prossime lezioni)
+\end{enumerate}
+
+
+
+
+\end{document}
+

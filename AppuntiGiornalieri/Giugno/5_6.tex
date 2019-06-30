@@ -1,0 +1,199 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+\begin{document}
+
+\subsection{Algoritmo di Shor - parte classica}
+La sicurezza di RSA si basa quindi sul fatto che $N$ non è facilmente fattorizzabile. Se riuscissimo a determinare i fattori $p$ e $q$ di $N$, infatti, avendo a disposizione anche $e$ (che è pubblicamente distribuito), potremmo calcolare direttamente la chiave privata $d$.\\
+
+L'algoritmo di Shor permette proprio di far ciò, con una complessità di ordine polinomiale - al contrario dell'ordine sub-esponenziale del miglior algoritmo classico per ora conosciuto.\\
+L'idea alla base consiste nel trasformare il problema di fattorizzazione nel problema di trovare il periodo di una certa funzione, che può essere risolto in modo molto efficiente dalla QFT. Vediamo come.\\
+
+\begin{enumerate}
+    \item Partiamo scegliendo un numero $\bb{N} \ni x < N$, che deve essere coprimo con $N$, ossia tale che:
+    \begin{align*}
+        \op{MCD}(x,N) = 1
+    \end{align*}
+    Per calcolare l'MCD si può usare l'\textbf{algoritmo di Euclide}, che ha ordine $O(\log N^2)$. Per due numeri $a>b$, si parte sottraendo $b$ ad $a$ il massimo numero di volte possibile (ciò equivale ad una divisione intera). Se il risultato è $c = 0$, allora $a$ è un multiplo di $b$, e quindi $\op{MCD}(a,b) = b$. Altrimenti, per $c\neq 0$, si reitera l'operazione tra $b>c$, sottraendo il massimo numero di volte $c$ a $b$, e così via. L'ultimo numero ottenuto prima di $0$ è il risultato cercato.\\
+    Per esempio\footnote{Una visualizzione del funzionamento dell'algoritmo è disponibile a \url{https://en.wikipedia.org/wiki/Euclidean_algorithm\#Worked_example}}, per calcolare $\op{MCD}(1071,1029)$:
+    \begin{align*}
+        1071-1\cdot 1029 &= 42\\
+        1029-21\cdot 42 &= 21\\
+        42-2\cdot 21 &= 0
+    \end{align*}
+    Da cui $\op{MCD}(1071,1029)=21$.
+    \item Una volta trovato $x \in \bb{N}$ tale che $\op{MCD}(x,N)=1$, cerchiamo il più piccolo $r \in \bb{N}$ che verifica:
+    \begin{align}
+        x^r \equiv 1 \mod N
+        \label{eqn:xr}
+    \end{align}
+    e che denotiamo con $\bar{r}$. Equivalentemente, $\bar{r}$ è il periodo della funzione:
+    \begin{align*}
+        f(r) = x^r \mod N
+    \end{align*}
+    ossia è tale che $f(0) = f(\bar{r}) = 1$. Come vedremo nella prossima sezione, questo problema è risolto in maniera efficiente da un computer quantistico.\\
+    Se $\bar{r}$ è dispari siamo di fronte ad una soluzione spuria, e risulta necessario ripetere dall'inizio l'algoritmo. Altrimenti, possiamo procedere al punto $3$.
+    \item Poiché $r/2 \in \bb{N}$, possiamo definire $y=x^{r/2}$. Sostituendo in (\ref{eqn:xr}) si ha:
+    \begin{align*}
+        y^2 \equiv 1 \mod N \Rightarrow y^2 - 1 \equiv 0 \mod N \Rightarrow (y+1)(y-1) \equiv 0 \mod N
+    \end{align*}
+    Ciò significa che $\exists k \in \bb{N}$ t.c. $(y+1)(y-1)=kN$. Se $(y+1)$ o $(y-1)$ è un multiplo di $N$, ossia se $y \equiv -1 \mod N$, è necessario ripetere l'algoritmo da capo. Altrimenti, uno tra $\op{MCD}(y+1,N)$ e $\op{MCD}(y-1,N)$ è un fattore non banale di $N$.
+\end{enumerate}
+
+\subsection{Algoritmo di Shor - parte quantistica}
+\lesson{15 \greendot}{5/6/2019}
+
+\begin{comment}
+Nell'algoritmo di crittografia RSA, un messaggio $P$ viene codificato in un messaggio cifrato $C$ mediante una chiave pubblica $K_{Pu}$ tramite la funzione:
+\begin{align*}
+C = E_{K_{Pu}} (P) = P^e \mod n
+\end{align*}
+Per scegliere $e$ ed $n$ si parte scegliendo $p,q$ numeri primi (sufficientemente grandi). A tal punto si prende $n=p\cdot q$, e si definisce $\phi = (p-1)(q-1)$. Allora $e$ è un numero tra $1$ e $\phi$ coprimo con $\phi$.\\
+
+Scelto poi $d$ tale che $d\cdot e = 1 \mod \phi$, si definisce la funzione di \textit{decodifica}:
+\begin{align*}
+D_{K_{Pr}}(c) = C^d \mod P
+\end{align*}
+Perciò $(e,n)$ definiscono la chiave pubblica $K_{Pu}$, e $(d,n)$ la chiave privata $K_{Pr}$, che è in possesso del solo mittente ed in grado di decodificare ogni messaggio cifrato con la relativa chiave pubblica.\\
+
+Per poter \textit{rompere} la cifratura, è necessario fattorizzare $p$ e $q$, in modo da poter trovare $\phi$. Ciò è computazionalmente molto costoso.\\
+
+Si può dimostrare che il problema di fattorizzare $n$ può essere ricondotto a quello di trovare il periodo di una certa funzione - cosa molto efficiente per un computer quantistico. Nello specifico, si tratta di predire $r$ tale che:
+\begin{align*}
+x^r = 1 \mod n
+\end{align*}
+Cioè trovare la periodicità di $f(r) = x^r \mod n$.\\
+Se $r$ è pari, detto $y=x^{r/2}$, si ha che:
+\begin{align*}
+y^2 = 1 \mod n \Rightarrow y^2-1 = 0 \mod n \Rightarrow (y+1)(y-1)=0 \mod N
+\end{align*}
+Allora $\exists k \in \bb{N}$ tale che $(y+1)(y-1) = kn$. Se $k=1$ $y+1$ e $y-1$ sono i fattori che stiamo cercando, mentre se $k>1$ $(y+1)/k$ e $y-1$ sono i fattori.
+\end{comment}
+
+Concentriamoci sul punto $2$, per cui esiste un algoritmo quantistico estremamente più efficiente di una qualsiasi alternativa classica attualmente conosciuta.
+
+\begin{enumerate}
+\item Consideriamo la funzione $f_a\colon \bb{N} \to [0,N]\cap \bb{N}$, con $a \in \bb{N}$, definita da:
+\begin{align*}
+    f_a(x) = a^x \mod N
+\end{align*}
+Vogliamo trovare il periodo $r$, ossia il più piccolo numero $r \in \bb{N}$ per cui $f_a(x+r)=f_a(x)$. La sua implementazione quantistica (reversibile) è data dalla mappa:
+\begin{align*}
+    \ket{x}_n\ket{y}_n \underset{U_f}{\mapsto} \ket{x}_n \ket{y \oplus f(x)}_n
+\end{align*}
+dove $\ket{x}_n$ e $\ket{y}_n$ sono due registri da $n$ qubit ciascuno. Ciò permette di esaminare $N=2^n$ input possibili. Fortunatamente $U_f$, come nel caso classico, è facilmente implementabile anche come gate quantistici.\\
+Supponiamo, per semplicità, che il periodo $r$ sia un sottomultiplo del \textit{range del dominio} $N$, ossia che:
+\begin{align*}
+\exists m \in \bb{N} \mid \frac{N}{r} = m
+\end{align*}
+In altre parole, $f(x)$ si ripete un numero intero di volte nell'insieme di input possibili.\\
+
+\textbf{Nota}: l'algoritmo funziona anche senza tale ipotesi, ma compaiono alcune complicazioni matematiche più difficili da trattare, e che essendo di natura puramente tecnica non aggiungono nulla alla comprensione della procedura.\\
+
+Inizializziamo il registro $\ket{x}_n$ con una sovrapposizione di tutti gli stati, mentre $\ket{y}_n = \ket{0}_n$:
+\begin{align*}
+    \ket{\Psi_0} = \left(H^{\otimes n} \ket{0}_n \right) \otimes \ket{0}_n = \frac{1}{\sqrt{2^n}} \left(\sum_{x=0}^{2^n-1}\ket{x}_n\right)\otimes \ket{0}_n
+\end{align*}
+Dopo l'applicazione di $U_f$ giungiamo allo stato (figura \ref{fig:shor}):
+\begin{align*}
+    \ket{\Psi_1} = \frac{1}{\sqrt{2^n}} \sum_{x=0}^{2^n-1} \ket{x}_n\ket{f(x)}_n
+\end{align*}
+
+\begin{figure}[H]
+\centering
+\begin{adjustbox}{width=0.8\textwidth}
+\begin{quantikz}
+\lstick{$\ket{0}^{\otimes n}$} & \qw \qwbundle{n} & \gate{H^{\otimes n}} \slice{$\ket{\Psi_0}$} \qw & \gate[wires=2][1.7cm]{U_f}  \gateinput{$x$}  \gateoutput{$x$} & \qw \qwbundle{n} \slice{$\ket{\Psi_1}$} & \qw \slice{$\ket{\Psi_2}$} &  \gate{QFT} \qw  & \meter{}  \qw \\
+\lstick{$\ket{0}^{\otimes n}$}& \qw \qwbundle{n} & \qw & \gateinput{$y$}\gateoutput{$y \oplus f(x)$}& \qw \qwbundle{n} & \meter{}\qw & 
+\end{quantikz}
+\end{adjustbox}
+\caption{Schema del circuito a porte logiche quantistiche per l'algoritmo di Shor\label{fig:shor}}
+\end{figure}
+
+\item Notiamo che $\ket{\Psi_1}$ è uno stato \textbf{entangled} - e perciò gli stati dei registri $\ket{x}_n$ e $\ket{y}_n$ non sono separabili.\\
+Misuriamo quindi il secondo registro, trovando un certo valore $\bar{f}$. Ciò proietta $\ket{\psi}$ nel prodotto tensore tra tutti i valori $\ket{x}$ tali che $f(x)=\bar{f}$ - che sono esattamente $m$, dato che $f(x)$ si ripete $m$ volte nel set degli $N$ possibili input - e il valore $\ket{f}$ stesso. Detto $x_0$ il primo valore per cui $f(x_0) = \bar{f}$, tutti i seguenti rispettano $x_n = x_0 + jr$ per la periodicità, con $j\in \bb{N}$. Perciò lo stato finale, una volta normalizzato, è dato da:
+\begin{align*}
+\ket{\Psi_2} = \frac{1}{\sqrt{m}} \sum_{j=0}^{m-1}\ket{x_0 + j r}_n \ket{\bar{f}(x_0)}_n = \left[\frac{1}{\sqrt{m}}\sum_{j=0}^{m-1}\ket{x_0 + jr}\right]_n \otimes \ket{\bar{f}(x_0)}_n
+\end{align*}
+
+\item Ora possiamo scartare il secondo ket, e concentrarci sul primo - che è sovrapposizione di stati tutti alla \textit{stessa} distanza $r$ tra loro. Per trovarla eseguiamo una Quantum Fourier Transform:
+\begin{align*}
+    \op{QFT}\{\ket{x}_n\} = \frac{1}{\sqrt{N}} \sum_{y=0}^{N-1} \exp\left( \frac{2\pi i}{N} xy\right) \ket{y}
+\end{align*}
+Per linearità, si ottiene:
+\begin{align*}
+\ket{\Psi_3} = \op{QFT}\{\ket{\Psi_2}\} = \frac{1}{\sqrt{m}}\frac{1}{\sqrt{N}} \sum_{y=0}^{N-1}\sum_{i=0}^{m-1} \exp\left({2\pi i (x_0 + jr)\frac{y}{N}}\right) \ket{y}
+\end{align*}
+Misuriamo lo stato, ottenendo un certo valore $\bar{y}$ con probabilità:
+\begin{align*}
+P(\bar{y}) &= |\braket{\Psi_3|\bar{y}} |^2 = \left| \frac{1}{\sqrt{Nm}} \sum_{j=0}^{m-1} \exp\left( \frac{2\pi i}{N} \bar{y}(x_0 + jr)\right) \right|^2 =\\
+&= \underbrace{\left|\exp\left(\frac{2\pi i}{N} \bar{y} x_0 \right)\right|^2}_{=1} \left| \frac{1}{\sqrt{Nm}} \sum_{j=0}^{m-1} \exp\left( \frac{2\pi i}{N}\bar{y}jr \right) \right|^2 =\\
+&= \frac{1}{Nm} \frac{\textcolor{Red}{m^2}}{\textcolor{Red}{m^2}} \left| \sum_{j=0}^{m-1} \exp\left(\frac{2\pi i j\overbrace{ r}^{N/m} \bar{y}}{N}\right)  \right|^2 = \\
+ &= \underbrace{\frac{m}{N}}_{1/r} \left| \frac{1}{m} \sum_{j=0}^{m-1} \exp\left(\frac{2\pi ij \bar{y}}{m} \right) \right|^2 
+\end{align*}
+Si osserva che gli unici casi in cui $P(\bar{y})\neq 0$ sono quelli in cui $\bar{y}=km$, con $k=0,\dots, r-1$ (dato che $\bar{y} < N$, ossia $km < mr$), in cui $P(\bar{y}) = 1/r$:
+\begin{align*}
+P(km) = \frac{1}{r}\left|\frac{1}{m}\sum_{j=0}^{m-1} 1 \right| = \frac{1}{r} \qquad k \in \{0,\dots,r-1\}
+\end{align*} 
+Infatti, in totale $k$ può assumere $r$ valori, ciascuno con probabilità $1/r$. Perciò la probabilità che lo stato finale sia uno qualsiasi in cui $\bar{y} = km$ è $1$ (certezza), e quindi non vi sono altri esiti ammessi.\\
+Ma allora una qualsiasi misura ritorna un $\bar{y}$, cioè:
+\begin{align*}
+\bar{y} = k \frac{N}{r}
+\end{align*}
+Riarrangiando:
+\begin{align*}
+\frac{\bar{y}}{N} = \frac{\bar{k}}{r}
+\end{align*}
+Se $k=0$, cosa che succede con $p=1/r$, non abbiamo ottenuto alcuna informazione su $r$, ed è quindi necessario ripetere l'algoritmo.\\
+D'altro canto, se $\op{MCD}(k,r)=1$, possiamo ridurre ai minimi termini la frazione $\bar{y}/N$, ottenendo come denominatore esattamente l'$r$ cercato. Si dimostra che ciò avviene con $p\geq 1/(\log\log r)$.\\
+Se così non è, risulta necessario ripetere l'algoritmo, fino a quando non si verifica $\op{MCD}(k,r)=1$ (o fino a quando non si hanno sufficienti informazioni per ricavare $r$).
+\end{enumerate}
+
+Da considerazioni sulla complessità di $U_f$, della QFT, e sulla probabilità di successo, si ottiene che l'algoritmo di Shor è di ordine $O(n^2 \log n \log \log n)$ (con $n=\log N$). Per confronto, il il miglior algoritmo classico risulta in un $e^{O(n^{1/3}(\log n)^{1/3})}$.
+
+\subsection{Esempio} 
+Applichiamo l'algoritmo appena esaminato ad un caso semplice. Definiamo una funzione periodica come:
+\begin{align*}
+f(x) = \frac{1}{2}(\cos \pi x + 1) 
+\end{align*}
+Poniamo $N=2^3=8$, per cui lavoriamo con $3$ qubit:
+\begin{align*}
+f\colon \{0,1\}^3 \to \{0,1\}
+\end{align*}
+Si trova:
+\begin{align*}
+f(0) &= f(2) = f(4) = f(6) = 1\\
+f(1) &= f(3) = f(5) = f(7) = 0
+\end{align*}
+E perciò $r=2$, da cui $m=N/r= 4$.
+\begin{enumerate}
+\item Prepariamo lo stato iniziale:
+\begin{align*}
+\ket{\psi_1} = \frac{1}{\sqrt{8}} \sum_{x=0}^7 \ket{x}_1 \ket{f(x)}_2
+\end{align*}
+\item Misuriamo la seconda componente di $\ket{\psi_1}$ e troviamo (per esempio) $\ket{0}_2$. Lo stato risultante è allora:
+\begin{align*}
+\ket{\psi_2} = \frac{1}{2}(\ket{1} + \ket{3} + \ket{5} + \ket{7} )_1 \otimes \ket{0}_2 
+\end{align*}
+\item Applichiamo la QFT alla prima componente. Esplicitamente, uno stato generico $\ket{j}$ viene così mappato in:
+\begin{align*}
+\ket{j} \mapsto \frac{1}{\sqrt{8}} \sum_{k=0}^7 \exp\left(\frac{2\pi i jk}{8}\right) \ket{k}
+\end{align*}
+Lo stato risultante è allora dato da:
+\begin{alignat*}{6}
+\ket{\psi_3} &= \frac{1}{\sqrt{8}} \frac{1}{2}\Bigg \{ &&\ket{0} + \exp\left(\frac{i\pi}{4}\right) &\ket{1}& + \exp\left(\frac{2\pi i}{4}\right) &\ket{2}& + \dots + \exp\left(\frac{7\pi i}{4}\right) &\ket{7}& &&+\\
+&   &+&\ket{0} + \exp\left(\frac{3\pi i}{4}\right) &\ket{1}& + \exp\left(\frac{6\pi i}{4}\right) &\ket{2}& + \dots + \exp\left(\frac{21 \pi i}{4}\right)&\ket{7}& &&+\\
+&  &+&\ket{0} + \exp\left(\frac{5\pi i}{4}\right) &\ket{1}& + \exp\left(\frac{10\pi i}{4}\right) &\ket{2}& + \dots + \exp\left(\frac{35 \pi i}{4}\right) &\ket{7}& &&+\\
+&  &+&\ket{0} + \exp\left(\frac{7\pi i}{4}\right) &\ket{1}& + \dots  +\dots  &\dots& + \dots + \exp\left(\frac{49\pi i}{4}\right) &\ket{7}&\Bigg \} &&=\\
+&= \frac{1}{\sqrt{2}} (\ket{0}-\ket{4}) \span\span\span\span\span
+\end{alignat*}
+\item Misuriamo $\ket{\psi_3}$. Se otteniamo $\ket{0}$ non ricaviamo nulla, mentre se otteniamo $\ket{4}$ abbiamo la soluzione, dato che:
+\begin{align*}
+\frac{y}{N} = \frac{k}{r}
+\end{align*}
+è verificata se:
+\begin{align*}
+\frac{4}{8} = \frac{1}{2} = \frac{k}{r}
+\end{align*}
+e quindi otteniamo $r=2$, come desiderato.
+\end{enumerate}
+\end{document}
+

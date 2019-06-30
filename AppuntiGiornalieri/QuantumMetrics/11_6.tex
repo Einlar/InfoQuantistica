@@ -1,0 +1,216 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+\begin{document}
+
+\section{Quantum Fisher Metric}
+\lesson{3}{11/6/2019}
+
+Eravamo arrivati a definire la \textit{quantum Fisher information} $F^Q$ come:
+\begin{align*}
+F^Q \propto \op{Tr}(\rho L^2)
+\end{align*}
+dove $L$ è la derivata logaritmica simmetrica, definita come la soluzione all'equazione di Lyapunov:
+\begin{align*}
+\frac{1}{2}\{ L,\rho\} = \rho' = \frac{1}{2}(L\rho + \rho L)
+\end{align*}
+Inserendo la rappresentazione spettrale di $\rho$:
+\begin{align*}
+\rho = \sum_i p_i \ket{i}\bra{i}
+\end{align*}
+Si trova:
+\begin{align*}
+F^Q \propto \sum_{ij=1}^d \frac{|\bra{i}\rho'\ket{j}|^2}{p_i + p_j} = \sum_{\bb{E}} F^{\mathrm{class}}
+\end{align*}
+Si trova che $F^Q$ è proprio la scelta ottimizza l'informazione di Fisher \textit{classica} su tutte le possibili POVM $\bb{E}=\{E_i\}$, dove la $F^{\mathrm{class}}$ è data da:
+\begin{align*}
+F^{\mathrm{class}} = \int dx \frac{(p')^2}{p}
+\end{align*}
+
+Nel caso $\rho$ sia uno stato puro, si ha $\rho^2 = \rho = \ket{\psi}\bra{\psi}$, e differenziando tale relazione si ottiene $\rho'\rho + \rho \rho' = \rho'$, che ha la stessa forma dell'equazione di Lyapunov. Ma allora:
+\begin{align*}
+L \propto \rho' = \ket{\psi'}\bra{\psi} + \ket{\psi}\bra{\psi'}
+\end{align*}
+e si giunge a:
+\begin{align*}
+F^{Q}_{\mathrm{puro}} \propto \bra{\psi}L^2 \ket{\psi} &= \braket{\psi'|\psi'} - |\braket{\psi|\psi'}|^2 = \norm{\ket{\psi'}}
+-|\braket{\psi|\psi'}|^2 =\\
+&= \norm{\ket{\psi_\perp'}}^2
+\end{align*}
+dove $\ket{\psi_\perp'}=(1-\ket{\psi}\bra{\psi})\ket{\psi'}$.\\
+
+La formula per l'informazione di Fisher per stati puri può essere ottenuta in un altro modo, partendo dalla metrica di Fubini-Study:
+\begin{align*}
+d_{FS} ([\phi], [\psi]) = \cos^{-1}(|\braket{\psi|\phi}|)
+\end{align*}
+dove con $[\cdot]$ si intendono tutti i ket che rappresentano lo stesso stato quantistico - in altre parole la distanza di Fubini-Study è una distanza definita nello \textit{spazio proiettivo} $\mathcal{P}\hs$.\\
+Il prodotto scalare $\mathcal{F}=|\braket{\psi|\phi}|$ che compare come argomento nel $\cos^{-1}$ è detto \textbf{Fidelity}. Si ha:
+\begin{align*}
+\mathcal{F} = \begin{cases}
+0 & \text{quando } \psi \perp \phi\\
+1 & \Leftrightarrow [\phi]=[\psi]
+\end{cases}
+\end{align*}
+Consideriamo due stati infinitamente vicini tra loro, nel senso $\phi = \psi + \Delta\psi$. Prendendo il $\cos$ di entrambi gli argomenti:
+\begin{align*}
+\cos d_{FS} = |\braket{\psi|\psi+\Delta\psi}|
+\end{align*}
+Dato che $d_{FS}\approx 0$, possiamo espandere entrambi i membri in serie, troncando al secondo ordine:
+\begin{align*}
+1-\frac{1}{2} ds^2 = \left|\braket{\psi|\psi + \psi'd\lambda + \frac{1}{2}\psi'' d\lambda^2}\right|
+\end{align*}
+Espandiamo per linearità il prodotto scalare:
+\begin{align}
+1-\frac{1}{2}ds^2 = \left| \underbrace{\braket{\psi|\psi} }_{=1}+ \braket{\psi|\psi'}d\lambda + \frac{1}{2} \braket{\psi|\psi''}d\lambda^2 \right|
+\label{eqn:espansione-metrica}
+ \end{align}
+Poiché l'evoluzione unitaria non cambia la norma di uno stato, differenziando:
+\begin{align*}
+\braket{\psi|\psi} = 1 \xRightarrow{\partial_t} \braket{\psi|\psi'} + \braket{\psi'|\psi} =0
+\end{align*}
+Ma allora, riarrangiando:
+\begin{align*}
+\braket{\psi|\psi'} = - \braket{\psi'|\psi} = - \overline{\braket{\psi|\psi'}}
+\end{align*}
+Ciò significa che $\braket{\psi|\psi'}$ deve essere puramente immaginario:
+\begin{align*}
+\braket{\psi|\psi'} = \pm i |\braket{\psi|\psi'}|
+\end{align*}
+Differenziando ancora una volta otteniamo:
+\begin{align*}
+ \braket{\psi|\psi'} + \braket{\psi'|\psi} =0 \xRightarrow{\partial_t} \braket{\psi'|\psi'} + \braket{\psi|\psi''} + \braket{\psi''|\psi} + \braket{\psi'|\psi'} = 0
+\end{align*}
+E riarrangiando:
+\begin{align*}
+\underbrace{\braket{\psi|\psi''} + \braket{\psi''|\psi}}_{2\op{Re}\braket{\psi|\psi''}} = -2\braket{\psi'|\psi'}
+\end{align*}
+E otteniamo un ulteriore vincolo:
+\begin{align*}
+\op{Re}\braket{\psi|\psi''} = -\braket{\psi'|\psi'}
+\end{align*}
+
+\textbf{Nota}: non è detto che $\ket{\psi'}$ sia normalizzato!
+\\
+
+Possiamo ora calcolare il valore assoluto in (\ref{eqn:espansione-metrica}), che sarà pari alla somma dei quadrati di parte reale e immaginaria. Rimuovendo subito gli ordini di $d\lambda$ maggiori di $2$ si ottiene:
+\begin{align*}
+\sqrt{\left(1+\frac{1}{2}\op{Re}\braket{\psi|\psi''}\right)^2 + |\braket{\psi|\psi'}|^2 d\lambda^2} + O(d\lambda^3)
+\end{align*}
+(verificare). Inserendo i calcoli appena visti:
+\begin{align*}
+= \sqrt{\left(1-\frac{1}{2}\braket{\psi'|\psi'} d\lambda^2\right)^2 + |\braket{\psi|\psi'}|^2 } \propto \sqrt{1-\braket{\psi'|\psi' }d\lambda^2 + |\braket{\psi|\psi'}|^2 d\lambda^2}
+\end{align*}
+Ed espandendo otteniamo finalmente:
+\begin{align*}
+\mathcal{F} \approx 1-\frac{1}{2}(\braket{\psi'|\psi'} - |\braket{\psi|\psi'}|^2) = 1-\frac{1}{2}ds^2 
+\end{align*}
+E quindi:
+\begin{align*}
+ds^2 = \braket{\psi'|\psi'}-|\braket{\psi|\psi'}|^2 d\lambda^2 
+\end{align*}
+Ritroviamo allora nella metrica di Fubini-Study la Quantum Fisher Metric.
+
+\section{Conseguenze pratiche}
+Sia $\psi=\psi(\lambda)$, con $\lambda$ \textit{parametro di controllo}, lo \textbf{stato fondamentale} (GS) di un'Hamiltoniana $H(\lambda)$, che supponiamo essere \textit{unico}.\\
+Matematicamente, $H(\lambda)$ mappa lo spazio dei parametri $\lambda$ nello spazio proiettivo degli stati $\mathcal{P}\hs$: $\lambda \xrightarrow{H} H(\lambda) \xrightarrow{G-S} \ket{\psi(\lambda)}$.\\
+Abbiamo definito una metrica su $\mathcal{P}\hs$, e vorremmo \q{trascinarla} sullo spazio dei $\lambda$.\\
+
+Nello specifico, consideriamo un problema come il seguente. Sia $H(\lambda) = H_0 + \lambda V$, con $H_0$ hamiltoniana \textit{imperturbata} e $V$ un potenziale di perturbazione - che \textit{modifica} lo stato fondamentale di $H_0$.\\
+In \textit{teoria delle perturbazioni}, possiamo esprimere lo stato fondamentale nel sistema perturbato come una serie:
+\begin{align*}
+\ket{\tilde{\psi}_0} = \ket{\psi_0} + \lambda \ket{\psi_0^{(1)}} + \dots
+\end{align*}
+dove $\ket{\psi_0}$ è lo stato fondamentale del sistema imperturbato (di $H_0$).\\
+Si trova:
+\begin{align*}
+\ket{\psi_0^{(1)}} = \sum_{n>0} \ket{\psi_n}\frac{\bra{\psi_n}V \ket{\psi_0}}{\mathcal{E}_n-\mathcal{E}_0}; \qquad H_0 \ket{\psi_n} = \mathcal{E}_n \ket{\psi_n}
+\end{align*}
+Notiamo che:
+\begin{align*}
+\frac{d}{d\lambda} \ket{\tilde{\psi}_0(\lambda)} \big|_{\lambda=0} \equiv \ket{\psi_0'} = \ket{\psi_0^{(1)}}
+\end{align*}
+Ma allora $\ket{\psi_0'}\perp \ket{\psi_0}$, dato che $\ket{\psi_0^{(1)}}$ è combinazione di soli autovettori ortogonali a $\ket{\psi_0}$.\\
+
+Poniamo $\lambda V = dH$. Ricordando la metrica differenziale di Fubini-Study:
+\begin{align*}
+ds^2 = \braket{\psi_0'|\psi_0'} - \underbrace{\braket{\psi_0|\psi_0'}}_{=0} = \norm{\ket{\psi_0'}} = \sum_{n>0} \frac{|\bra{\psi_n}dH\ket{\psi_0}|^2}{(\mathcal{E}_n-\mathcal{E}_0)^2}
+\end{align*}
+E perciò abbiamo ottenuto il \textit{pull-back} della metrica di Fubini-Study sulla varietà dei parametri nel G-S.\\
+La formula così ottenuta è molto simile a quella della correzione del secondo ordine agli autovalori dello stato fondamentale, con l'unica differenza della presenza di un quadrato al denominatore.\\
+
+La metrica \textit{codifica} le informazioni che si possono ottenere da una qualsiasi misura. Una metrica \q{grande} significa che un piccolo cambiamento dei parametri corrisponde a stati molto diversi, e quindi \textit{più discriminabili} - ciò significa che può esistere un misura in grado di ottenere l'informazione che si vuole. D'altro canto, una metrica molto piccola indica esattamente il contrario.\\
+
+Notiamo allora che $ds^2$ \textit{esplode} quando $\mathcal{E}_n$ è molto vicino a $\mathcal{E}_0$. Per valori dei parametri che rendono i \textit{gap di energia} molto bassi si ottengono $ds^2$ molto alte. Nello specifico, definiamo il \textit{gap} per un sistema di $N$ particelle:
+\begin{align*}
+\Delta_N^{(\lambda)} \equiv \min_{n>0} (\mathcal{E}_n^{(\lambda)} - \mathcal{E}_0^{(\lambda)}) 
+\end{align*}
+Per certi valori $\lambda^* \in \mathcal{M}$, dove $\mathcal{M}$ è la varietà dei parametri del sistema, può capitare che:
+\begin{align*}
+\lim_{N \to \infty} \Delta_N (\lambda^*) = 0
+\end{align*}
+Ciò non è altro che il \textit{limite termodinamico}, in cui consideriamo \textit{sistemi di molte particelle}. Fisicamente, significa che $\lambda^*$ è un \textit{punto critico} di un sistema a motli corpi, che può essere interpretato come il punto a cui avviene una \textit{transizione di fase quantistica}.
+
+\section{Quantum phase transitions}
+Partiamo con alcune definizioni sul limite termodinamico (TDL):
+\begin{align*}
+\lim_{N\to \infty} \Delta_N(\lambda) = \begin{cases}
+> 0 & \text{Gapped}\\
+0 & \text{Gap-less}
+\end{cases}
+\end{align*}
+I casi gap-less sono quelli dove si hanno punti critici corrispondenti a Quantum Phase Transitions.\\
+
+\textbf{Claim}: se $\lambda \in \mathcal{M}$ è \textit{gapped}, allora $ds^2 \leq cN = O(N)$. In altre parole la metrica è al più \textit{estensiva}.\\
+Invertendo la proposizione si trova che se $ds^2 = N^\alpha$ con $\alpha > 1$ si ha un sistema \textit{gap-less} (e quindi si ha presenza di QPT).\\
+Ciò dà un sistema per rilevare le \textit{Quantum Phase Transitions}, che si basa sull'esaminare le regioni in cui $ds^2$ è sovra-estensiva.\\
+
+\textbf{Nota}: tutto ciò funziona però per Hamiltoniane \textit{locali}, nel senso che non vi sono particelle che interagiscono con una frazione significativa di tutte le altre particelle (ossia che scali con $N$).\\
+
+\textbf{Dimostrazione (cenno)}.
+Partiamo dalla formula per la metrica:
+\begin{align*}
+\frac{ds^2}{d\lambda^2} = \sum_{n>0} \frac{|\bra{\psi_n}V\ket{\psi_0}|^2}{(\mathcal{E}_n - \mathcal{E}_0)^2}
+\end{align*}
+Se il sistema è \textit{gapped}, allora $1/\Delta \geq 1/(\mathcal{E}_n -\mathcal{E}_0)$ $\forall n$, e inserendo nell'equazione otteniamo un limite superiore:
+\begin{align*}
+\frac{ds^2}{d\lambda^2} \leq \frac{1}{\Delta^2}\sum_{n>0} |\bra{\psi_n}V \ket{\psi_0}^2 &= \frac{1}{\Delta^2} \sum_{n>0} \bra{\psi_0}V \ket{\psi_n}\bra{\psi_n}V \ket{\psi_0}=\\
+&= \frac{1}{\Delta^2} \bra{\psi_0}V \underbrace{\sum_{n>0}\ket{\psi_n}\bra{\psi_n}}_{\bb{I}-\ket{\psi_0}\bra{\psi_0}}V \ket{\psi_0}
+\end{align*}
+Ma allora otteniamo:
+\begin{align*}
+\left(\frac{ds}{d\lambda}\right)^2 \leq \frac{1}{\Delta^2} ( \bra{\psi_0}V^2 \ket{\psi_0} - \bra{\psi_0}V \ket{\psi_0}^2 )
+\end{align*}
+La grandezza tra parantesi è la \textit{connected correlation function} $G_0(V)$.\\
+Consideriamo un'Hamiltoniana locale:
+\begin{align*}
+V = \sum_j V_j
+\end{align*}
+con $V_j$ \textit{termini locali}, ossia generati dall'interazione tra una particella e quelle immediatamente vicine (interazioni non estensive).\\
+Possiamo allora riscrivere:
+\begin{align*}
+G_0(V) = \sum_{ij} ( \avg{V_iV_j} - \avg{V_i}\avg{V_j})
+\end{align*}
+Supponiamo che il sistema sia invariante per traslazioni, per cui:
+\begin{align*}
+G_{ij} = \avg{V_i V_j} - \avg{V_i}\avg{V_j} = G(\underbrace{|i-j|}_{\vec{a}})
+\end{align*}
+E quindi:
+\begin{align*}
+\left(\frac{ds}{d\lambda}\right)^2 \leq \frac{1}{\Delta^2} \sum_i \sum_{\vec{a}} G(\vec{a})
+\end{align*}
+La sommatoria su $i$ produce un fattore $N$. Per la seconda sommatoria, invece, usiamo un risultato importante che vale per i sistemi \textit{gapped}, per cui tutte le  connected correlation functions di operatori locali (con ground-state unico) decadono esponenzialmente (exponential clustering of correlations):
+\begin{align*}
+ = \frac{N}{\Delta^2} \sum_{\vec{a}}\exp\left(-\frac{|\vec{a}|}{\xi}\right) \quad 0< \xi < +\infty
+\end{align*}
+con $\xi$ \textit{lunghezza di correlazione}. Ma allora la sommatoria su $\vec{a}$ è finita, e ha valore $\tilde{c}$. Perciò:
+\begin{align*}
+\left(\frac{ds}{d\lambda}\right)^2 \leq \left(\frac{\tilde{c}}{\Delta^2}\right) N = cN
+\end{align*}
+
+Dalla prossima lezione applicheremo tutto ciò ad un'Hamiltoniana concreta:
+\begin{align*}
+H_{xy} = -\frac{1}{2}\left(\sum_{i=1}^N \frac{1+\gamma}{2}\sigma_i^x \sigma_{i+1}^x \frac{1-\gamma}{2} \sigma_i^y \sigma_{i+1}^y
+ - h\sigma_i^z \right) 
+\end{align*}
+che rappresenta la dinamica di una catena di $N$ particelle con due stati di spin sotto l'effetto di un campo magnetico esterno $h$. Tale sistema è risolvibile analiticamente grazie ad una trasformazione di Jordan-Wigner (nella seconda quantizzazione).
+
+\end{document}
+

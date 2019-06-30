@@ -1,0 +1,354 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+
+\begin{document}
+\section{Canali quantistici}
+\lesson{8 \reddot}{21/3/2019}
+Per \textbf{canale quantistico} si intende un qualsiasi processo fisico, non generalmente unitario, che trasforma lo stato $\rho_S$ di un certo sistema $S$ in uno stato $\rho_S'$. In particolare stati puri possono essere mappati in stati misti.\\
+
+Nella pratica, i canali quantistici consentono di modellizzare \textbf{sistemi aperti}, in cui si ha interazione tra il sistema $S$ che si controlla e l'ambiente $E$ circostante. Sperimentalmente, infatti, nessun sistema può essere completamente isolato da ciò che lo circonda, e le correlazioni che vengono a crearsi tra $S$ ed $E$ tendono ad introdurre \textit{rumore} in $S$, che finisce per rendere tale stato \textit{inutilizzabile}.\\
+Nello specifico l'interazione con l'ambiente è all'origine del fenomeno di \textbf{decoerenza}, che \textit{distrugge} lo stato di sovrapposizione quantistica di $S$, riducendolo ad una \textit{mistura statistica}.\\
+In un certo senso, la decoerenza funge da ponte tra il mondo quantistico, in cui vale il principio di sovrapposizione, e il mondo classico, in cui stati mutualmente esclusivi non possono esistere contemporaneamente.
+
+\subsection{Decoerenza di un qubit}
+Il caso più semplice si ha quando partiamo da uno stato puro $\rho_S = \ket{\psi}\bra{\psi}$, con $\ket{\psi}$ stato generico di un singolo qubit:
+\begin{align*}
+\ket{\psi}=\alpha\ket{0} + \beta \ket{1} \Rightarrow  \rho_S = \ket{\psi}\bra{\psi} = \begin{pmatrix} |\alpha|^2 & \alpha \beta^* \\ \alpha^* \beta & |\beta|^2 \end{pmatrix}
+\end{align*}
+Il processo di \textbf{decoerenza} annulla i termini di coerenza, cioè quelli fuori dalla diagonale principale di $\rho_S$:
+\begin{align*}
+\rho_S \mapsto \rho_S' =  \begin{pmatrix}|\alpha|^2 & 0 \\ 0 & |\beta|^2
+\end{pmatrix}
+\end{align*}
+Tale trasformazione può essere schematizzata dall'azione di una CNOT, che usa come qubit di controllo il $\rho_S$, e lo correla con lo stato $\ket{0}_E$ dell'ambiente:
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/1CNOT-anticoerenza.tex}
+\caption{Schema dell'azione CNOT che \q{distrugge} le coerenze di $\rho_S$\label{fig:qubit-CNOT}}
+\end{figure}
+Vediamo come. Lo stato iniziale del sistema qubit-ambiente è dato da:
+\begin{align*}
+\ket{\psi_0}_{SE} = \ket{\psi}_S\otimes \ket{0}_E = (\alpha\ket{00}+\beta\ket{10})_{SE}
+\end{align*}
+L'azione della CNOT lo porta a $\ket{\psi_1}$:
+\begin{align*}
+\ket{\psi_1}=\alpha\ket{00}_{SE}+\beta\ket{11}_{SE}
+\end{align*}
+In altre parole, quando il sistema è nello stato $0$, lo stato dell'ambiente rimane imperturbato, ma quando il qubit $S$ è nello stato $1$, il qubit di $E$ viene invertito.\\
+La $\ket{\psi_1}$ è uno stato non separabile, cioè entangled: la CNOT ha quindi \textit{correlato} $S$ ed $E$.\\
+
+Si verifica ora che $\rho_S'$ ottenuta eseguendo la traccia parziale di $\rho_1 = \ket{\psi_1}\bra{\psi_1}$ ha i termini di coerenza nulli:
+\begin{align*}
+\rho'_S = \underset{E}{\op{Tr}} \ket{\psi_1}\bra{\psi_1} = \begin{pmatrix}|\alpha|^2 & 0\\ 0 & |\beta|^2\end{pmatrix}
+\end{align*}
+Fisicamente ciò significa che, poiché lo stato di $S$ dipende da quello di $E$, una misura su $S$ in cui ? %[TO DO] Continuare da qua e finire
+
+\marginpar{\danger Parte non ancora ricontrollata}
+L'azione della CNOT schematizza idealmente l'interazione tra il qubit $S$ e l'ambiente $E$: si può quindi affermare che facendo interagire i due sottosistemi si \textit{distrugga} la coerenza di ciascuno. Perciò, se vogliamo effettuare operazioni quantistiche con qubit entangled, è necessario realizzare un sistema completamente isolato dall'esterno - cosa molto complessa nella pratica.\\
+
+Possiamo vedere l'evoluzione \q{che distrugge le coerenze} dal solo punto di vista del primo sottosistema, tramite opportuni operatori di Kraus $\{E_k\}$:
+\begin{align}
+\rho_S \mapsto \rho'_S = S(\rho) = \sum_{k} E_k \rho E_k^\dag \qquad \sum_k E_k^\dag E_k = \bb{I}
+\label{eqn:ev-kraus}
+\end{align}
+Avevamo visto che una $\rho_S$ generica di un qubit può essere scritta nella base $\{\bb{I}, \hat{\sigma}_i\}$ delle matrici hermitiane $2\times 2$:
+\begin{align}
+\rho = \frac{1}{2}(\bb{I}+\vec{r}\cdot \vec{\sigma}) \Rightarrow  \rho'=\frac{1}{2}(\bb{I}+\vec{r}\,'\cdot \vec{\sigma})
+\label{eqn:ev-vector}
+\end{align}
+dove $\vec{r}$ e $\vec{r}\,'$ sono due vettori nella sfera di Bloch (non necessariamente sulla sua superficie, come avviene nel caso degli stati misti).\\
+Osservando l'evoluzione da tale punto di vista, otteniamo una \textbf{trasformazione affine}:
+\begin{align*}
+\vec{r} \mapsto \vec{r}\,' = M\vec{r} + \vec{c}
+\end{align*}
+per una certa matrice $M_{3\times 3}$ e vettore $\vec{c} \in \bb{R}^3$.\\
+Anche gli operatori di Kraus possono essere scritti nella stessa base:
+\begin{align*}
+E_k = \gamma_k \bb{I} + \sum_{l=1}^3 a_{kl}\hat{\sigma}_l
+\end{align*}
+Uguagliando allora la (\ref{eqn:ev-vector}) con la (\ref{eqn:ev-kraus}), dopo vari passaggi di algebra si giunge ad espressioni esplicite per $M$ e $c$:\marginpar{\danger Gli indici potrebbero essere molto errati}
+\begin{align*}
+M_{jk} &= \sum_{l=1}^3 \left\{ a_{lj}a_{lk}^* + a_{lj}^*a_{lk} + \left(|\gamma_l|^2 - \sum_{p=1}^3 |a_{lp}|^2 \right)\delta_{jk} + i\sum_p \epsilon_{jkp}(\gamma_l a^*_{lp}-\gamma^*_l a_{lp})\right\}\\
+c_{j} &= 2i \sum_{k,l,m} \epsilon_{jlm}a_{kl}a_{km}^*
+\end{align*}
+
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/2Affine.tex}
+\caption{Rappresentazione geometrica della trasformazione $\rho\mapsto \rho'$ dal punto di vista dei vettori nella sfera di Bloch. Generalmente il processo non è invertibile, e il volume può solo diminuire.\label{fig:affine}}
+\end{figure}
+
+\subsection{Canale bit-flip}
+Un esempio di canale quantistico è quello che \q{inverte} - tramite l'azione di $\sigma_z$ - un qubit con una certa probabilità $p=|\alpha|^2$, senza fare nulla con probabilità $1-p$:
+\begin{align*}
+\rho' = S(\rho) = \underbrace{|\alpha|^2}_{p} \sigma_x \rho \sigma_x^\dag + (1-|\alpha|^2) \rho
+\end{align*}
+Nella rappresentazione di Kraus si trovano:
+\begin{align*}
+E_0 = \sqrt{1-|\alpha|^2} \bb{I}\qquad E_1 = |\alpha| \sigma_x
+\end{align*}
+
+Per esempio, se partiamo da uno stato $\rho = \ket{0}\bra{0}$, otterremo:
+\begin{align*}
+\rho' = |\alpha|^2 \ket{1}\bra{1} + (1-|\alpha|^2)\ket{0}\bra{0}
+\end{align*}
+
+Analogamente:
+\begin{align*}
+\ket{1}\bra{1} \mapsto \rho0 = |\alpha|^2 \ket{0}\bra{0} + (1-|\alpha|^2)\ket{1}\bra{1}       
+\end{align*}
+
+Geometricamente, il bit-flip corrisponde alla trasformazione affine data da:
+\begin{align*}
+\begin{cases}
+x'=x\\
+y' = (1-2|\alpha|^2) y\\
+z'=(1-2|\alpha|^2)z
+\end{cases}
+\end{align*}
+
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/3Bit-flip.tex}
+\caption{L'operazione di bit-flip deforma la sfera di Bloch contraendola lungo le direzioni $\hat{y}$ e $\hat{z}$ di una quantità $1-2|\alpha|^2$, e lasciandola invariata lungo $\hat{x}$\label{fig:bit-flip-geometrica}}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/3BitFlipGate.tex}
+\caption{Schema del circuito a gate quantistici equivalente all'operazione di bit-flip\label{fig:bit-flip-gate}}
+\end{figure}
+
+\subsection{Canale phase-flip}
+Analogamente al bit-flip possiamo considerare l'operazione che inverte la fase relativa di un qubit:
+\begin{align*}
+\rho' = S(\rho) = |\gamma|^2 \sigma_z \rho \sigma_z^\dag + (1-|\gamma|^2)\rho
+\end{align*}
+
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/4P-flip.tex}
+\caption{L'operazione di phase-flip deforma la sfera di Bloch contraendola lungo le direzioni $\hat{x}$ e $\hat{y}$ di una quantità $1-2|\alpha|^2$, e lasciandola invariata lungo $\hat{z}$\label{fig:bit-phaseflip-geometrica}}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/4PflipGate.tex}
+\caption{Schema a gate quantistici dell'operazione di phase-flip (= schema del bit-flip, ma con $\sigma_z$ al posto di $\sigma_x$)\label{fig:phase-flip}}
+\end{figure}
+
+\subsection{Canale bit-phase flip}
+Mettendo insieme i due canali appena esaminati, consideriamo l'operazione che con una certa probabilità $|\beta|^2 = p$ effettua sia un'inversione del qubit che un'inversione  della sua fase relativa:
+ \begin{align*}
+\rho'=S(\rho) = |\beta|^2 \sigma_y \rho \sigma_y^\dag + (1-|\beta|^2 )\rho
+\end{align*}
+
+
+\begin{figure}[H]
+    \centering
+    \input{Tikz/21_3/5B-P-flip.tex}
+    \caption{Canale di Bit-Phase Flip}
+    \label{fig:bit-phase-flip}
+\end{figure}
+
+\subsection{Depolarizing channel}
+Unendo tutte e tre le ultime operazioni (con una certa probabilità $p$) otteniamo il funzionamento del \textbf{depolarizing channel}:
+\begin{align*}
+\rho' = \frac{1}{3}[\sigma_x \rho \sigma_x^\dag + \sigma_y \rho \sigma_y^\dag + \sigma_z\rho \sigma_z^\dag ] + (1-p)\rho
+\end{align*}
+dove stiamo usando tutti e $4$ gli operatori di Kraus:
+\begin{align*}
+E_k = \left\{\sqrt{1-p}\bb{I}, \sqrt{\frac{p}{3}}\sigma_i\right\}
+\end{align*}
+Geometricamente ciò equivale a una contrazione \textit{lungo tutti gli assi}:
+\begin{align*}
+\vec{r}' = \left(1-\frac{4}{3}p\right)\vec{r}
+\end{align*}
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/6-Depolarizing.tex}
+\caption{Azione del depolarizing channel sulla Sfera di Bloch\label{fig:depolarizing-geom}}
+\end{figure}
+
+Applicando diverse volte tale canale è possibile far collassare l'intera sfera di Bloch sull'origine (che è il punto fisso della trasformazione geometrica, e corrisponde a $\vec{r}=\vec{0}\Rightarrow \rho=\bb{I}/2$ - stato massimamente misto).
+
+\subsection{Amplitude damping}
+Consideriamo ora l'operazione in rappresentazione di Kraus:
+\begin{align*}
+\rho'=S(\rho) = E_0 \rho E_0^\dag + E_1 \rho E_1^\dag = \begin{pmatrix}
+\rho_{00} + p\rho_{11} & \sqrt{1-p}\rho_{01}\\
+\sqrt{1-p}\rho_{10} & (1-p)\rho_{11}\end{pmatrix}
+\end{align*}
+dove gli operatori di Kraus $\{E_k\}$ sono dati da:
+\begin{align*}
+E_0 = \begin{pmatrix}1 & 0\\ 0 & \sqrt{1-p}\end{pmatrix} \qquad E_1 = \begin{pmatrix} 0 & \sqrt{p}\\ 0 & 0 \end{pmatrix}
+\end{align*}
+Tale canale \q{trasferisce} parte della popolazione di $\ket{1}$ a $\ket{0}$. Lo si vede partendo da uno stato eccitato $\ket{1}$:
+\begin{align*}
+\rho = \ket{1}\bra{1} \mapsto \rho' = p \ket{0}\bra{0} + (1-p) \ket{1}\bra{1}
+\end{align*}
+Notiamo che tale trasformazione mappa uno stato puro in uno stato misto (dato che è una combinazione lineare di proiettori indipendenti).
+
+\begin{figure}[H]
+\centering
+\input{Tikz/21_3/7-Amplitude-damping.tex}
+\caption{Schema grafico del canale di amplitude damping: la sfera di Bloch viene contratta verso il punto corrispondente allo stato $\ket{0}\bra{0}$ \label{fig:damping-schema}}
+\end{figure}
+
+Applicando $n$ volte di seguito l'azione del canale si trova:
+\begin{align*}
+\rho_{11}^{(n)} = (1-p)^n \rho_{11}^(0) = e^{n\ln(1-p)}\rho_{11} \xrightarrow[n\to\infty]{} \ket{0}\bra0
+\end{align*}
+
+\textbf{Nota}: tutto ciò è molto diverso dall'azione di un gate NOT, che è un processo coerente (trasforma stati puri in stati puri mediante l'evoluzione unitaria). D'altro canto l'amplitude damping è intrinsecamente incoerente: nel corso del \textit{flip} vengono attraversati infiniti stati misti (rappresentati da punti interni alla sfera di Bloch).
+
+
+\begin{figure}
+    \centering
+    \input{Tikz/21_3/8_ADamping.tex}
+    \caption{Azione asintotica del canale di Amplitude Damping}
+    \label{fig:amplitude-damp-asintoto}
+\end{figure}
+
+\subsection{Phase Damping}
+L'analogo per le fasi dell'amplitude damping è detto \textbf{phase-damping}.\\
+\begin{comment}
+\begin{figure}[H]
+\centering
+[Missing]
+\caption{Rappresentazione geometrica dell'azione del canale phase damping\label{fig:phase-damping-geom}}
+\end{figure}
+\end{comment}
+L'idea è di effettuare una successione di phase-shift, i cui angoli $\theta$ sono selezionati con una certa probabilità. Fisicamente ciò corrisponde al caso di una particella in un campo magnetico oscillante.
+
+\begin{align*}
+R_z(\theta) = \begin{pmatrix}e^{-i\theta/2} & 0\\ 0 & e^{i\theta/2}\end{pmatrix} \qquad p(\theta) = \frac{1}{\pi\lambda} \exp\left(-\frac{\theta^2}{4\lambda}\right)
+\end{align*}
+
+La trasformazione di $\rho'$ è quindi data da una \textit{media} sui vari angoli:
+\begin{align*}
+\rho' = \int_{-\infty}^{+\infty} d\theta \, \rho(\theta) R_z(\theta) \rho R_z^\dag(\theta) \qquad \rho=\begin{pmatrix}
+p & \alpha\\
+\alpha^* & 1-p
+\end{pmatrix}
+\end{align*}
+
+(Nota: gli estremi dell'integrale sono scelti in modo da rendere l'integrazione della gaussiana fattibile analiticamente)\\
+
+Integrando elemento per elemento si giunge a:
+\begin{align*}
+\rho'= \begin{pmatrix} p & \alpha e^{-\lambda}\\
+\alpha^*e^{-\lambda} & 1-p \end{pmatrix}
+\end{align*}
+che corrisponde al phase-shift channel ponendo $1-2|\gamma|^2 = e^{-\lambda}$. Analogamente a quanto accade con l'amplitude damping, perciò, il phase damping esegue, su tempi lunghi, l'inversione della fase relativa del qubit in esame (tramite un processo non unitario che passa attraverso infiniti stati misti.
+
+
+\subsection{Canali a 2 qubit}
+Un esempio di canali a 2 qubit è dato dall'operazione che \textit{distrugge} l'entanglement. Partiamo per esempio da uno stato di Bell:
+\begin{align*}
+\ket{\psi^+} = \frac{1}{\sqrt{2}}(\ket{01}+\ket{10}) \Rightarrow \rho=\frac{1}{2}\left(
+\begin{array}{cc|cc}
+0 & 0 & 0 & 0\\
+0 & 1 & \hlc{Yellow}{1} & 0\\ \hline
+0 & \hlc{Yellow}{1} & 1 & 0\\
+0 & 0 & 0 & 0
+\end{array}
+\right)
+\end{align*}
+dove la matrice $\rho$ è espressa nella base computazionale $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$.\\
+L'idea di \textit{distruggere l'entanglement} sta nell'annullare i termini fuori dalla diagonale (evidenziati).\\
+Notiamo che $\ket{\psi^+}$ è uno stato puro: lo si vede dalla costruzione, oppure dal fatto che la matrice $\op{ker}(\rho-\lambda \bb{I})$ è costituito da un solo vettore (cosa che equivale a dire che $\rho$ ha un solo autovettore).\\
+
+Consideriamo allora un canale in rappresentazione di Kraus:
+\begin{align*}
+\rho' = \sum F_i \rho F_i^\dag = \frac{1}{2}\left(
+\begin{array}{cc|cc}
+0 & 0 & 0 & 0\\ 
+0 & 1 & \cos\theta & 0\\ \hline
+0 & \cos\theta & 1 & 0\\
+0 & 0 & 0 & 0
+\end{array}
+\right)
+\end{align*}
+con gli operatori di Kraus:
+\begin{align*}
+F_0 &= \bb{I} \otimes \tilde{F}_0 = \bb{I}\otimes \begin{pmatrix} 1 & 0\\ 0 & \cos\theta\end{pmatrix}\\
+F_1 &= \bb{I}\otimes \tilde{F}_1 = \bb{I}\otimes \begin{pmatrix}1 & 0\\ 0 & \sin\theta\end{pmatrix}
+\end{align*}
+Ponendo $\cos\theta = 0$ si trova:
+\begin{align*}
+\rho' = \frac{1}{2}\left(
+\begin{array}{cc|cc}
+0 & 0 & 0 & 0\\ 
+0 & 1 & 0 & 0\\ \hline
+0 & 0 & 1 & 0\\
+0 & 0 & 0 & 0
+\end{array}
+\right) = \frac{1}{2}\ket{01}\bra{01} + \frac{1}{2}\ket{10}\bra{10}
+\end{align*}
+che è uno \textbf{stato misto} (somma di proiettori indipendenti).\\
+
+Se osserviamo l'evoluzione dal punto di vista delle matrici ridotte, troviamo:
+\begin{align*}
+\rho_2 = \underset{1}{\op{Tr}}\rho = \frac{1}{2}\bb{I}\Rightarrow \rho_2' = \underset{1}{\op{Tr}}\rho = \frac{1}{2}\bb{I}
+\end{align*}
+In altre parole, osservando i singoli qubit non si vede nessun cambiamento. Sono infatti le \textit{correlazioni} tra i due qubit che vengono distrutte: se $\rho$ può essere utilizzata per un trasporto quantistico, $\rho'$ non può esserlo - i due qubit nello stato finale sono completamente indipendenti uno dall'altro.
+
+\section{Master equation}
+\marginpar{\danger Parte non ancora ricontrollata}
+Consideriamo un'evoluzione temporale infinitesimale:
+\begin{align*}
+\rho(t+dt) = S(t,t+dt) \rho(t) = \sum_{k=0}^{M-1} E_k \rho(t) E_k^\dag
+\end{align*}
+con $M \leq N^2$, $N=\op{dim}(\hs)$. Richiediamo le seguenti condizioni:
+\begin{enumerate}
+\item L'evoluzione per tempi nulli non cambi niente: $S(t;t) = \bb{I}$
+\item $S(t,t+dt)$ riproduca i risultati standard dell'equazione di Schr\"odinger dipendente dal tempo nel caso di un'evoluzione unitaria
+\item Valga la condizione per la rappresentazione di Kraus:
+\begin{align*}
+\sum_k E_k^\dag E_k = \bb{I}
+\end{align*}
+\end{enumerate}
+
+Imponendo tali condizioni si possono determinare le $\{E_k\}$:
+\begin{align*}
+E_0 &= \bb{I} + \frac{1}{\hbar}(-i\hat{H}+K)dt\\
+E_k &= \sqrt{dt} L_k
+\end{align*}
+Dalla condizione $3$ deve valere:
+\begin{align*}
+&\left[\bb{I}+\frac{1}{\hbar}(iH+K)dt \right]\left[\bb{I}+\frac{1}{\hbar}(-iH+K)dt\right]+\sum L_k^\dag L_k = \bb{I}\\
+\underset{(a)}{\approx} & \frac{2}{\hbar}K\,dt + \sum L_k^\dag L_k\,dt + O([dt]^2) = 0 \Rightarrow K = -\frac{\hbar}{2} \sum_{k=1}^{M-1}L_k^\dag L_k 
+\end{align*}
+dove in (a) espandiamo al primo ordine.\\
+
+Sostituendo nell'espressione iniziale:
+\begin{align*}
+\rho(t+dt)=\rho(t) - \frac{i}{\hbar}[H,\rho(t)]dt + \sum \left( L_k \rho L_k^\dag - \frac{1}{2}L_k^\dag L_k\rho(t) - \frac{1}{2}\rho(t) L_k^\dag L_k \right)dt + O([dt]^2)
+\end{align*}
+dove la prima parte è data dall'equazione di Heisenberg per l'evoluzione temporale, a cui aggiungiamo un termine che la generalizza.\\
+
+Da:
+\begin{align*}
+\rho(t+dt) = \rho(t) + \rho(t)dt + O([dt]^2)
+\end{align*}
+Uguagliando le due espressioni troviamo la forma principale della master equation, detta anche equazione di \textit{Gorini-Kossakawski-Sudarshan-Lindblad}:
+\begin{align*}
+\dot{\rho} = -\frac{i}{\hbar}[H,\rho] + \sum \left(L_k \rho L_k^\dag - \frac{1}{2}L_k^\dag L_k\rho - \frac{1}{2}\rho L_k^\dag K_k\right)
+\end{align*}
+dove stiamo assumendo che l'ambiente rimanga in un certo stato stazionario, che non può essere modificato dal comportamento del sistema (che è estramemente piccolo rispetto all'ambiente). (Ipotesi di ambiente senza memoria)\\
+
+Un'altra forma per la stessa equazione è data da:
+\begin{align*}
+\rho = +\frac{i}{\hbar}[H,\rho] + \frac{1}{2}\sum_{i,j=1}^{N^2-1} A_{ij}\left\{[\sigma_i, \rho\sigma_j^\dag] + [\sigma_i\rho, \sigma_j^\dag]\right\}
+\end{align*}
+dove $A$ è una matrice positiva, $\{\sigma_i\}$ è la base dele matrici Hermitiane, con:
+\begin{align*}
+\sigma_0 = \frac{\bb{I}}{\sqrt{N}} \qquad \op{Tr}(\sigma_i)=0 \quad i > 0 \qquad \op{Tr}(\sigma_i^\dag \sigma_j) = \delta_{ij}
+\end{align*}
+(Non dimostreremo l'equivalenza delle due forme)\\
+
+
+\end{document}
+
+

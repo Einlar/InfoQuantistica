@@ -1,0 +1,195 @@
+\documentclass[../../InformazioneQuantistica.tex]{subfiles}
+
+\begin{document}
+
+\section{Many-body systems}
+\lesson{4}{12/6/2019}
+
+Avevamo ricavato:
+\begin{align*}
+\left(\frac{ds}{d\lambda}\right)^2 = \sum_{n>0} \frac{|\bra{\psi_n}\frac{\partial H}{\partial \lambda} \ket{\psi_0}|^2}{(\mathcal{E}_n - \mathcal{E}_0)^2} = \chi_F
+\end{align*}
+Detta $\mathcal{M}$ la varietà dei parametri $\lambda$, lo stato fondamentale individuato da $H(\lambda)$ (che supponiamo unico) è $\psi_0(\lambda)$, e si definisce la \textit{fidelity} come:
+\begin{align*}
+\mathcal{F} = |\braket{\psi_0(\lambda)|\psi_0(\lambda+d\lambda)}|\underset{\delta \lambda \to 0}{\approx} 1 - d\lambda^2 \chi_F + \dots
+\end{align*}
+dove $\chi_F$ è anche detta \textit{fidelity susceptibility}.\\
+Da:
+\begin{align*}
+\mathcal{F} = \exp(-d \lambda^2 \chi_F(\lambda) + \dots )
+\end{align*}
+si trova un limite superiore per $\chi_F$:
+\begin{align*}
+\chi_F \leq \frac{c}{\Delta^2} \xi^d N
+\end{align*}
+dove $\xi$ è detta \textit{lunghezza di correlazione}, e $\Delta \equiv \min_{n>0} (\mathcal{E}_n-\mathcal{E}_0)$ è il minimo energy gap. Ciò vale se l'hamiltoniana $H(\lambda)$ descrive un sistema \textit{gapped}, ed è \textit{locale} (solo interazioni \textit{short-range}).\\
+
+Inoltre vale:
+\begin{align*}
+ds^2 = \sum_{\mu\nu} g_{\mu\nu} d\lambda_\mu d\lambda_\nu; \quad g_{\mu\nu} = \sum_{n>0} \frac{\bra{\psi_0}\partial_\mu H \ket{\psi_n}\bra{\psi_n}\partial_\nu\ket{\psi_0}}{(\mathcal{E}_n-\mathcal{E}_0)^2}
+\end{align*}
+Se cambiamo le coordinate, utilizzando un diffeomorfismo $x\mapsto x'$ su $\mathcal{M}$, cambia la metrica, secondo le leggi di trasformazione di un tensore:
+\begin{align*}
+g_{\mu\nu} \mapsto g_{\mu\nu}' = \sum_{\sigma \tau} \left(\frac{\partial x^\mu}{\partial x^{'\tau}}\right) \left(\frac{\partial x^\nu}{\partial x^{'\sigma}}\right) g_{\sigma\tau}
+\end{align*}
+Tuttavia ciò non rimuove le eventuali singolarità - e quindi non cambia il comportamento di $\chi_F$ - che perciò è indipendente dalla parametrizzazione che utilizziamo per $\mathcal{M}$.\\
+
+Riprendiamo la discussione di sistemi gap-less, per cui si ha:
+\begin{align*}
+\chi_F = O(N^\alpha); \quad \alpha > 1
+\end{align*}
+ossia il sistema è massimamente \textit{suscettibile} a trasformazioni (quantum phase transitions).\\
+Se esaminiamo il grafico di $\mathcal{F}(\lambda) = |\braket{\psi_0(\lambda)|\psi_0(\lambda+\delta \lambda)}|$, con $\delta\lambda \approx 0$ fissato, si trova un valore $\mathcal{F}$ che rimane costante e prossimo a $1$ per ogni $\lambda$ significativamente diverso da un $\lambda^*$ critico. Attorno a $\lambda^*$, invece, si trova che $\mathcal{F}$ raggiunge un minimo, che è sempre più \q{profondo} man mano che $N$ è grande. Per $N\to +\infty$ si trova che $\lambda=\lambda^*$ è una \textit{singolarità} per la funzione $\mathcal{F}(\lambda)$.
+
+\section{La catena di spin}
+Consideriamo il modello $xy$, costituito da una catena di $N$ particelle di spin $1/2$ in $d=1$. Poiché lo stato di un singolo qubit è in $\bb{C}^2$, avremo $\hs_N \cong (\bb{C}^2)^{\otimes N}$.\\
+L'Hamiltoniana è data da:
+\begin{align*}
+H_{xy} = -\frac{1}{2}\sum_{i=1}^N \left(\frac{1+\gamma}{2}\sigma_i^x \sigma_{i+1}^x + \frac{1-\gamma}{2}\sigma_i^y \sigma_{i+1}^y - h\sigma_i^z \right)
+\end{align*}
+dove $\vec{\lambda} = (\gamma, h)$ sono i parametri del sistema, che consistono nell'\textbf{anisotropia} $\gamma$ (misura \q{le differenze di intensità} di $\sigma_i^x$ e $\sigma_i^y$) e nell'intensità del \textbf{campo magnetico} $h$.\\
+
+Tale Hamiltoniana ammette soluzioni analitiche - ed è facilmente risolvibile nel framework della \textit{seconda quantizzazione}. Elencheremo ora i passaggi necessari per giungere al risultato.\\
+
+Definiamo gli operatori:
+\begin{align*}
+c_i^\dag \equiv \left( \prod_{l<i} \sigma_l^z \right) \sigma_i^+; \qquad \sigma_i^+ = \frac{\sigma^x + i\sigma^y}{2} = \begin{pmatrix} 0 & 0\\ 1 & 0\end{pmatrix}
+\end{align*}
+dove $\sigma_i^+$ è l'operatore che \q{alza} l'autovalore di spin di $1$, e analogamente $\sigma_i^-$ è quello che \textit{abbassa}:
+\begin{align*}
+\sigma_i^- =\ \frac{\sigma^x -i\sigma^y}{2} = \begin{pmatrix}0 & 1\\ 0 & 0\end{pmatrix}
+\end{align*}
+Definiamo quindi:
+\begin{align*}
+c_i \equiv (c_i^\dag)^\dag = \left(\prod_{l<i} \sigma_l^z\ \right) \sigma_i^-
+\end{align*}
+\textbf{Claim}: si dimostra che:
+\begin{align*}
+\{c_i, c_j^\dag\} = \delta_{ij}; \qquad \{c_i, c_j\} = \{c_i^\dag, c_j^\dag\} =0
+\end{align*}
+$c_i^+$ e $c_i$ sono detti \textbf{operatori fermionici}, e le loro definizioni sono dette trasformazioni di Jordan-Wigner.\\
+
+A questo punto definiamo l'operatore \textit{numero di occupazione} $n_i$ come:
+\begin{align*}
+n_i \equiv c_i^\dag c_i =\sigma_i^+ \sigma_i^- = \frac{\bb{I}+\sigma_i^z}{2} = \begin{cases}
+0 & \sigma_i^z = -1\\
+1 & \sigma_i^z = +1
+\end{cases}
+\end{align*}
+Ciò descrive il fatto che particelle fermioniche non possono occupare lo stesso stato simultaneamente, e quindi o troviamo un solo fermione in uno stato oppure no.\\
+Si verifica anche che $n_i^2 = n_i$, e quindi $n_i$ è un proiettore.\\
+
+Indichiamo ora lo stato di spin delle $N$ particelle come il vettore $\ket{\alpha_1 \alpha_2 \dots \alpha_N}$, con $\alpha_i \in \{0,1\}$. Con $n_i = (1+\alpha_i)/2$ possiamo mappare (trasformazioni di Jordan-Wigner) tale ket in un vettore di \textit{numeri di occupazione}:
+\begin{align*}
+\ket{\alpha_1 \alpha_2\dots \alpha_N} \mapsto \ket{n_1 n_2 \dots n_N}
+\end{align*} 
+con $n_i=0,1$ che indicano i numeri di occupazione dello stato $+1$ di spin lungo $\hat{z}$.\\
+Tale relazione è invertibile (\textbf{claim}), e ciò permette di riscrivere l'Hamiltoniana come un'Hamiltoniana fermionica.\\
+
+A questo punto consideriamo condizioni al contorno \textit{periodiche} (cosa che equivale a \q{richiudere} la catena di spin su se stessa, formando un \textit{anello}). Ciò permette di far uso delle \textit{trasformate di Fourier}, per mappare gli operatori $c_k \mapsto \tilde{c}_k$:
+\begin{align*}
+\tilde{c}_k = \frac{1}{\sqrt{N}}\sum_{j=1}^N \exp\left(i\frac{2\pi}{N}kj \right) c_j \qquad k=0,\dots, N_1
+\end{align*}
+\textbf{Claim}: $\{\tilde{c}_k, \tilde{c}_{k'}^\dag\} = \delta_{k,k'}$ e $\{\tilde{c}_k, \tilde{c}_{k'}\} = \{\tilde{c}_k^\dag, \tilde{c}_{k'}^\dag \} = 0$, ossia gli operatori \textit{trasformati da Fourier} verificano ancora le stesse relazioni di anticommutazione degli operatori fermionici, e di conseguenza sono \textit{ancora} operatori fermionici.\\
+
+Possiamo finalmente scrivere l'Hamiltoniana dopo tutte queste trasformazioni:
+\begin{align*}
+H_{xy}=\sum_{k} \left(\epsilon_k \tilde{c}_k^\dag \tilde{c}_k-i\gamma \sin\left(\frac{2\pi}{N}k\right) \left(\tilde{c}_k^\dag \tilde{c}_{-k}^\dag
+ - \tilde{c}_{-k}\tilde{c}_k\right)\right) 
+ \end{align*}
+ con $\epsilon_k \equiv h-\cos(2\pi k/N)$.\\
+ Può sembrare che non si sia guadagnato molto in termini di complessità, ma applicando un'\textit{ulteriore trasformazione}, possiamo scrivere $H_{xy}$ in una forma diagonale.\\
+Riepilogando, partendo da gradi di libertà di spin abbiamo applicato le trasformazioni di Jordan-Wigner ottenendo gradi di libertà fermionici. Applicando una trasformazione di Fourier si passa ai gradi di libertà fermionici sul \textit{reciprocal lattice}. Applichiamo ora la trasformazione di Bogoliubov e giungiamo a:
+\begin{align*}
+H_{xy} = \sum_k \Lambda_k \Omega_k^\dag \Omega_k + \mathcal{E}_0
+\end{align*}
+dove $\Omega_k$ sono ancora operatori fermionici (rispettano $\{\Omega_k, \Omega_{k'}^\dag\}=\delta_{kk'}$) e $\mathcal{E}_0$ è l'energia dello stato fondamentale.\\
+Vale:
+\begin{align*}
+n_k \equiv \Omega_k^\dag \Omega_k; \qquad [n_k, n_{k'}]=0 \> \forall k,k'
+\end{align*}
+Essendo $H$ diagonale, possiamo scriverne lo spettro come:
+\begin{align*}
+\sigma(H_{xy}) = \{\sum_k \Lambda_k n_k + \mathcal{E}_0 \mid n_k=0,1\}
+\end{align*}
+dove:
+\begin{align*}
+\Lambda_k = \sqrt{\left( h - \cos\left(\frac{2\pi}{N}k\right)\right)^2+\gamma^2 \sin^2 \left(\frac{2\pi}{N}k\right)}
+\end{align*}
+e queste sono energie di singole particelle.\\
+Si trova anche che:
+\begin{align*}
+[H_{xy}, \Omega_k] = - \Lambda_k \Omega_k; \qquad [H_{xy},\Omega_k^\dag] = \Lambda_k \Omega_k^\dag
+\end{align*}
+ossia sono operatori di creazione/distruzione. Ma allora applicando la distruzione al \textit{ground-state} si ottiene $0$: $\Omega_k \ket{\psi_0} = 0$.\\
+Inoltre l'operatore di creazione \q{crea quasiparticelle libere} con energia $\Lambda_k$:
+\begin{align*}
+\Omega_{k1}^\dag \Omega_{k2}^\dag \dots \Omega_{kn}^\dag \ket{\psi_0} = \ket{\psi}
+\end{align*}
+e:
+\begin{align*}
+H_{xy}\ket{\psi}=\left(\mathcal{E}_0 + \Lambda_{k1} + \Lambda_{k2} + \dots + \Lambda_{kn}\right) \ket{\psi}
+\end{align*}
+Ma allora il gap minimo di energia è quello tra lo stato in cui un solo fermione occupa un'energia eccitata:
+\begin{align*}
+\Delta = \min_k \Lambda_k = \min_k \sqrt{\left(h-\cos\left(\frac{2\pi}{N}k\right) \right)^2 + \gamma^2 \sin^2\left(\frac{2\pi}{N}k\right)}
+\end{align*}
+Vi sono quindi regioni in $\mathcal{M}$, ossia nello spazio dei parametri $\{\lambda,\gamma\}$, per cui $\Delta$ è arbitrariamente piccolo.\\
+Ciò succede per $h=1$, $h=-1$ con qualsiasi $\gamma$, e per $(0,\lambda)$ con $-1 \leq \lambda \leq 1$, dato che in questi casi esistono valori di $k$ per cui $\Delta = 0$ (che è per forza il minimo, dato che $\Delta \geq 0$).\\
+Nota che per $\gamma=0$ si deve risolvere:
+\begin{align*}
+h= \cos\left(\frac{2\pi}{N}k\right) \Rightarrow k^* = \frac{N}{2\pi} \cos^{-1}(h)
+\end{align*}
+Non è detto che sia possibile trovare $k^*$ intero anche se $-1\leq h\leq 1$ per sistemi finiti, ma è sempre possibile farlo per sistemi infiniti $(N\to +\infty)$.\\
+
+Si trovano varie regioni nello spazio dei parametri. Per $0\leq h \leq 1$ si ha comportamento \textbf{ferromagnetico}, per $|h|\geq 1$ è \textbf{paramagnetico}, e per $-1\leq h <0$ dominano le interazioni $Y$ (per $\gamma < 0$) o $X$ (per $\gamma >\ 1$).\\
+
+Esplicitamente, lo stato fondamentale è dato da:
+\begin{align*}
+\ket{\psi_0} \equiv \bigotimes_{k>0} \left(\cos\frac{\theta_k}{2} \ket{00}_{k,-k} + i\sin\frac{\theta_k}{2} \ket{11}_{k,-k}\right)
+\end{align*}
+dove:
+\begin{align*}
+\theta_k = \tan^{-1} \left(\frac{\gamma \sin\left(\frac{2\pi}{N}k\right)}{h - \cos\left(\frac{2\pi}{N}k\right)}\right)
+\end{align*}
+
+Partiamo ora da un fissato $\vec{\lambda}=(\gamma,h)$ e ci spostiamo a $\vec{\lambda}' = (\gamma',h')$. Osserviamo come cambia il ground-state calcolando la fidelity (\textbf{claim}):
+\begin{align*}
+\mathcal{F} &= |\braket{\psi_0(\lambda)|\psi_0(\lambda')} | = \prod_k \left|\cos\left(\frac{\theta_k-\theta_k'}{2}\right)\right|\\
+&\underset{\Delta \theta_k \to 0}{\approx} \prod_k \left( 1- \frac{1}{2}\left(\frac{\Delta \theta_k}{2}\right)^2 \right) =1 - \frac{1}{4}\sum_k (\Delta \theta_k)^2 + \dots 
+\end{align*}
+Se consideriamo il caso in cui cambia solo $h$:
+\begin{align*}
+ds^2 = \frac{1}{2}\sum_k \left(\frac{\partial \theta_k}{\partial h}\right)^2 dh^2 = \frac{1}{2}\sum_k \left[\frac{1}{1+\left(\frac{\gamma \sin(2\pi k/N)}{h-\cos(2\pi k/N)}\right)^2} \left(-\frac{\gamma \sin(2\pi k/N)}{(h-\cos(2\pi k/N))^2}\right) \right]^2
+\end{align*}
+E quindi:
+\begin{align*}
+\chi_F = \sum_k \left[\frac{\gamma \sin(2\pi k/N)}{(h-\cos(2\pi k/N)^2 + \gamma^2 \sin^2 (2\pi k/N)}\right]^2
+\end{align*}
+Passando al limite termodinamico $N\to +\infty$ possiamo sostituire la sommatoria con un integrale. Eseguiamo il cambio di variabili $\tilde{k}= 2\pi k/N$ e otteniamo:
+\begin{align*}
+\chi_F =\frac{N}{2\pi} \gamma^2 \int_0^\pi d\tilde{k} \left[\frac{\sin \tilde{k}}{(h-\cos\tilde{k})^2 + \gamma^2 \sin^2 \tilde{k}}\right]^2
+\end{align*}
+Se non ci sono singolarità allora $\chi_F < \infty$, e in particolare $\chi_F=O(N)$. Tuttavia, se vi sono singolarità il risultato è decisamente diverso.\\
+Per esempio, per $h=1$, abbiamo:
+\begin{align*}
+\chi_F = \frac{N}{2\pi} \gamma^2 \int_0^\pi d\tilde{k} \left[\frac{\sin \tilde{k}}{(1-\cos\tilde{k})^2 + \gamma^2 \sin^2 \tilde{k}}\right]^2
+\end{align*}
+il denominatore svanisce per $\tilde{k}\to 0$ (e anche il numeratore). L'argomento dell'integrale diverge:
+\begin{align*}
+\frac{\tilde{k}}{\tilde{k}^4+\gamma^2 \tilde{k}^2} \underset{\tilde{k}\to 0}{\sim} \frac{1}{\gamma^2}\frac{1}{\tilde{k}}
+\end{align*}
+E anche l'integrale:
+\begin{align*}
+\frac{N\gamma^2}{2\pi} \int_{k_{\min}}^A \frac{d\tilde{k}}{\tilde{k}^2} = \frac{N}{2\pi \gamma^2} \left[\frac{1}{k_{\op{min}}}+\dots \right]
+\end{align*}
+per $k_{\op{min}}\to 0$.\\
+Con $k_{\op{min}}=2\pi/N$ si ha che:
+\begin{align*}
+\chi_F ( h=1) = \frac{1}{(2\pi \gamma)^2} N^2 + \dots
+\end{align*}
+e il comportamento è sovra-estensivo!
+
+
+\end{document}
+
