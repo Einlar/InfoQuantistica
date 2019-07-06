@@ -3,7 +3,7 @@
 \begin{document}
 
 \section{Crittografia e meccanica quantistica}
-\lesson{9 \orangedot}{27/3/2019}
+\lesson{9 \greendot}{27/3/2019}
 Con \textbf{crittografia}\index{Crittografia} si intende l'insieme di tecniche necessarie a rendere una comunicazione \textit{sicura}, ossia inaccessibile a chiunque non sia il destinatario inteso.\\ 
 Nel corso della storia si sono susseguiti metodi via via più sofisticati per ottener ciò. Per esempio, i romani utilizzavano una striscia di cuoio da attorcigliare attorno ad un'asta di legno. Il messaggio confidenziale era quindi scritto \textit{in verticale} sul nastro, che poi veniva srotolato, risultando così in una sequenza disordinata di caratteri. In questo modo, solo disponendo di un bastone con lo stesso diametro era possibile replicare la configurazione iniziale, e quindi leggere il messaggio. Tale asta è quindi detta \textbf{chiave} (e in questo caso è proprio un oggetto fisico), in quanto consente a chi la possiede di \textit{accedere} al contenuto del messaggio cifrato senza difficoltà.\\
 In crittografia si suppone che la \textit{chiave} sia condivisa tra mittente e destinatario, e che nessun altro ne sia in possesso. Il meccanismo di cifratura, tuttavia, può essere di dominio pubblico: un cifrario si dice \textit{sicuro} se, pur conoscendone perfettamente il meccanismo, non è possibile decifrarne i messaggi senza conoscere la chiave.\\
@@ -41,7 +41,7 @@ Tale schema può essere implementato facilmente in un computer convertendo $P$ e
 \begin{align*}
 c_i = \hat{E}_{K}(p_i) = p_i \oplus k_i \quad \forall i = 1, 2, \dots, N
 \end{align*}
-dove $\oplus$ indica uno XOR, che equivale ad una somma in modulo $2$. Per decifrare lo schema è il medesimo:
+dove $\oplus$ indica uno XOR, che equivale ad una somma in modulo $2$. Per decifrare si segue il medesimo schema:
 \begin{align*}
 p_i = \hat{D}_K(c_i) = c_i \oplus k_i \quad \forall i =1, 2, \dots, N
 \end{align*}
@@ -81,35 +81,35 @@ La sicurezza del cifrario di Vernam richiede quindi di poter condividere una chi
 Un tale schema, detto \textbf{a cifratura simmetrica}, pone quindi il problema della \textbf{distribuzione delle chiavi}, che non è di facile risoluzione. Lo scenario peggiore si ha se qualcuno riesce a \textit{intercettare} la chiave senza che né mittente né destinatario se ne accorgano, poiché in tal caso il canale ritenuto sicuro è invece compromesso.
 
 \subsection{Quantum Key Distribution (QKD)}
-\marginpar{\danger Parte non ancora ricontrollata}
-Tecniche di Informazione Quantistica permettono di risolvere il problema di distribuzione delle chiavi. Vi sono protocolli principali per farlo:
+Il problema di distribuzione delle chiavi trova soluzioni efficaci tramite tecniche di Informazione Quantistica.\\ I due protocolli principali sono:
 \begin{itemize}
 \item \textbf{BB84}, che fa uso del principio di sovrapposizione e del no-cloning theorem
 \item \textbf{E91}, per cui invece si usa l'entanglement
 \end{itemize}
+In questa sezione ci concentreremo sul primo.
 
 \subsection{Il protocollo BB84}
 Supponiamo che \textbf{Alice} (A) voglia trasmettere a \textbf{Bob} (B) una chiave da utilizzare per future comunicazioni crittografate, facendo sì che nessuno possa intercettarla.\\
 
-Alice può generare qubit nelle basi $B_z$ (autoket di $\hat{\sigma}_x$) o $B_x$ (autoket di $\hat{\sigma}_y$). Nella base computazionale $\{\ket{0}, \ket{1}\}$ possiamo esprimerli così:
+Alice può generare qubit nelle basi $B_z$ (autoket di $\hat{\sigma}_z$) o $B_x$ (autoket di $\hat{\sigma}_x$). Scegliendo come base computazionale gli autoket $B_z$ avremo:
 \begin{align*}
 B_z = \{\ket{0}, \ket{1}\} \qquad B_x =\{ \frac{1}{\sqrt{2}}(\ket{0}+\ket{1}), \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\}
 \end{align*}
 
 Il protocollo prosegue perciò nel seguente modo:
 \begin{enumerate}
-\item Alice genera una stringa di \textit{bit classici} completamente casuali:
+\item Alice genera una stringa $K_1$ di \textit{bit classici} completamente casuali\footnote{Ciò si può fare con un generatore di numeri casuali classico, o misurando sovrapposizioni quantistiche equiprobabili.}:
 \begin{align*}
 K_1=0011100000001101
 \end{align*}
 \item Alice codifica la stringa $K_1$ associando ad ogni $0$ un qubit nello stato $\ket{0}$ o $\ket{+}$ in modo equiprobabile (metà degli $0$ diverranno $\ket{0}$, metà diverranno $\ket{+}$). Fa lo stesso per gli $1$, codificandoli o con $\ket{1}$ o con $\ket{-}$. Ottiene quindi una sequenza di qubit $K_2$:
 \begin{align*}
-K_2 =\ket{0},\ket{+},\ket{1}\ket{1}\ket{-}\ket{0}\ket{+}\ket{+}\dots
+K_2 =\ket{0}\ket{+}\ket{1}\ket{1}\ket{-}\ket{0}\ket{+}\ket{+}\dots
 \end{align*}
 \item Alice trasmette $K_2$ a Bob mediante un canale quantistico
 \item Bob misura ciascun qubit nella base $B_x$ o $B_z$ in modo casuale, e registra i risultati in una stringa di bit classici $K_3$. Avremo allora due possibilità:
 \begin{itemize}
-\item Se Bob sceglie di misurare un qubit nella stessa base che Alice aveva usato per inviarlo, allora riottiene lo stesso bit classico che era stato usato in partenza
+\item Se Bob sceglie di misurare un qubit nella stessa base che Alice aveva usato per inviarlo, allora riottiene lo stesso bit classico che era stato usato in partenza (con una certa efficienza, limitata dalla presenza di rumore nel canale di trasmissione, e dalle efficienze degli apparati di produzione/rilevazione degli stati quantistici).
 \item Se invece Bob usa una base diversa da Alice otterrà un risultato \textit{casuale}.
 \end{itemize}
 Per esempio, se Bob sceglie di misurare con $B_z, B_x, B_z, B_x, \dots$ potrebbe ottenere per $K_3$:
@@ -121,7 +121,7 @@ K_3 = 001010\dots
 \text{Alice}: &\hlc{Yellow}{B_z}, \hlc{Yellow}{B_x}, \hlc{Yellow}{B_z}, B_z, \hlc{Yellow}{B_x}, B_z, B_x, \hlc{Yellow}{B_x}\\
 \text{Bob}: &\hlc{Yellow}{B_z}, \hlc{Yellow}{B_x}, \hlc{Yellow}{B_z}, B_x, \hlc{Yellow}{B_x}, B_x, B_z, \hlc{Yellow}{B_x}
 \end{align*}
-A questo punto Alice e Bob sanno in quali casi il bit classico è sicuramente pervenuto all'altro. Basta allora tenere tali bit \q{sufficientemente inviati} e comporre con essi la chiave:
+In questo modo Alice e Bob sanno in quali casi il bit classico è sicuramente pervenuto all'altro. Basta allora tenere tali bit \q{correttamente comunicati} e comporre con essi la chiave:
 \begin{align*}
 K =00100\dots
 \end{align*}
@@ -134,25 +134,33 @@ K =00100\dots
 \end{figure}
 
 Immaginiamo che una terza persona, \textbf{Eve}, cerchi di intercettare il messaggio. Per farlo \textbf{non può} duplicarlo (no-cloning theorem), e quindi l'unico modo è fare direttamente delle misure, secondo una sequenza di basi nuovamente arbitraria. Poiché è molto difficile che Eve faccia al $100\%$ le stesse scelte di Bob, quando A e B si scambiano le informazioni sulle basi utilizzate, Eve potrà al più recuperare parte della chiave.\\
-Tuttavia, la misura di Eve condiziona i risultati delle misure di Bob: se Eve sbaglia la base, può far collassare il qubit in uno stato \textit{diverso} da quello generato all'inizio da Alice. Ma allora, se A e B condividono pubblicamente parte della chiave finale, possono accorgersi di differenze anche a parità della scelta delle basi - che è indice che \textit{qualcuno sta ascoltando}. In altre parole, non è possibile per Eve intercettare la comunicazione senza che nessuno se ne accorga.\\
+Tuttavia, la misura di Eve condiziona i risultati delle misure di Bob: se Eve sbaglia la base, può far collassare il qubit in uno stato \textit{diverso} da quello generato all'inizio da Alice. Ciò produce differenze nella chiave $K$ condivisa tra Alice e Bob, che possono essere rivelate tramite tecniche di teoria dell'informazione classica. In altre parole, non è possibile per Eve intercettare le comunicazioni senza alcuna interferenza.\\
 
-Tramite tecniche di computazione classica è possibile migliorare ulteriormente la sicurezza del protocollo:
+Esaminiamo alcune tecniche che possono essere attuate da Alice e Bob per migliorare la sicurezza del canale (ed eventualmente determinare la presenza di ascoltatori):
 \begin{enumerate}
-\item Determinare l'\textbf{errore} $R$: Alice e Bob controllano la corrispondenza tra parte della $K$ finale, e calcolano la percentuale di bit sbagliati. Se è molto alta, ciò può essere il risultato di un canale di comunicazione fallace, o della presenza di qualcuno che sta cercando di intercettare il messaggio.
-\item \textbf{Controllo della parità}: invece di condividere direttamente bit della chiave, si può dividere $K$ in segmenti di lunghezza $l$, e calcolarne la parità sommando tali $l$ bit, e poi confrontarle.
-\item \textbf{Privacy Amplification} (\textit{Leftover hash theorem}). Possiamo pensare all'eventualità in cui Eve, per qualche caso fortuito, riesca a stimare $k$ bit della chiave finale. Per esempio, su una stringa di $n=16$ bit, potremmo sospettare che Eve sia riuscita a determinare $k=2$ bit, qui evidenziati:
+\item Determinare l'\textbf{errore} $R$: Alice e Bob condividono parte delle loro versioni di $K$, calcolando la percentuale di bit differenti. Se è molto alta, ciò può essere il risultato di un canale di comunicazione fallace, o della presenza di qualcuno che sta cercando di intercettare il messaggio. In tal caso conviene effettuare i dovuti controlli e rigenerare $K$.
+\item \textbf{Information reconciliation}: se il rate di errore $R$ è sufficientemente basso, è possibile correggere i bit errati di $K$ senza condividere la chiave stessa.\\
+Un modo per farlo è dato dal suddividere $K$ in stringhe di lunghezza $l$, tali che ciascuna sottostringa contenga probabilmente al più un solo errore (ossia tali che $Rl \ll 1$). A tal punto Alice e Bob calcolano la \textbf{parità} di ogni stringa:
 \begin{align*}
-01100\hlc{Yellow}{1}01100\hlc{Yellow}{0}1000
+    P = b_1 \oplus b_2 \oplus \dots \oplus b_l
 \end{align*}
-Esiste allora un modo per utilizzare questi bit e creare una chiave di circa $n-k$ bit di cui Eve non può saper nulla, senza la necessità di sapere \textit{quali} bit ha ottenuto Eve. Tale processo è detto perciò \textit{privacy amplification}.
+Le parità possono essere condivise senza problemi, poiché non permettono di ottenere informazione sui singoli bit $b_i$. Se le due $P$ coincidono, sapremo che (molto probabilmente) tale stringa è stata correttamente ricevuta. Altrimenti, probabilmente vi è un errore (\textit{bit-flip}). In tal caso si procede per bisezione, dividendo la stringa a metà e confrontando le parità delle due nuove parti:
+\begin{align*}
+    P_1 = b_1 \oplus b_2 \oplus \dots \oplus b_{(l-1)/2}; \quad P_2 = b_{(l-1)/2+1} \oplus b_{(l-1)/2+2} \oplus \dots \oplus b_{l-1}
+\end{align*}
+Se Alice e Bob cancellano l'ultimo bit prima della bisezione ($b_l$ - che infatti non compare nel calcolo di $P_2$), allora vanificano ogni informazione ottenuta da terzi grazie alla precedente parità $P$ condivisa.\\
+Proseguendo per bisezione è perciò possibile (seppur con una certa perdita di bit) trovare esattamente i \textit{bit errati} e correggerli.
+\item \textbf{Privacy Amplification}. Dalla misura di $R$ è possibile stimare il massimo numero di bit $k$ che Eve può conoscere. Alice e Bob scelgono allora un $s \in \bb{N}$, e costruiscono $n-k-s$ set di bit di $K$ (presi a caso, secondo uno schema comune), dove $n$ è la lunghezza di $K$. La parità dei qubit di ciascun set forma allora un bit di una nuova chiave. Si può dimostrare (\textit{Leftover hash theorem}) che tale processo fa sì che Eve non possa ricavare alcun bit - dato che per farlo dovrebbe possedere una certa informazione \textit{su ogni bit di $K$}. Inoltre, maggiore è $s$ (che porta a qualche bit scartato) minore è l'informazione accessibile ad Eve (che decade come $O(2^{-s})$).
 \end{enumerate}
 
 D'altro canto, Eve potrebbe tentare vari approcci per cercare di capire la chiave:
 \begin{itemize}
 \item \textbf{Intercept \& Resend}: Eve misura il qubit in arrivo in una base generica, e poi lo rinvia. L'effetto di una misura proiettiva, tuttavia, perturba molto lo stato iniziale, e quindi un attacco del genere è facilmente individuabile da Alice e Bob
 \item \textbf{Translucent Attacks}: Eve fa interagire il qubit inviato da Alice con un altro qubit \q{ausiliario} e rinvia il qubit iniziale senza averlo misurato. Solo quando Alice e Bob condividono le basi allora Eve misura il qubit ausiliario. Si trova che, in ogni caso, ciò o perturba lo stato iniziale, o non consente di ricavare informazione utile dalle correlazioni. Perciò, almeno finora, non si è trovato nessun modo efficace per portare a termine un attacco del genere.
-\item \textbf{Attacchi collettivi} 
+\item \textbf{Attacchi collettivi}: Eve manipola interi blocchi di qubit in una volta sola. 
 \end{itemize}
+
+In ogni caso, è possibile rendere l'informazione che Eve ha su $K$ arbitrariamente piccola, indipendentemente dalla strategia messa in atto da Eve (Nielsen e Chuang, 2000).
 
 \section{Dense coding}
 Tramite un opportuno canale quantistico è possibile trasmettere $2$ bit classici inviando un solo qubit, supponendo che mittente e destinatario condividano due qubit in uno stato di Bell (entangled).
@@ -185,32 +193,35 @@ I due qubit vengono poi lasciati uno ad $A$ e uno a $B$.
 \textbf{Bit} & $\bm{U}$ \\ \midrule
 00 & $\bb{I}$\\
 01 & $\hat{\sigma}_x$\\
-10 & $\hat{\sigma}_y$\\
-11 & $\hat{\sigma}_z$ \\ \bottomrule
+11 & $\hat{\sigma}_y$\\
+10 & $\hat{\sigma}_z$ \\ \bottomrule
 \end{tabular}
 \caption{Operazioni $U$ svolte da Alice a seconda della combinazione dei $2$ bit classici che vuole inviare a Bob}
 \end{table}
 
 Avremo quindi $4$ possibili stati finali per $\ket{\phi^+}$:
 \begin{align*}
-(\bb{I}\otimes \bb{I}) \ket{\phi^+} &= \ket{\phi^+}\\
+(\bb{I}\otimes \bb{I}) \ket{\phi^+} &= \frac{1}{\sqrt{2}}(\ket{00}+\ket{11}) = \ket{\phi^+}\\
 (\hat{\sigma}_x \otimes \bb{I}) \ket{\phi^+} &= \frac{1}{\sqrt{2}} (\ket{10}+\ket{01}) = \ket{\psi^+}\\
+(\hat{\sigma}_y \otimes \bb{I}) \ket{\phi^+} &= \frac{1}{\sqrt{2}}(\ket{10}-\ket{01}) =\ket{\psi^-}\\
 (\hat{\sigma_z} \otimes \bb{I}) \ket{\phi^+} &= \frac{1}{\sqrt{2}}(\ket{00}-\ket{11}) = \ket{\phi^-}\\
-(\hat{\sigma}_y \otimes \bb{I}) \ket{\phi^+} &= \ket{\psi^-}
 \end{align*}
 
-\item \textbf{Comunicazione}: Alice manda il suo qubit a Bob
-\item \textbf{Misura} Bob esegue l'operazione inversa di quella al punto $1$ sui due qubit che ora possiede, e il cui è stato è un certo $\ket{\psi}$:
+\item \textbf{Comunicazione}. Alice manda il suo qubit a Bob attraverso un opportuno canale quantistico.
+\item \textbf{Misura}. Bob esegue l'operazione inversa di quella al punto $1$ sui due qubit che ora possiede, e il cui è stato è un certo $\ket{\psi}$:
 \begin{align*}
-[\op{CNOT}(H \otimes \bb{I})]^{-1} \ket{\psi} = B
+[\op{CNOT}(H \otimes \bb{I})]^{-1} \ket{\psi} = (H\otimes \bb{I}) \op{CNOT} B
 \end{align*}
-Calcolando il risultato nei $4$ casi vediamo come si riottengano gli stati della base computazionale, che Bob può esaminare per riottenere i $2$ bit classici scelti da Alice al punto 2:
+dato che sia $\op{CNOT}$ che $H\otimes \bb{I}$ sono hermitiane e unitarie (e quindi ciascuna è pari all'inversa di se stessa).\\
+Ricordando che la CNOT inverte il secondo qubit solo se il primo è $1$ (ossia mappa $\ket{11} \leftrightarrow \ket{10}$, e lascia invariati gli altri stati), prodcediamo calcolando l'azione di $B$ sui quattro possibili stati:
 \begin{align*}
-B \ket{\phi^+} &= \ket{00}\\
-B \ket{\phi^-} &= \ket{10}\\
-B\ket{\psi^+} &= \ket{01}\\
-B\ket{\psi^-} &= \ket{11}
+    \ket{\phi^+} &\xrightarrow[\op{CNOT}]{} \frac{1}{\sqrt{2}} (\ket{00}+\ket{10}) = \frac{1}{\sqrt{2}} \ket{+}\ket{0} \xrightarrow[(H\otimes \bb{I})]{} \frac{1}{\sqrt{2}}\ket{0}\ket{0}\\
+    \ket{\psi^+} &\xrightarrow[\op{CNOT}]{} \frac{1}{\sqrt{2}} (\ket{11}+\ket{01}) = \frac{1}{\sqrt{2}}\ket{+}\ket{1} \xrightarrow[(H\otimes \bb{I})]{} \frac{1}{\sqrt{2}} \ket{0}\ket{1}\\
+    \ket{\psi^-} &\xrightarrow[\op{CNOT}]{}\frac{1}{\sqrt{2}}(\ket{11}-\ket{01}) = \frac{1}{\sqrt{2}}\ket{-}\ket{1} \xrightarrow[(H\otimes \bb{I})]{} \frac{1}{\sqrt{2}}\ket{1}\ket{1}\\
+    \ket{\phi^-} &\xrightarrow[\op{CNOT}]{} \frac{1}{\sqrt{2}} (\ket{00}-\ket{10}) = \frac{1}{\sqrt{2}}\ket{-}\ket{0} \xrightarrow[(H\otimes \bb{I})]{} \frac{1}{\sqrt{2}}\ket{1}\ket{0}
 \end{align*}
+
+Misurando gli stati dei due qubit dopo l'applicazione di $B$, Bob può perciò ricavare i $2$ bit classici scelti da Alice al punto $2$. Si è così realizzata la trasmissione di $2$ bit al prezzo di un solo \textit{qubit}.
 \end{enumerate}
 
 \end{document}

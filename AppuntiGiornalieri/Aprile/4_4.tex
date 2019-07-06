@@ -304,23 +304,84 @@ Infine, per trasmettere $11$ Alice applica $\sigma^y$, ma anche qui riottiene $\
 Perciò, nonostante Alice possa applicare $4$ possibili operazioni, gli stati finali saranno solo $2$, e perciò può essere trasmesso un solo bit classico - esattamente come il caso di una qualsiasi comunicazione classica.\\
 Deduciamo perciò che i vantaggi offerti dal protocollo di dense coding sono dati dalla possibilità di utilizzare i maggiori gradi di libertà offerti dalle correlazioni \textbf{quantistiche}, che non hanno alcun analogo classico.
 
-\subsection{Esercizio} [TO DO]
+\subsection{Esercizio \theEsercizio}\stepcounter{Esercizio}
+\index{Esercizio!Correlazioni ed entanglement}
 \begin{enumerate}
 \item Data una matrice densità della forma $\rho = \rho_A \otimes \rho_B$  calcolare la matrice densità ridotta di $A$ e $B$.
-\item Partendo dallo stato $\ket{\psi}= (\ket{0}+\ket{1})/\sqrt{2} \otimes \ket{0}$ applicare un CNOT e mostrare che $\rho_{12}\neq \rho_A \otimes \rho_B$.
-\item Calcolare le correlazioni $C=\langle x y\rangle - \langle x \rangle \langle y\rangle$ presenti in un sistema descritto da $\rho_{AB}=\rho_A \otimes \rho_B$.
+\item Partendo dallo stato $\ket{\psi}= (\ket{0}+\ket{1})/\sqrt{2} \otimes \ket{0}$ applicare un CNOT e mostrare che $\rho_{12}\neq \rho_1 \otimes \rho_2$.
+\item Calcolare le correlazioni $C=\langle x y\rangle - \langle x \rangle \langle y\rangle$ presenti in un sistema descritto da $\rho =\rho_A \otimes \rho_B$.
 \end{enumerate}
 
 \textbf{Soluzione}
 \begin{enumerate}
-\item Calcoliamo le tracce parziali:
+\item Consideriamo due generiche matrici densità $\rho_A$ e $\rho_B$, che - nella base dei loro autostati - hanno espressione:
 \begin{align*}
-\underset{B}{\op{Tr}} (\rho) &= \sum_{i=1}^{\op{dim}\hs_B} \bra{i}_B \rho_A \otimes \rho_B \ket{i}_B =\\
-&\underset{(a)}{=} \sum_{i=1}^{\op{dim}\hs_B}
-\bra{i}_B \left(\sum_{j=1}^{\op{dim}\hs_A} \lambda_j^A \ket{j}_A\bra{j}_A\right)\left( \sum_{k=1}^{\op{dim}\hs_B}\lambda_k^B \ket{k}_B\bra{k}_B\right)\ket{i}_B =\\
-&= \left(\sum_j \lambda_j \ket{j}_A\bra{j}_A\right) \left(\sum_k \lambda_k^B \right) = \rho_A
+    \rho_A = \smashoperator{\sum_{j=1}^{\op{dim}\hs_A}} p_j^A \ket{j}\bra{j}; \qquad \rho_B = \smashoperator{\sum_{k=1}^{\op{dim}\hs_B}} p_k^B \ket{k}\bra{k}
 \end{align*}
-dove in (a) abbiamo scelto $\{\ket{i}_B\}$ e $\{\ket{k}_B\}$ come la stessa base ON di $\hs_B$ che diagonalizza $\rho_B$. \item (Prossime lezioni)
+Calcoliamo una matrice ridotta di $\rho= \rho_A \otimes \rho_B$ tracciando sugli stati di $B$:
+\begin{align*}
+    \underset{B}{\op{Tr}}(\rho) = \smashoperator{\sum_{i=1}^{\op{dim}\hs_B}} \ket{i}_B \rho_A \otimes \rho_B \ket{i}_B
+\end{align*}
+Dato che la traccia è la stessa comunque venga scelta la base, possiamo scegliere $\{\ket{i}_B\}$ base ON di $\hs_B$ che coincida con quella $\{\ket{k}_B\}$ degli autostati di $\rho_B$. Così facendo:
+\begin{align*}
+    \underset{B}{\op{Tr}}(\rho) &= \smashoperator{\sum_{i=1}^{\op{dim}\hs_B}}
+\bra{i}_B \left(\smashoperator[r]{\sum_{j=1}^{\op{dim}\hs_A}} p_j^A \ket{j}_A\bra{j}_A\right)\left( \smashoperator[r]{\sum_{k=1}^{\op{dim}\hs_B}} p_k^B \ket{k}_B\bra{k}_B\right)\ket{i}_B =\\
+&= \smashoperator[l]{\sum_{i=1}^{\op{dim}\hs_B}} \left(\smashoperator[r]{\sum_{j=1}^{\op{dim}\hs_A}} p_j^A \ket{j}_A\bra{j}_A\right) \left( \smashoperator[r]{\sum_{k=1}^{\op{dim}\hs_B}} p_k^B \underbrace{|\braket{i|k}|^2}_{\delta_{ki}} \right) =
+\\
+&= \left( \smashoperator[r]{\sum_{j=1}^{\op{dim}\hs_A}} p_j^A \ket{j}_A\bra{j}_A\right) \underbrace{\left( \smashoperator[r]{\sum_{i=1}^{\op{dim}\hs_B}} p_i^B \right)}_{=1} \underset{(a)}{=} \rho_A
+\end{align*}
+dove in (a) abbiamo usato $\op{Tr} \rho_B = 1$.\\
+Analogamente, per simmetria, si ottiene:
+\begin{align*}
+    \underset{A}{\op{Tr}}(\rho) = \rho_B
+\end{align*}
+Come ci si potrebbe aspettare, perciò, le matrici densità ridotte di uno stato separabile non sono altro che i due stati separati. 
+
+\item Ricordiamo che un gate CNOT inverte il secondo qubit se lo stato del primo è $\ket{1}$. In questo caso:
+\begin{align*}
+    \ket{\psi'} = \op{CNOT}\ket{\psi} = \frac{1}{\sqrt{2}}(\ket{00} + \ket{11})
+\end{align*}
+Otteniamo perciò uno stato di Bell, massimamente entangled e non separabile.\\
+Sia $\rho_{12}$ la matrice densità dello stato finale, con:
+\begin{align*}
+    \rho_{12} = \ket{\psi'}\bra{\psi'} = \frac{1}{2}(\ket{00}\bra{00} + \ket{11}\bra{11} + \ket{00}\bra{11} + \ket{11}\bra{00})
+\end{align*}
+Le matrici ridotte sono date da:
+\begin{align*}
+    \rho_1 = \underset{2}{\op{Tr}} \rho_{12} = \bra{0}_2 \rho_{12} \ket{0}_2 + \bra{1}_2 \rho_{12}\ket{1}_2 = \frac{1}{2}(\ket{0}\bra{0} + \ket{1}\bra{1}) = \frac{1}{2}\bb{I}_1
+\end{align*}
+E analogamente:
+\begin{align*}
+    \rho_2 = \underset{1}{\op{Tr}} \rho_{12} = \frac{1}{2}\bb{I}_2
+\end{align*}
+Evidentemente:
+\begin{align*}
+    \rho_1 \otimes \rho_2 = \frac{1}{4}\bb{I} \neq \rho_{12} = \frac{1}{2}\left(
+    \begin{array}{cc|cc}
+         1 & 0 & 0 & 1\\
+         0 & 0 & 0 & 0\\ \midrule
+         0 & 0 & 0 & 0\\
+         1 & 0 & 0 & 1
+    \end{array}
+    \right)
+\end{align*}
+
+\item Siano $X_A$ e $Y_B$ una qualsiasi coppia di osservabili che agiscono rispettivamente sul sistema $A$ o $B$, lasciando invariato l'altro. Calcoliamo allora la correlazione $C$ data da:
+\begin{align*}
+   C = \op{Tr}(\rho_{AB} X_A Y_B) - \op{Tr}(\rho_A X_A) \op{Tr}(\rho_B Y_B)
+\end{align*}
+Focalizziamoci sul primo termine:
+\begin{align*}
+    C_1 = \op{Tr}(\rho_A \otimes \rho_B X_A Y_B) = \op{Tr}(\rho_A X_A \otimes \rho_B Y_B)
+\end{align*}
+Siano $\{\ket{j}_A\}$ e $\{\ket{k}_B\}$ basi ON rispettivamente di $\hs_A$ e $\hs_B$. Possiamo quindi calcolare la traccia come:
+\begin{align*}
+    C_1 &= \smashoperator[l]{\sum_{j=1}^{\op{dim}\hs_A}} \smashoperator[r]{\sum_{k=1}^{\op{dim}\hs_B}} \bra{j}_A\bra{k}_A (\rho_A X_A \otimes \rho_B Y_B) \ket{j}_A \ket{k}_B = \\
+    &= \left( \smashoperator[r]{\sum_{j=1}^{\op{dim}\hs_A}} \bra{j}_A \rho_A X_A \ket{j}_A \right) \left( \smashoperator[r]{\sum_{k=1}^{\op{dim}\hs_B}} \bra{k}_B \rho_B Y_B \ket{k}_B \right) =\\
+    &= \op{Tr}(\rho_A X_A) \op{Tr}(\rho_B Y_B)
+\end{align*}
+e perciò $C=0$. Come ci si aspetterebbe le misure di osservabili su stati separabili sono del tutto scorrelate (chiaramente, l'esito di una misura su $A$ non può influenzare $B$).
+
 \end{enumerate}
 
 

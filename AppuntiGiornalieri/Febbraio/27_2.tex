@@ -3,31 +3,32 @@
 \begin{document}
 
 \section{Informazioni generali del corso}
-\lesson{1 \greendot}{27/2/2019}
+\lesson{1 \bluedot}{27/2/2019}
+\begin{comment}
 Libri consigliati (fare riferimento a \url{https://didattica.unipd.it/off/2016/LT/SC/SC1158/000ZZ/SCP8084889/N0}), Benenti Casati Strini, J. Preskill, Nielsen \& Chuang.\\
 Orari di ricevimento: mercoledì/giovedì dopo lezione. Modalità d'esame: da definire a seconda del numero di studenti frequentanti il corso.
+\end{comment}
 
 \section{Argomenti e motivazione del corso}
-Nel 1899 la \MC fu messa in crisi dal problema\marginpar{Prima rivoluzione quantistica} dello spettro del corpo nero. Nel 1900 Planck riuscì a spiegare le nuove misurazioni con l'\textbf{ipotesi quantistica}, che fu seguita anche nel 1905 da Einstein, per spiegare l'\textbf{effetto fotoelettrico}. Dopo pochi anni, la nascente \MQ fu elaborata e fondata matematicamente: nel 1926 fu scritta l'equazione di Schr\"odinger. Alcuni problemi di interpretazione furono presentati nel 1935, con il paradosso EPR, che pose un problema di \textit{interpretazione} dei risultati finora ottenuti, di natura prettamente filosofica. \\
+Nel 1899 la Meccanica Classica (\MC) fu messa in crisi dal problema\marginpar{Prima rivoluzione quantistica} dello spettro del corpo nero. Nel 1900 Planck riuscì a spiegare le nuove misurazioni con l'\textbf{ipotesi quantistica}, che fu seguita anche nel 1905 da Einstein, per spiegare l'\textbf{effetto fotoelettrico}. Dopo pochi anni, la nascente Meccanica Quantistica (\MQ) fu elaborata e fondata matematicamente: nel 1926 fu scritta l'equazione di Schr\"odinger. Nel 1935 il paradosso EPR pose un problema di \textit{interpretazione} dei risultati finora ottenuti, di natura prettamente filosofica. \\
 
 Nel 1964 Bell scrisse delle disuguaglianze con cui rese sperimentalmente verificabili\marginpar{Informazione quantistica (seconda rivoluzione quantistica)} le conseguenze dell'EPR, misurando alcune osservabili di correlazione di sistemi in stati \textit{entangled}. Un esempio è dato da misure di correlazione di spin di due particelle di $s=1/2$ in uno stato di singoletto:
 \begin{align*}
 \ket{\psi} = \frac{1}{\sqrt{2}}(\ket{\uparrow\downarrow}+\ket{\downarrow \uparrow})
 \end{align*}
 Ciò fu verificato nel 1982 dall'esperimento di Aspect, che mostrò la \textbf{violazione} delle disuguaglianze di Bell, aprendo un'analisi scientifica dei cosiddetti \textit{fondamenti della \MQ}, ossia i suoi aspetti più \q{filosofici}.\\
-Sempre nel 1982 Feynman elaborò la prima idea di \textbf{computer quantistico}, per risolvere il problema di simulazioni numerici di sistemi quantistici. Tale problema si rivela infatti \textit{estremamente complesso}, dato che un qualsiasi insieme di molte particelle in genere si trova in stati altamente correlati, che sono particolarmente difficili da descrivere. L'idea fu allora quella di usare direttamente sistemi quantistici, un \textit{computer quantistico}, per tali simulazioni. Ciò portò alla nascita della \textit{teoria dell'informazione quantistica}, per cui nel 1995 nacque la nozione di qubit. Nello stesso anno, Peter Shor, descrivendo il comportamento di un computer quantistico tramite le equazioni della \MQ, trovò l'esistenza di un algoritmo per la fattorizzazione in numeri primi in tempo polinomiale (cosa che non si può fare con nessun algoritmo classico finora scoperto).\\
-Tale algoritmo permetterebbe di \textit{crackare} le principali cifrature utilizzate nel mondo odierno (es. RSA) - e tale possibilità consentì di trovare grandi finanziamenti per la teoria quantistica dell'informazione.\\
-Nel 1997 fu realizzato sperimentalmente il primo \textbf{teletrasporto quantistico}.\\
+Sempre nel 1982 Feynman elaborò la prima idea di \textbf{computer quantistico}, per risolvere il problema di simulazioni numerici di sistemi quantistici. Tale problema si rivela infatti \textit{estremamente complesso}, dato che un qualsiasi insieme di molte particelle in genere si trova in stati altamente correlati, che sono particolarmente difficili da descrivere. L'idea fu allora quella di usare direttamente sistemi quantistici per tali simulazioni. Ciò portò, nel 1995, alla nascita della \textit{teoria dell'informazione quantistica}, con la nozione di qubit. Nello stesso anno, Peter Shor, descrivendo il comportamento di un computer quantistico tramite le equazioni della \MQ, trovò l'esistenza di un algoritmo per la fattorizzazione in numeri primi in tempo polinomiale (cosa che non si può fare con nessun algoritmo classico finora scoperto).\\
+Tale algoritmo permetterebbe di violare le principali cifrature utilizzate nel mondo odierno (es. RSA). Una prospettiva del genere portò grandi finanziamenti per la teoria quantistica dell'informazione, e un intensificarsi della ricerca. Già nel 1997 fu realizzato sperimentalmente il primo \textbf{teletrasporto quantistico}.\\
 
-Dagli anni 2000 in poi è stata realizzata\marginpar{Ingegneria quantistica} sperimentalmente la \textbf{crittografia quantistica}, che \textit{non può essere crackata a priori} grazie alle leggi fisiche per come le conosciamo ora (addirittura, un qualsiasi tentativo di intercettazione provoca l'autodistruzione del messaggio).\\
-Sono poi stati realizzati alcuni primi piccoli computer quantistici, e anche \textit{sensori quantistici} (apparati di misurazione che fanno uso di sistemi quantistici). Al giorno d'oggi sono stati realizzati \textit{computer quantistici con rumore di taglia media}, che potrebbero essere disponibili tra qualche anno nei centri di supercomputing, divenendo \textit{più potenti} dei computer classici, potendo eseguire sia algoritmi quantistici senza corrispettivi classici, sia algoritmi classici in maniera più performante (per esempio l'algoritmo di Grover, come vedremo, permettono un guadagno di una radice quadrata nella complessità di cercare una \textit{entry} in un database non organizzato).\\
+Dagli anni 2000 in poi è stata realizzata\marginpar{Ingegneria quantistica} sperimentalmente la \textbf{crittografia quantistica}, che \textit{non può essere violata a priori} come conseguenza delle leggi fisiche per come le conosciamo ora (addirittura, un qualsiasi tentativo di intercettazione provoca l'autodistruzione del messaggio).\\
+Sono poi stati realizzati alcuni primi piccoli computer quantistici, e anche \textit{sensori quantistici} (apparati di misurazione che fanno uso di sistemi quantistici). Al giorno d'oggi disponiamo di \textit{computer quantistici con rumore di taglia media}, che potrebbero essere disponibili tra qualche anno nei centri di supercomputing. Tali apparati potrebbero consentire di raggiungere la \textbf{quantum supremacy}, ossia la nascita di sistemi \textbf{più potenti} di qualsiasi supercomputer classico, potendo eseguire sia algoritmi quantistici senza corrispettivi classici, sia algoritmi classici in maniera più performante (per esempio l'algoritmo di Grover che, come vedremo, permette un guadagno di una radice quadrata nella complessità di cercare una \textit{entry} in un database non organizzato).\\
 Un utilizzo molto importante per i computer quantistici è quello delle \textbf{simulazioni} (in linea con la prima idea di Feynman), cosa che si sta già iniziando a fare in alcuni laboratori.
 
 \section{Concetti di informazione quantistica}
 \subsection{La natura dell'informazione}
 \textbf{L'informazione è fisica}. Ciò può sembrar ovvio: un testo è fatto di molecole d'inchiostro su un foglio di \textit{materia}, i \textit{bit} sono elettroni confinati in cellette. Tuttavia, la conseguenza di ciò è \textit{che l'informazione stessa deve obbedire alle leggi fisiche}.\\ Manipolare l'informazione\marginpar{Manipolazioni di informazione} è infatti strettamente un \textit{processo fisico}: è impossibile separare le \textit{operazioni logiche} dalla loro effettiva \textit{implementazione}. Per cambiare lo \q{stato logico di un sistema}, ossia l'\textit{informazione} che esso contiene, è per forza necessario utilizzare dei \textit{processi fisici}.\\
 
-In particolare, la \textbf{termodinamica}, e specialmente il \textbf{secondo principio}, deve valere anche per l'informazione. Ci chiediamo: è possibile estrarre energia utile da un sistema semplicemente osservandone lo stato, ossia avendo \textit{informazione} su di esso? \cite{landauer} Possiamo collegare \textit{informazione} e \textit{entropia}?\\
+In particolare la \textbf{termodinamica}, e specialmente il suo \textbf{secondo principio}, deve valere anche per l'informazione. Ci chiediamo: è possibile estrarre energia utile da un sistema semplicemente osservandone lo stato, ossia avendo \textit{informazione} su di esso? \cite{landauer} Possiamo collegare \textit{informazione} e \textit{entropia}?\\
 
 Risponderemo a tal domanda con un esperimento mentale, che è pittorescamente nominato \textbf{diavoletto di Maxwell}\marginpar{Maxwell's demon}\index{Maxwell's demon}. In particolare, considereremo una sua variante, detta \textbf{motore di Szilard}\index{Szilard's engine}, che vediamo rappresentato in figura \ref{fig:szilard}.
 
@@ -39,13 +40,14 @@ Risponderemo a tal domanda con un esperimento mentale, che è pittorescamente no
 
 Consideriamo in \ref{fig:szilard}.(a) un sistema costituito da due camere comunicanti $A$ e $B$, che si trovano in un bagno termico a temperatura $T$ fissata. Ipotizziamo che vi sia una singola particella $P$, con velocità $\vec{v}$, che effettua urti perfettamente elastici con le pareti del contenitore.\\
 Se sappiamo che $P$ si trova in $B$, cioè a destra, possiamo posizionare (in maniera reversibile, senza spendere lavoro) un pistone a separare $A$ e $B$, collegato ad una massa $m$ anch'essa posizionata a \textit{destra} (figura \ref{fig:szilard}.(b)). Prima o poi la particella si scontrerà con la barriera, e potremo quindi estrarre energia da essa (dato che sappiamo in che direzione mettere un \textit{peso} per farlo sollevare dal passaggio, figura \ref{fig:szilard}.(c)).\\
-Se la particella si fosse trovata in $A$, cioè a sinistra, avremmo potuto posizionare il peso in maniera simmetrica - di nuovo senza alcua differenza di energia spesa rispetto al caso precedente - e stavolta sfruttare il movimento di $P$ da sinistra a destra.\\
+Se la particella si fosse trovata in $A$, cioè a sinistra, avremmo potuto posizionare il peso in maniera simmetrica - di nuovo senza alcuna differenza di energia spesa rispetto al caso precedente - e stavolta sfruttare il movimento di $P$ da sinistra a destra.\\
 Ipotizzando che il pistone si muova senza attrito, riposizionarlo non consuma alcuna energia (potremmo pensare ad un sistema di \textit{molle} che consentano di passare reversibilmente da una configurazione all'altra), e perciò abbiamo appena ottenuto una macchina termica che ha come unico effetto quello di generare lavoro, in completa violazione del secondo principio della termodinamica.\\
 
 La situazione si risolve se consideriamo, oltre al sistema di due camere, anche la \textit{memoria} dell'osservatore. Per far funzionare il motore, infatti, abbiamo eseguito una misura di posizione della particella. Ciò, in principio, non crea problema - possiamo pensare che tale misura avvenga in maniera passiva, senza spese - ma presuppone la possibilità di \textbf{registrarne l'esito}, dato che poi dovremo basarci su di esso per posizionare la massa $m$ a destra o a sinistra.\\
 Perciò, se vogliamo riportare il motore di Szilard allo stato iniziale, per poi ripetere il ciclo ed estrarre energia, dobbiamo \textit{cancellare} l'esito della misura precedente. Si dà il caso che tale operazione \textbf{consumi per forza energia}.\\
 
-L'idea è data dal \textbf{principio di Landauer}\index{Principio!Landauer}. Consideriamo un registro a $1$ bit in cui \q{salvare} la misura fatta in \ref{fig:szilard}.(a). Tale registro è un \textbf{oggetto fisico}, realizzato con un sistema a due stati, che possiamo immaginare come una camera bipartita da un pistone, con volume $V$ e temperatura $T$ fissati. Vi sono $2$ configurazioni possibili (particella a sinistra = 0, particella a destra = 1), e perciò avremo un'entropia $S_i = k_B \log 2$. Nello stato finale, eliminiamo la divisione, e il numero di stati va a $1$, da cui $S_f = 0$. Abbiamo quindi una $\Delta S = -k_B \log 2$.\\
+L'idea è data dal \textbf{principio di Landauer}\index{Principio!Landauer}. Consideriamo un registro a $1$ bit in cui \q{salvare} la misura fatta in \ref{fig:szilard}.(a). Tale registro è un \textbf{oggetto fisico}, realizzato con un sistema a due stati, che possiamo immaginare come una camera bipartita da un pistone, con volume $V$ e temperatura $T$ fissati. Vi sono $2$ configurazioni possibili, che corrispondono ai due possibili stati ($0$ o $1$) del bit. Per esempio $0$ potrebbe essere associato alla presenza della particella nella cella a sinistra, e $1$ in quella a destra. Avremo allora un'entropia iniziale $S_i = k_B \log 2$.\\
+Per cancellare il bit eliminiamo la divisione, portando a $1$ il numero di stati, e quindi l'entropia $S_f$ a $0$. Abbiamo quindi una variazione $\Delta S = -k_B \log 2$.\\
 Applicando allora il secondo principio della termodinamica, si ha che $\Delta S_{tot} = \Delta S_{amb} + \Delta S_{syst} \geq 0$, dove per ambiente intendiamo il bagno a temperatura $T$, mentre la $\Delta S_{syst}$ è stata appena calcolata.\\
 Tuttavia, per una riserva termica infinita (perciò sempre all'equilibrio) possiamo usare la formula di Clausius, e quindi:
 \begin{align*}
@@ -59,11 +61,11 @@ Applicando allora il primo principio della termodinamica, affinché l'energia de
 \begin{align*}
 \Delta \mathcal{E} = kT \log 2 
 \end{align*}
-In altre parole, c'è un limite \textit{minimo} all'energia spesa per una singola computazione.
+In altre parole, c'è un limite \textit{minimo} all'energia spesa per una singola computazione \textit{irreversibile} (come la cancellazione di un bit).
 
-\subsection{Computer e comunicazione}
+\subsection{Definizioni di base}
 
-Possiamo schematizzare un \textbf{computer}\marginpar{Computer}\index{Computer!classico} come un oggetto che ha un \textit{input}, che è costituito da un oggetto fisico opportunamente preparato, che subisce un \textit{processo fisico} che ne cambia lo \textit{stato logico}, portando ad un oggetto su cui si effettua una \textbf{misura} che porta all'\textit{output}.\\
+Possiamo schematizzare un \textbf{computer}\marginpar{Computer}\index{Computer!classico} come un oggetto che dato un \textit{input} (condizione iniziale), costituito da un sistema fisico opportunamente preparato, lo trasforma tramite un \textit{processo fisico} cambiandone lo \textit{stato logico} (ossia le \textit{informazioni} in esso codificate), e generando così un sistema che, una volta misurato, produce un \textit{output} (risultato).\\
 
 Un \textbf{computer quantistico}\index{Computer!quantistico} \marginpar{Computer quantistico} segue lo stesso schema, usando però per gli stati delle \textit{funzioni d'onda}. Avremo quindi uno stato iniziale $\ket{\psi_{in}}$, che subisce un'evoluzione temporale tramite l'operatore $U=\exp\left(-\frac{i}{\hbar}tH\right)$, giungendo ad un output $\ket{\psi_{out}}=U\ket{\psi_{in}}$. Per poterlo usare, tuttavia, dobbiamo effettuare una misura, che selezionerà solo uno dei possibili esiti codificati da $\ket{\psi_{out}}$. Perciò, l'algoritmo quantistico deve far sì che l'esito desiderato possa essere estratto in maniera efficiente dalla funzione d'onda finale, cosa che in genere è un problema complesso.
 
@@ -75,10 +77,11 @@ Un \textbf{computer quantistico}\index{Computer!quantistico} \marginpar{Computer
 
 Tuttavia, nel processo fisico possiamo usare tutte le possibilità offerte dalla \MQ, come l'\textit{entanglement}, il \textit{principio di sovrapposizione}, il \textit{teletrasporto}... con una \textbf{grave limitazione}:\marginpar{No cloning theorem} non è possibile creare una copia esatta di uno stato senza distruggere l'originale (\textbf{no cloning theorem}).\\
 
+Strettamente collegato al concetto di \textbf{computazione} si trova l'idea di \textbf{comunicazione}.\\
 
 Per \textbf{comunicazione classica}\index{Comunicazione!classica} si intende il trasferimento di informazione da un mittente (\textbf{A}lice) e un destinatario (\textbf{B}ob), attraverso un determinato \textbf{canale}. Ciò è realizzato tramite un sistema in grado di trasferire \textit{bit} di informazione (dato che un qualsiasi stato logico classico può essere scritto come un'opportuna sequenza di $0$ e $1$).\\
 
-Nuovamente, la \textbf{comunicazione quantistica}\index{Comunicazione!quantistica} segue lo stesso schema, ma questa volta si trasferisce una funzione d'onda $\ket{\psi}$ tramite un \textbf{canale quantistico}, per esempio attraverso \textit{fotoni}. La maggiore libertà offerta della \MQ offre possibilità più ampie rispetto a quelle permesse dalla \MC, come la \textit{crittografia quantistica}, il \textit{trasporto di più informazione di quella classicamente permessa}, il \textit{teletrasporto quantistico}.
+Nuovamente, la \textbf{comunicazione quantistica}\index{Comunicazione!quantistica} segue lo stesso schema, ma questa volta si trasferisce una funzione d'onda $\ket{\psi}$ tramite un \textbf{canale quantistico}, per esempio attraverso \textit{fotoni}. La maggiore libertà offerta della \MQ offre possibilità più ampie rispetto a quelle permesse dalla \MC, come la \textit{crittografia quantistica}, il \textit{trasporto di più informazione di quella classicamente permessa}, il \textit{teletrasporto quantistico}...
 
 \begin{figure}[H]
 \centering
@@ -88,6 +91,7 @@ Nuovamente, la \textbf{comunicazione quantistica}\index{Comunicazione!quantistic
 
 Tramite \textbf{sensori quantistici} è possibile poi effettuare misure con target ben \textit{più piccoli}, superando i limiti delle ampie medie temporali propri dei sensori classici.
 
+\begin{comment}
 \section{Gli argomenti che tratteremo}
 Tra gli argomenti che affronteremo nel corso vi sono:
 \begin{itemize}
@@ -96,6 +100,7 @@ Tra gli argomenti che affronteremo nel corso vi sono:
 \item Teletrasporto, crittografia, comunicazione quantistica, algoritm (Shor, Grover...), simulazioni e sensori
 \item Hardware quantistico, panoramica di possibili implementazioni quantistiche (fotoni, superconduttori, atomi freddi, ioni intrappolati, difetti colorati in diamanti...)
 \end{itemize}
+\end{comment}
 
 \section{Modello di calcolo a circuiti}
 \subsection{Calcolo classico deterministico}
@@ -113,7 +118,7 @@ Una computazione è schematizzata da \textit{linee} che codificano lo stato di u
 \end{figure}
 Si può dimostrare che qualsiasi computazione del tipo (\ref{eqn:f-binaria}) può essere realizzata come una combinazione di alcune \textbf{porte logiche fondamentali}, che ora specifichiamo.\\
 
-Partiamo dalle \textit{porte logiche} a $1$ bit. In tal caso abbiamo due sole possibilità: \textit{identità} e \textit{not}.\index{Porte logiche!1-bit classiche}
+Partiamo dalle {porte logiche} a \textbf{1 bit}. In tal caso abbiamo due sole possibilità: \textit{identità} e \textit{not}.\index{Porte logiche!1-bit classiche}
 
 \begin{table}[H]
 \centering
@@ -124,11 +129,11 @@ Partiamo dalle \textit{porte logiche} a $1$ bit. In tal caso abbiamo due sole po
 0 & 0 & 0 & 1 \\
 1 & 1 & 1 & 0 \\ \bottomrule
 \end{tabular}
-\caption{Tabella di verità per \textit{not} $\bar{a}$ e \textit{identità} (buffer)}
+\caption{Tabella di verità per \textit{not} ($\bar{a}$) e \textit{identità} (buffer)}
 \label{tab:notbuffer}
 \end{table}
 
-Le porte logiche a $2$ bit fondamentali sono \textit{and} e \textit{or}.\index{Porte logiche!2-bit classiche}
+D'altro canto, le porte logiche fondamentali a \textbf{2 bit} sono \textit{and} e \textit{or}.\index{Porte logiche!2-bit classiche}
 \begin{table}[H]
 \centering
 \begin{tabular}{@{}ll|lll@{}}
@@ -156,17 +161,24 @@ Un \textit{set uiniversale classico}, ossia l'insieme di operazioni logiche nece
 Notiamo che alcune di queste operazioni sono \textbf{irreversibili}\marginpar{Irreversibilità delle porte logiche classiche}, cioè dallo stato finale non è possibile risalire con univocità allo stato iniziale (es. per \textit{or} e \textit{and} input e output non sono in relazione biunivoca). Ciò è problematico, perché la \MQ agisce in maniera unitaria e reversibile, e quindi di certo non è possibile trovare le \textit{porte logiche quantistiche} per semplice trasposizione. Inoltre, come già accennato, non è possibile effettuare l'operazione di \textit{copy} in \MQ.
 
 \subsection{Calcolo quantistico}
-Con un \textbf{qubit} intendiamo un set di due possibilità di stati: fondamentale $\ket{0}$ e eccitato $\ket{1}$.\\
-Applicando il principio di sovrapposizione della \MQ si ha immediatamente che possiamo ora utilizzare stati senza analogo classico:
+L'analogo quantistico di un bit classico è detto \textbf{qubit}, per cui si intende un set di due possibili stati (quantistici) distinguibili: \textit{fondamentale} $\ket{0}$ ed \textit{eccitato} $\ket{1}$.
+
+\begin{figure}[H]
+\centering
+\input{Tikz/28_2/statiQubit.tex}
+\caption{Come nel caso classico, rappresentiamo i \textit{qubit} come linee, che saranno opportunamente collegate agli input delle porte logiche\label{fig:qubit-righe}}
+\end{figure}
+
+Dal principio di sovrapposizione della \MQ deriva immediatamente la possibilità di creare stati \textit{senza analogo classico}. Infatti, un generico qubit è dato da una \textbf{superposizione} dei due stati possibili:
 \begin{align*}
 \ket{\psi} = \alpha_0 \ket{0} + \alpha_1 \ket{1} \qquad \alpha_0, \alpha_1 \in \bb{C}, |\alpha_0|^2 + |\alpha_1|^2 = 1
 \end{align*}
-Riscrivendo $\alpha_0$ e $\alpha_1$ come fasi:
+Equivalentemente, riscrivendo $\alpha_0$ e $\alpha_1$ come fasi, otteniamo l'espressione:
 \begin{align*}
 \ket{\psi} = \cos\frac{\theta}{2} \ket{0} + \sin\frac{\theta}{2} e^{i\varphi} \ket{1} \qquad 0\leq \theta \leq \pi, 0 \leq \varphi \leq \pi
 \end{align*}
 
-Possiamo quindi rappresentare un \textit{qubit} nella \textbf{sfera di Bloch}\index{Sfera di Bloch} rappresentata in figura \ref{fig:blochsphere}.
+Tale espressione ha un'interpretazione geometrica come un \textbf{vettore unitario} nella \textbf{sfera di Bloch}\index{Sfera di Bloch} (figura \ref{fig:blochsphere}).
 
 \begin{figure}[H]
 \centering

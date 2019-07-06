@@ -383,5 +383,82 @@ Per esempio:
 \end{align*}
 \end{comment}
 
+\section{Misura sperimentale della violazione delle disuguaglianze CHSH}
+Esaminiamo ora un possibile apparato sperimentale in grado di osservare la violazione delle disuguaglianze CHSH.\\
+Utilizzeremo come qubit lo stato di polarizzazione di un fotone, nella base $\{\ket{H},\ket{V}\}$ di polarizzazione (lineare) orizzontale (H) o verticale (V).\\
+Per generare qubit entangled impieghiamo il fenomeno di \textit{spontaneous parametric downconversion}. Certi cristalli (come ad esempio il borato di Bario, comunemente detto BBO) esibiscono un comportamento ottico \textbf{non lineare}. Ciò rende possibile la conversione di un fotone in ingresso in una coppia di fotoni, rispettando conservazione di energia e momento (figura \ref{fig:spdc}).
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Immagini/28_3/spdc_1.PNG}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{Immagini/28_3/spdc_2.PNG}
+    \end{subfigure}
+    \caption{A sinistra: schema del processo di \textit{spontaneous parametric downconversion}. Come visibile a destra, i due fotoni risultanti sono emessi in un cono di angolo specifico.}
+    \label{fig:spdc}
+\end{figure}
+
+Tale processo avviene con un'efficienza molto ridotta, e solo per certe frequenze dei fotoni in ingresso. Per poterlo sfruttare, perciò, è necessario utilizzare un laser sufficientemente potente.\\
+
+A seconda della tipologia di cristallo, la polarizzazione dei due fotoni emessi è più o meno correlata a quella del fotone incidente. In particolare, in un cristallo con \textit{phase matching} di tipo $1$, se il fotone iniziale è polarizzato parallelamente ad uno specifico asse del cristallo, allora i due fotoni risultanti hanno entrambi la stessa polarizzazione, perpendicolare a quella iniziale.\\
+Ciò permette, per esempio, di convertire un fotone $\ket{V}$ in due fotoni $\ket{H}$:
+\begin{align*}
+    \ket{V} \mapsto \ket{H}_A \otimes \ket{H}_B
+\end{align*}
+Lo stato così generato è separabile, e quindi non entangled. Possiamo rimediare a ciò sovrapponendo due cristalli non lineari, con assi perpendicolari, e illuminandoli con luce polarizzata a $45^\circ$ (figura \ref{fig:entanglement_gen}). Il fotone iniziale è quindi nello stato $\ket{\psi_1}$:
+\begin{align*}
+    \ket{\psi_1} = \frac{1}{\sqrt{2}}(\ket{H} + \ket{V})
+\end{align*}
+e perciò ha uguale probabilità di dividersi in due fotoni polarizzati orizzontalmente o verticalmente, a seconda del cristallo con cui interagisce.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Immagini/28_3/entanglement_gen.jpg}
+    \caption{I cristalli $\#1$ e $\#2$ hanno assi ottici perpendicolari: il primo verticale, il secondo orizzontale. Perciò $\#1$ converte fotoni $\ket{V} \to \ket{H}\otimes \ket{H}$, mentre il secondo $\ket{H} \to \ket{V}\otimes \ket{V}$. Utilizzando come input fotoni polarizzati a $45^\circ$ (sovrapposizione a pari coefficienti di $\ket{H}$ e $\ket{V}$) allora ogni fotone ha pari probabilità di essere splittato da $\#1$ o da $\#2$. Fino a quando non viene fatta una misura, entrambi i processi \textit{sono esplorati}, e perciò lo stato finale è entangled.}
+    \label{fig:entanglement_gen}
+\end{figure}
+
+L'unico problema è che, a causa dello spessore dei cristalli non lineari, i due \textit{coni} di emissione delle coppie di fotoni non coincidono. Perciò i due percorsi possibili (split nel primo cristallo o nel secondo) non sono perfettamente sovrapposti - e quindi lo stato finale non è una superposizione coerente, ma uno stato misto:
+\begin{align*}
+    \ket{\psi_2'} = \frac{1}{2}(\ket{HH}\bra{HH} + \ket{VV}\bra{VV})
+\end{align*}
+Tale fenomeno è definito \textit{walk-off}, e può essere compensato \q{ritardando} uno dei due fotoni tramite un altro elemento ottico. Così facendo otteniamo, finalmente, uno stato entangled coerente:
+\begin{align*}
+    \ket{\psi_2} = \frac{1}{\sqrt{2}}(\ket{H}_A \ket{H}_B + e^{i\varphi} \ket{V}_A \ket{V}_B)
+\end{align*}
+
+Non resta altro che effettuare misure di polarizzazione sui due fotoni entangled. Per farlo, esaminiamo - punto per punto - il seguente setup:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Immagini/28_3/Bell_setup.jpg}
+    \caption{Setup sperimentale per la violazione delle disuguaglianze CHSH}
+    \label{fig:bell-setup}
+\end{figure}
+
+\begin{enumerate}
+    \item In \textbf{A} si ha un laser di un'opportuna lunghezza d'onda (specifica per i BBO) e sufficientemente potente. Il fascio viene polarizzato \textbf{verticalmente} da un filtro.
+    \item Il laser viene focalizzato e collimato da alcuni elementi ottici, e tramite una coppia di specchi viene fatto incidere sul cristallo non lineare in \textbf{B}, dove avviene il fenomeno di \textit{parametric down-conversion}.
+    \item Ci concentriamo su uno specifico piano all'interno del cono di emissione delle coppie di fotoni. In \textbf{C}, tramite opportuni elementi ottici, si sovrappongono i due coni relativi ai due strati di cristallo non lineare, in modo da ottenere lo stato coerente $\ket{\psi_2}$.
+    \item Dopo aver attraversato un'ulteriore lente, in \textbf{D} i due fasci di fotoni entangled incidono su una coppia di \textit{iridi}, che vengono regolati in modo da lasciar passare solo la componente effettivamente sovrapposta (dove quindi l'entanglement è massimo)
+    \item Ciascun fascio viene riflesso verso l'apparato di misura. Concentriamoci sul fascio inferiore. In \textbf{E} si ha una lamina $\lambda/2$, che consente di variare l'angolo $\theta$ di polarizzazione lineare della luce incidente. Nel dettaglio, la lamina \q{riflette} la polarizzazione della luce incidente rispetto al suo asse ottico (che può essere orientato a piacere):
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{Immagini/28_3/lambda2.PNG}
+        \caption{Schema del funzionamento di una lamina $\lambda/2$. Poiché la lamina \q{riflette} la polarizzazione incidente, orientandola a $\theta = 45^\circ$ è possibile convertire $\ket{H}$ in $\ket{V}$ (e viceversa). Analogamente, per $\theta=22.5^\circ$, si converte una polarizzazione a $45^\circ$ ($\ket{+}$) in $\ket{H}$.}
+        \label{fig:my_label}
+    \end{figure}
+    Una lamina $\lambda/4$ (in \textbf{F}) è presente in uno solo dei due fasi, e serve a fissare la fase $\varphi$ che compare in $\ket{\psi_2}$. A questo punto il fascio incide su un \q{polarizing biscuit} in \textbf{G}, che è un normale cristallo birifrangente orientato in modo da trasmettere al $100\%$ la componente $\ket{H}$, e da riflettere quella $\ket{V}$. Poiché possiamo convertire una qualsiasi polarizzazione in $\ket{H}$ orientando opportunamente la lamina $\lambda/2$, l'apparato consente di misurare la polarizzazione lungo un asse arbitrario.
+    \item Infine, in \textbf{H}, si ha un rivelatore a singolo fotone, collegato ad un'opportuna elettronica di acquisizione e ad un computer per la presa dati.
+\end{enumerate}
+
+Per determinare la presenza o meno di entanglement, un modo è misurare un'osservabile detta \textbf{entanglement witness}, tale da risultare in esiti differenti per stati separabili o stati entangled.\\
+Un esempio è misurare le correlazioni in \textit{basi coniugate}. Ci aspettiamo infatti di osservare coppie polarizzate $HH$ o $VV$ sia per $\ket{\psi_2}$ che per $\ket{\psi_2'}$, e allo stesso modo di non osservare $HV$ e $VH$ (se non per le incertezze sperimentali dovute ad allineamento, rumore, etc.). Tuttavia, misurando in una base \textit{diagonale}, per $\ket{\psi_2}$ ci aspettiamo di misurare tanti fotoni polarizzati $++$, e nessuno $+-$, mentre per $\ket{\psi_2'}$ misureremo fotoni con ogni combinazione di polarizzazione ($++$ e $+-$ allo stesso modo).\\
+
+In presenza di entanglement possiamo misurare la violazione delle disuguaglianze di Bell. L'idea è di misurare un fotone nelle polarizzazioni orizzontale e verticale, e l'altro in diagonale e antidiagonale, eseguendo quanto già visto in (\ref{eqn:S-Bell}). 
+
 \end{document}
 

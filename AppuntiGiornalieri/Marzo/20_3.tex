@@ -3,20 +3,20 @@
 \begin{document}
 
 \section{Misure generalizzate}
-\lesson{7 \orangedot}{20/3/2019}
+\lesson{7 \greendot}{20/3/2019}
 Il formalismo delle \q{evoluzioni generalizzate} ci permette di trattare una classe più ampia di misurazioni.\\
 Finora, infatti, abbiamo identificato la misura di uno stato quantistico come una \textit{misura ideale di prima specie}, che corrisponde ad una proiezione di Von Neumann.\index{Misura!di Von Neumann}\\
-Matematicamente, consideriamo una funzione d'onda $\ket{\psi(t)}$, e una misura di Von Neumann che a $t=0$ trova che l'osservabile $A$ ha un certo valore $a\in \sigma(A)$. Lo stato del sistema immediatamente dopo la misura è uno stato in cui il valore di $A$ è ben definito, ossia l'autostato di $A$ di autovalore $a$. Per ottenerlo si \textit{proietta} la $\ket{\psi(0)}$ sull'autospazio di $A$ di autovalore $a$:
+Matematicamente, consideriamo una funzione d'onda $\ket{\psi(t)}$, e una misura dell'osservabile $A$ a $t=0$, che ha esito $a\in \sigma(A)$. Immediatamente dopo la misura, il sistema si trova in uno stato in cui il valore di $A$ è ben definito, ossia in un autostato di $A$ dell'autospazio con autovalore $a$, ottenuto proiettando $\ket{\psi(0)}$:
 \begin{align*}
 \ket{\psi(0^+)} = \frac{P_a^A \ket{\psi(0)}}{\sqrt{\bra{\psi(0)}P_a^A \ket{\psi(0)}}}
 \end{align*}
 Perciò una qualsiasi misura \textit{immediatamente successiva} trova per $A$ sempre il valore $a$, con certezza.\\
 
-Potremmo però considerare un \q{processo di misura} con un risultato \textbf{incerto}, per cui lo stato finale è un elemento $\{\ket{\psi_i}\}_{i=1,\dots,N}$ scelto con \textbf{probabilità} $p_i$. Al posto del proiettore usiamo allora una classe più ampia di operatori $\{M_i\}$ \textit{non necessariamente autoaggiunti}, che mappano $\ket{\psi}$ nelle varie possibilità $\ket{\psi_i}$: \marginpar{Misura generalizzata}\index{Misura!Generalizzata}
+Potremmo però considerare un \q{processo di misura} con un risultato \textbf{incerto}, per cui lo stato finale è un elemento $\{\ket{\psi_i}\}_{i=1,\dots,N}$ scelto con \textbf{probabilità} $p_i$. Al posto del proiettore usiamo allora una classe più ampia di operatori $\{M_i\}$, \textit{non necessariamente autoaggiunti}, che mappano $\ket{\psi}$ nelle varie possibilità $\ket{\psi_i}$: \marginpar{Misura generalizzata}\index{Misura!Generalizzata}
 \begin{align*}
-\ket{\psi_i} = \frac{M_i \ket{\psi}}{\sqrt{\bra{\psi_i}M_i^\dag M_i\ket{\psi}}} \qquad p_i = \bra{\psi}M_i^\dag M_i \ket{\psi} \qquad i=1,\dots,N
+\ket{\psi_i} = \frac{M_i \ket{\psi}}{\sqrt{\bra{\psi}M_i^\dag M_i\ket{\psi}}} \qquad p_i = \bra{\psi}M_i^\dag M_i \ket{\psi} \qquad i=1,\dots,N
 \end{align*}
-Poiché vogliamo che le $\ket{\psi_i}$ esauriscano tutte le possibili evoluzioni di $\ket{\psi}$, si ha che le $p_i$ si sommano a $1$, e quindi: \marginpar{Condizione di completezza}
+Poiché vogliamo che le $\ket{\psi_i}$ esauriscano tutte le possibili evoluzioni di $\ket{\psi}$, richiediamo che le $p_i$ abbiano somma $1$, e quindi: \marginpar{Condizione di completezza}
 \begin{align}
 \sum_{i=1}^N p_i = 1 \Leftrightarrow \bra{\psi} \sum_{i=1}^N M_i^\dag M_i\ket{\psi} = 1 \Leftrightarrow \bm{\sum_{i=1}^N M_i^\dag M_i = 1}
 \label{eqn:condizione-misure}
@@ -82,22 +82,24 @@ Dimostriamo che:
 \begin{enumerate}
 \item $U_{1+2}$ è unitario. Possiamo vederlo mostrando che preserva le norme:
 \begin{align*}
-\bra{\psi 0}_{12}U^\dag_{1+2} U_{1+2} \ket{\psi 0}_{12} &\underset{(\ref{eqn:U-def})}{=} \left(\sum_{k=1}^M E_k^\dag \bra{\psi}_1 \bra{k}_2\right)
-\left( \sum_{l=1}^M E_l \ket{\psi}_1 \ket{l}_2 \right) =\\
-&\underset{(a)}{=} \sum_{k=1}^M \sum_{l=1}^M \underbrace{\braket{k|l}}_{\delta_{kl}} \bra{\psi}_1E_k^\dag E_l \ket{\psi}_1 = \sum_{k} \bra{\psi}E_k^\dag E_k \ket{\psi}=\\
-&=\bra{\psi}\sum_k E_k^\dag E_k \ket{\psi} \underset{(\ref{eqn:def-kraus})}{=}\braket{\psi|\psi}=1
+\bra{\psi 0}_{12}U^\dag_{1+2} U_{1+2} \ket{\psi 0}_{12} &\underset{(\ref{eqn:U-def})}{=} \left(\sum_{k=1}^M \bra{\psi}_1 \bra{k}_2 (E_k^\dag \otimes \bb{I}_2)\right)
+\left( \sum_{l=1}^M (E_l \otimes \bb{I}_2) \ket{\psi}_1 \ket{l}_2 \right) =\\
+&\underset{(a)}{=} \sum_{k=1}^M \sum_{l=1}^M \underbrace{\braket{k|l}}_{\delta_{kl}} \bra{\psi}_1E_k^\dag E_l \ket{\psi}_1 = \sum_{k=1}^M \bra{\psi}E_k^\dag E_k \ket{\psi}=\\
+&=\bra{\psi}\sum_{k=1}^M E_k^\dag E_k \ket{\psi} \underset{(\ref{eqn:def-kraus})}{=}\braket{\psi|\psi}=1
 \end{align*}
-dove in (a) usiamo il fatto che gli $E_k$ agiscono solo su $\hs_1$, ossia sul primo sottosistema, e lasciano invariato il secondo. Tutto ciò vale anche se al posto di $\ket{\psi}$ consideriamo uno stato misto.
-\item L'evoluzione dello stato $\rho_{12}$ del sistema composto secondo $U$ \textit{induce} l'evoluzione di $\rho_1$ data dagli operatori di Kraus $\{E_k\}$. Partiamo dal caso in cui $\rho_1$ descrive uno stato puro, ossia $\rho_1 = \ket{\psi}\bra{\psi}$. Allora si ha:
+dove in (a) usiamo il fatto che gli $E_k$ agiscono solo su $\hs_1$, ossia sul primo sottosistema, e lasciano invariato il secondo. Tutto ciò vale anche se al posto di $\ket{\psi}$ consideriamo uno stato misto (per la linearità delle operazioni coinvolte).
+\item L'evoluzione dello stato $\rho_{12}$ del sistema composto secondo $U$ \textit{induce} l'evoluzione di $\rho_1$ data dagli operatori di Kraus $\{E_k\}$. Partiamo dal caso in cui $\rho_1$ descrive uno stato puro, ossia $\rho_1 = \ket{\psi}\bra{\psi}$, da cui $\rho_{12}
+ = \ket{\psi_1 0} \bra{\psi1 0}$. Allora si ha:
 \begin{align*}
-\rho_1' &= \underset{2}{\op{Tr}}\left(\rho_{12}(t)\right)=\underset{2}{\op{Tr}}(U_{1+2}\ket{\psi 0}_{12}\bra{\psi0}_{12}U^\dag_{1+2}) = \\
-&= \sum_{k=1}^M \bra{k}_2\left(\sum_{l=1}^M E_l \ket{\psi}_1\ket{l}_2\right) \left(\sum_{m=1}^M \bra{\psi}_1 \bra{m}_2 E_m^\dag\right)\ket{k}_2 =\\
+\rho_1' &= \underset{2}{\op{Tr}}\left(\rho_{12}(t)\right) = \underset{2}{\op{Tr}}\left( U_{1+2} \rho_{12} U_{1+2}^\dag \right)=\\
+&= \underset{2}{\op{Tr}}(U_{1+2}\ket{\psi 0}_{12}\bra{\psi0}_{12}U^\dag_{1+2}) = \\
+&= \sum_{k=1}^M \bra{k}_2\left(\sum_{l=1}^M (E_l \ket{\psi}_1)\ket{l}_2\right) \left(\sum_{m=1}^M (\bra{\psi}_1 E_m^\dag) \bra{m}_2 \right)\ket{k}_2 =\\
 &= \sum_{k,l,m=1}^M  \underbrace{\braket{k|l}}_{\delta_{kl}}\underbrace{\braket{m|k}}_{\delta_{km}}
 E_l \ket{\psi}_1 \bra{\psi}_1 E_m^\dag = \sum_{k=1}^M E_k \ket{\psi}_1\bra{\psi}_1E_k^\dag =
 \\
 &= \sum_{k=1}^M E_k \rho_1 E_k^\dag
 \end{align*}
-Nel caso invece $\rho_1$ descrivesse uno stato misto, tale risultato continua a valere: avremo infatti $\rho_1 = \sum_i p_i \ket{\psi_i}\bra{\psi_i}$, e sfruttando la \textbf{linearità} dei passaggi svolti nella dimostrazione, si arriva sempre alla tesi del teorema.
+Nel caso invece $\rho_1$ sia uno stato misto, tale risultato continua a valere: avremo infatti $\rho_1 = \sum_i p_i \ket{\psi_i}\bra{\psi_i}$, e quindi $\rho_{12} = \rho_1 \otimes \ket{0}\bra{0}$, e sfruttando la \textbf{linearità} dei passaggi svolti nella dimostrazione si arriva sempre alla tesi del teorema.
 \end{enumerate}
 
 \subsection{Motivazione delle misure generalizzate}
@@ -112,7 +114,7 @@ Analogamente, si trova che una \textbf{misura proiettiva} sul sistema composto s
 
 Consideriamo nello specifico un sistema $1+2$ (sistema in esame + ancilla) che viene fatto evolvere unitariamente da $U_{12}$, che come abbiamo visto in (\ref{eqn:U-def}) è legata all'evoluzione generalizzata definita dagli operatori di Kraus $\{E_k\}$ su $1$. Per un sistema che parte da $\ket{\Psi(0)}_{12}=\ket{\psi}_1\ket{0}_2$ otteniamo:
 \begin{align*}
-\ket{\Psi(t)}_{12}=U_{12}\ket{\psi}_1 \ket{0}_2 = \sum_{k=0}^M E_k \ket{\psi}_1 \ket{k}_2 \Rightarrow \rho_{12}(0)=\ket{\Psi(t)}_{12}\bra{\Psi(t)}_{12}
+\ket{\Psi(t)}_{12}=U_{12}\ket{\psi}_1 \ket{0}_2 = \sum_{k=0}^M E_k \ket{\psi}_1 \ket{k}_2 \Rightarrow \rho_{12}(t)=\ket{\Psi(t)}_{12}\bra{\Psi(t)}_{12}
 \end{align*}
 Consideriamo una \textbf{misura proiettiva} sul secondo sottosistema per verificare se si trovi o meno nello stato $\ket{i}_2$, e che quindi equivale ad un operatore che proietta la funzione d'onda nel sottospazio generato da $\ket{i}_2$:
 \begin{align*}
@@ -120,11 +122,12 @@ Consideriamo una \textbf{misura proiettiva} sul secondo sottosistema per verific
 \end{align*}
 Calcoliamo la probabilità di ottenere $i$ dalla misura: %Pag. 287
 \begin{align*}
-p_i &= \op{Tr}(\rho_{12}(t)\hat{P}_i) = \op{Tr}\left( \left[\sum_{k,k'}^ME_k\ket{\psi}_1\ket{k}_2\bra{\psi}_1\bra{k'}_2E_{k'}^\dag \right](\bb{I}_1 \otimes \ket{i}_2\bra{i}_2)\right) =\\
+p_i &= \op{Tr}(\rho_{12}(t)\hat{P}_i) = \op{Tr}\left( \left[\sum_{k,k'}^M
+(E_k\ket{\psi}_1) \ket{k}_2 (\bra{\psi}_1 E_{k'}^\dag) \bra{k'}_2\right](\bb{I}_1 \otimes \ket{i}_2\bra{i}_2)\right) =\\
 &= \op{Tr}\left( \sum_{k,k'}^M E_k \ket{\psi}_1 \bra{\psi}_1 E_k^\dag \otimes {\braket{k'|i}}\ket{k}_2 \bra{i}_2\right) =\\
-&=\sum_{m=1}^{\op{dim}\hs_1} \sum_{n=1}^{\op{dim}\hs_2} \bra{m}_1 \bra{n}_2 \op{Tr}\left( \sum_{k,k'}^M E_k \ket{\psi}_1 \bra{\psi}_1 E_k^\dag \otimes {\braket{k'|i}}\ket{k}_2 \bra{i}_2\right) \ket{m}_1 \ket{n}_2 = \\
+&=\sum_{m=1}^{\op{dim}\hs_1} \sum_{n=1}^{\op{dim}\hs_2} \bra{m}_1 \bra{n}_2 \left( \sum_{k,k'}^M E_k \ket{\psi}_1 \bra{\psi}_1 E_k^\dag \otimes {\braket{k'|i}}\ket{k}_2 \bra{i}_2\right) \ket{m}_1 \ket{n}_2 = \\
 &= \sum_{m,n}^{\op{dim}\hs_{1,2}} \sum_{k,k'}^M \bra{m}_1 E_k \ket{\psi}_1 \bra{\psi}_1 E_k^\dag \ket{m}_1 \underbrace{\braket{n|k}}_{\delta_{nk}}\underbrace{\braket{k'|i}}_{\delta_{k'i}}\underbrace{\braket{i|n}}_{\delta_{in}} = \\
-&\underset{(a)}{=} \sum_{m}^{\op{dim}\hs_1} \bra{m}_1 E_i \ket{\psi}_1 \bra{\psi}_1 E_i^\dag \ket{m}_1 \underset{(*)}{=} \sum_{m}^{\op{dim}\hs_1} \bra{\psi}_1 E_k^\dag \underbrace{\ket{m}_1 \bra{m}_1}_{\bb{I}_1} E_i \ket{\psi}_1 = \bra{\psi}_1 E_i^\dag E_i \ket{\psi}_1
+&\underset{(a)}{=} \sum_{m}^{\op{dim}\hs_1} \bra{m}_1 E_i \ket{\psi}_1 \bra{\psi}_1 E_i^\dag \ket{m}_1 \underset{(*)}{=} \sum_{m}^{\op{dim}\hs_1} \bra{\psi}_1 E_i^\dag \underbrace{\ket{m}_1 \bra{m}_1}_{\bb{I}_1} E_i \ket{\psi}_1 = \bra{\psi}_1 E_i^\dag E_i \ket{\psi}_1
 \end{align*}
 dove in (a) usiamo le $\delta$ di Kronecker per identificare $k'=k=n=i$, \q{collassando} tre sommatorie in un colpo solo.
 
@@ -214,7 +217,7 @@ L'informazione estratta da un tale processo è decisamente parziale: se misure r
 Del resto, ripetere molte volte una misura debole produce lo stesso effetto di una misura proiettiva.
 
 
-\textbf{Nota} Il processo di weak measurement esemplificato può essere trattato in maniera equivalente utilizzando il formalismo delle misure generalizzate $\{M_0, M_1\}$ date da:
+\textbf{Nota}. Il processo di weak measurement esemplificato può essere trattato in maniera equivalente utilizzando il formalismo delle misure generalizzate $\{M_0, M_1\}$ date da:
 \begin{align*}
 M_0 &= \ket{0}_S\bra{0}_S + \cos\theta \ket{1}_S\bra{1}_S\\
 M_1 &= \sin\theta \ket{1}_S\bra{1}_S
@@ -285,6 +288,8 @@ Calcoliamo allora la probabilità che il detector produca un esito $i$ a partire
 p(i|k) = \bra{\psi_k}F_i \ket{\psi_k}
 \end{align*}
 Risulta che $p(1|1) = 0$ e $p(0|2)=0$. Perciò se $i=1$ escludiamo sicuramente $\ket{\psi_1}$, se $i=0$ si esclude $\ket{\psi_2}$, e se $i=2$ non si può escludere nessuno dei due.
+
+
 \onlyinsubfile{
 \subsection{Nella prossima lezione...}
 Consideriamo lo stato puro:

@@ -2,22 +2,17 @@
 
 \begin{document}
 
+\begin{comment}
 \section{Qubit}
-\lesson{2 \greendot}{28/2/2019}
+\lesson{2 \bluedot}{28/2/2019}
 \textbf{Riepilogando}, abbiamo sostituito lo \textit{stato classico} di un bit con uno \textit{stato quantistico}, dato da un \textbf{qubit}\index{Qubit}, costituito da una combinazione lineare di due stati fondamentali $\ket{0}$ e $\ket{1}$:
 \begin{align*}
 \ket{\psi} = \cos\frac{\theta}{2} \ket{0} + e^{i\varphi} \sin\frac{\theta}{2}\ket{1}
 \end{align*}
+\end{comment}
 
-
-\begin{figure}[H]
-\centering
-\input{Tikz/28_2/statiQubit.tex}
-\caption{Come nel caso classico, rappresentiamo i \textit{qubit} come linee, che saranno opportunamente collegate agli input delle porte logiche\label{fig:qubit-righe}}
-\end{figure}
-
-
-Ricordiamo che $\ket{\psi}$ e $e^{i\alpha}\ket{\psi}$ rappresentano lo stesso stato, dato che gli stati in \MQ sono definiti da \textit{raggi vettori} definiti a meno di una fase globale.\\
+\textbf{Nota}: Ricordiamo che moltiplicare per un numero complesso (o, nel caso normalizzato, per una \textbf{fase globale}) \textit{non modifica lo stato}. In altre parole, $\ket{\psi}$ e $e^{i\alpha}\ket{\psi}$ rappresentano lo stesso identico stato - nel senso che misure di qualsiasi osservabile risultano in entrambi i casi negli stessi risultati.\\
+Matematicamente ciò significa che gli stati di sistemi quantistici sono più precisamente \textbf{raggi vettori}, ossia elementi in un opportuno spazio proiettivo ($\mathcal{PH}$).\\
 
 Ci chiediamo: quanta \textit{informazione}\marginpar{Informazione in un qubit} (in senso classico) racchiude un qubit? Abbiamo due possibili risposte, in contraddizione tra di loro:
 \begin{itemize}
@@ -26,7 +21,7 @@ Ci chiediamo: quanta \textit{informazione}\marginpar{Informazione in un qubit} (
 \end{itemize}
 In realtà, in pratica per produrre un output dovremo effettuare una \textbf{misura} sul qubit, che avrà due soli possibili risultati: $\ket{0}$ o $\ket{1}$. L'informazione sullo stato può essere ricavata solo da un grande insieme di qubit perfettamente identici, sui quali possiamo fare tante misure e, con tecniche di \textit{tomografia quantistica}, ricostruire, almeno in principio, gli esatti coefficienti della $\ket{\psi}$ originaria. In particolare l'informazione estratta sarà proporzionale al numero di misure effettuate, ritornando così ad un caso equivalente ad un sistema classico di \textit{molti bit}.\\
 
-Vi è comunque un vantaggio a tutto ciò: i \textit{numeri complessi} che definiscono la $\ket{\psi}$ sono \textbf{disponibili durante il processo quantistico}, cioè prima della misura, e quindi possono essere usati per la sua evoluzione. In altre parole, \textit{computazionalmente} è \q{come se avessimo più informazione disponibile}, anche se, alla fine, siamo costretti a scartarne la maggior parte, estraendo un risultato \q{condensato}.\\
+Vi è comunque un vantaggio a tutto ciò: i \textit{numeri complessi} che definiscono la $\ket{\psi}$ sono \textbf{disponibili durante il processo quantistico} - cioè in ogni istante che precede la misura - e quindi possono influenzare la sua evoluzione. In altre parole, \textit{computazionalmente} è \q{come se avessimo più informazione disponibile}, anche se, alla fine, siamo costretti a scartarne la maggior parte, estraendo un risultato \q{condensato}.\\
 
 Un \textbf{computer quantistico}\index{Computer!quantistico} si basa allora sull'inizializzare opportunamente un certo numero di qubit, che poi si evolvono in modo unitario attraverso opportune porte logiche.
 
@@ -38,17 +33,21 @@ Un \textbf{computer quantistico}\index{Computer!quantistico} si basa allora sull
 
 Ad un certo istante dell'evoluzione, il computer quantistico si trova in un generico stato $\ket{\psi}$, che consiste nello stato di $n$ qubit, dato da una delle possibili combinazioni lineari (con coefficienti $\Psi_{\vec{\alpha}}$) dei prodotti tensori degli stati $\ket{\alpha_i}=\{\ket{0},\ket{1}\}$ dei singoli qubit:
 \begin{align*}
-\ket{\psi} &=\sum_{\vec{\alpha}} \Psi_{\alpha_1,\alpha_2,\dots,\alpha_N}\left( \bigotimes_{i=1}^N \ket{\alpha_i} = \ket{\alpha_1}\ket{\alpha_2}\dots\ket{\alpha_N} \right)=\\
+\ket{\psi} &=\sum_{\vec{\alpha}} \Psi_{\alpha_1,\alpha_2,\dots,\alpha_N}\left( \bigotimes_{i=1}^N \ket{\alpha_i} \right) =\\
 &\equiv\sum_{\vec{\alpha}} \Psi_{\alpha_1, \dots, \alpha_N} \ket{\alpha_1, \dots, \alpha_N}
 \end{align*}
 dove i coefficienti $\Psi_{\vec{\alpha}} \in \bb{C}$ sono opportunamente normalizzati:
 \begin{align*}
 \sum_{\vec{\alpha}} \left| \Psi_{\vec{\alpha}}\right|^2 = 1
 \end{align*}
+Utilizzeremo spesso la notazione \textit{sintetica}:
+\begin{align*}
+    \bigotimes_{i=1}^N \ket{\alpha_i} = \ket{\alpha_1}\ket{\alpha_2}\dots\ket{\alpha_N} \equiv \ket{\alpha_1, \dots, \alpha_N}
+\end{align*}
 
 \textbf{Nota}: in informazione quantistica supponiamo sempre di avere a che fare con qubit che sono \textbf{distinguibili} tra loro, e quindi non avremo problemi di statistica fermionica/bosonica (che comunque iniziano a essere esplorati da alcuni studi attuali).\\
 
-Nella pratica non è per nulla semplice poter realizzare questi stati. $\ket{0}$ e $\ket{1}$ di un singolo qubit sono in genere separati da una piccolissima quantità di energia, che può essere fornita dal bagno termico in cui si trova il sistema. In altre parole, effetti termici possono modificare lo stato di input, rendendolo inutilizzabile. Ecco perché i computer quantistici sono realizzati in sistemi controllati tramite avanzate tecniche criogeniche.\\
+Nella pratica non è per nulla semplice poter realizzare questi stati. $\ket{0}$ e $\ket{1}$ di un singolo qubit sono in genere separati da una piccolissima quantità di energia, che può trovarsi nel range delle particelle del bagno termico in cui si trova il sistema. In altre parole, effetti termici possono modificare lo stato di input, rendendolo inutilizzabile. Ecco perché i computer quantistici sono realizzati in sistemi controllati tramite avanzate tecniche criogeniche.\\
 
 Analogamente al caso classico,\marginpar{Ogni operatore è la composizione di porte logiche} si può dimostrare che \textbf{un qualsiasi operatore quantistico} $O$ che agisce su $n$ qubit può essere\textbf{ scomposto} come l'azione combinata di opportune \textbf{porte logiche quantistiche fondamentali}. In genere, trovare tale combinazione non è però un problema banale - spesso si hanno solo risultati di esistenza, o bound sul numero di gate necessari.
 
@@ -67,6 +66,7 @@ Le porte a $1$ qubit sono rappresentate da matrici unitarie $2\times 2$, di soli
 \ket{0} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \qquad \ket{1} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 \end{align*}
 
+Già nel caso a $1$ bit vi sono porte \textit{senza alcun analogo classico}, che offrono quindi una maggiore libertà nelle manipolazioni di stati logici.\\
 Un primo esempio è dato dalla \textbf{porta di Hadamard}\marginpar{Porta di Hadamard}\index{Porte logiche!Hadamard}, la cui rappresentazione matriciale è data da:
 \begin{align*}
 H = \frac{1}{\sqrt{2}} \begin{pmatrix}
@@ -84,7 +84,14 @@ H \ket{1} &= \frac{1}{\sqrt{2}} (\ket{0} - \ket{1}) = \ket{-}_x
 \end{align*} 
 L'azione di $H$ può essere schematizzata come un passaggio dalla base degli autostati dell'operatore $\sigma_z$ (che possiamo far coincidere con i $\ket{0}$ e $\ket{1}$ della base computazionale) a quella dell'operatore $\sigma_x$ $\{\ket{+},\ket{-}\}$ (l'equivalente di una \textit{rotazione}, se fossimo nel comune spazio cartesiano in $d=3$)\footnote{Qui le $\sigma_i$ indicano le \textbf{matrici di Pauli}.}.\\
 
-Una porta quantistica \textit{senza analogo classico} è quella che \q{aggiunge una fase relativa}, detta di \textbf{phase-shift}:\marginpar{Operatore phase-shift}\index{Porte logiche!Phase-shift}
+\begin{expl}
+\textbf{Unitarietà}. Come affermato, tutti i gate quantistici fondamentali sono \textbf{unitari}, ossia rappresentati da matrici unitarie (e hermitiane). Nel caso dell'Hadamard ciò significa che $H = H^\dag = H^{-1}$, e quindi:
+\begin{align*}
+    H\ket{0} \mapsto \ket{+}_x \Rightarrow H\ket{+}_x \mapsto \ket{0}; \qquad H\ket{1}\mapsto \ket{-}_x \Rightarrow H\ket{-}_x \mapsto \ket{1}
+\end{align*}
+\end{expl}
+
+Un'altra porta quantistica fondamentale (e \textit{senza analogo classico}) è quella che \q{aggiunge una fase relativa}, detta di \textbf{phase-shift}:\marginpar{Operatore phase-shift}\index{Porte logiche!Phase-shift}
 \begin{align*}
 R_z(\delta) = \begin{pmatrix}
 1 & 0\\0 & e^{i\delta}
@@ -98,10 +105,23 @@ ed è rappresentata nei circuiti mediante il simbolo:
 
 \input{Tikz/28_2/phaseShiftSymbol.tex}
 
-Si dimostra, come verificheremo più avanti, che un generico stato $\ket{\psi}$ di un singolo qubit può essere ottenuto partendo da $\ket{0}$ applicando una successione di porte logiche a $1$-bit:
+Si dimostra, come verificheremo più avanti, che un \textbf{generico stato} $\ket{\psi}$ di un singolo qubit può essere ottenuto partendo da $\ket{0}$ applicando una successione di porte logiche a $1$-bit:
 \begin{align*}
 \ket{\psi} = R_z\left(\frac{\pi}{2} + \varphi\right) H R_z(\theta) H \ket{0}
 \end{align*}
+
+\begin{expl}
+\textbf{Porte logiche classiche}. Le porte logiche classiche a $1$ bit, essendo reversibili, possono essere adattate naturalmente al caso quantistico. In particolare il \textbf{buffer} è descritto da una matrice identità, mentre il NOT si ottiene \q{invertendo} le colonne (e righe) di $\bb{I}$:
+\begin{align*}
+    \op{BUFFER} = \begin{pmatrix}
+    1 & 0\\
+    0 & 1
+    \end{pmatrix} = \bb{I}_2 \qquad \op{NOT} = \begin{pmatrix}
+    0 & 1\\
+    1 & 0
+    \end{pmatrix} = \sigma_x
+\end{align*}
+\end{expl}
 
 \subsection{Porte a 2 qubit}
 Un generico stato di $2$ qubit è una combinazione di $4$ possibili stati (in generale, $n$ qubit sono combinazioni di $2^n$ possibilità):
@@ -122,7 +142,8 @@ La \textbf{base computazionale}\index{Base computazionale!2 qubit} $\{\ket{00}, 
 \ket{11} = \begin{pmatrix}0 \\ 0 \\ 0 \\ 1 \end{pmatrix}
 \end{align*}
 
-La prima porta logica che analizziamo è detta \textbf{CNOT}\index{Porte logiche!CNOT} (\textit{controlled not}) \marginpar{Gate CNOT} e corrisponde ad un'operazione su un bit \textit{condizionata} da un altro bit. In particolare CNOT esegue un'operazione NOT sul secondo qubit solo se il primo è pari a $1$, e non fa nulla altrimenti (ossia funge da \q{buffer} se il primo bit è $0$). Si tratta di un'operazione di not \q{controllata}, dato che viene \q{accesa} solo se il bit di controllo è pari a $1$. In notazione matriciale, usando la base $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$ vista sopra, è data da:
+La prima porta logica che analizziamo è detta \textbf{CNOT}\index{Porte logiche!CNOT} (\textit{controlled not}) \marginpar{Gate CNOT} e corrisponde ad un'operazione su un bit \textit{condizionata} da un altro bit. In particolare CNOT esegue un'operazione NOT sul secondo qubit solo se il primo è pari a $1$, e non fa nulla altrimenti (ossia funge da \q{buffer} se il primo bit è $0$). Si tratta di un'operazione di not \q{controllata}, dato che viene \q{accesa} solo se il bit di controllo è pari a $1$.\\
+In notazione matriciale, usando la base $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$ già introdotta, CNOT è descritta da:
 \begin{align*}
 \op{CNOT} =
 \left(
@@ -135,7 +156,10 @@ La prima porta logica che analizziamo è detta \textbf{CNOT}\index{Porte logiche
         \end{array}
 \right)
 \end{align*}
-In questa notazione, le prime due colonne (a sinistra) descrivono il funzionamento quando il bit di controllo - che è quello \textit{più significativo} nella notazione binaria, ossia quello più a sinistra - è $0$, e le ultime due quando è $1$. Perciò gli stati $\ket{\bm{0}0}$ e $\ket{\bm{0}1}$, dove tale bit di controllo è nullo, vengono mandati in se stessi senza variazioni, mentre per $\ket{\bm{1}0}$ e $\ket{\bm{1}1}$ il risultato si ottiene \textit{invertendo} il secondo bit (quello \textit{meno significativo} nella notazione binaria). Possiamo schematizzare il comportamento usando un analogo delle tavole di verità classiche (tabella \ref{tab:C-NOT}), ricordando però che lo stato iniziale (con bit di controllo indicato con $c$ e secondo bit con $a$) può essere una \textit{combinazione lineare} degli stati possibili di $2$ qubit, e di conseguenza l'output sarà anch'esso una combinazione lineare. In altre parole, in una tavola di verità quantistica è possibile che \q{più righe siano applicate contemporaneamente}.
+In questa notazione, le prime due colonne (a sinistra) descrivono il funzionamento quando il bit di controllo - che è quello \textit{più significativo} (= più a sinistra) nella notazione binaria - è $0$, e le ultime due quando è $1$.\\
+Perciò gli stati $\ket{\bm{0}0}$ e $\ket{\bm{0}1}$, dove tale bit di controllo è nullo, vengono mandati in se stessi senza variazioni, mentre per $\ket{\bm{1}0}$ e $\ket{\bm{1}1}$ il risultato si ottiene \textit{invertendo} il secondo bit (quello \textit{meno significativo} nella notazione binaria).\\
+
+Possiamo schematizzare il comportamento usando un analogo delle tavole di verità classiche (tabella \ref{tab:C-NOT}), ricordando però che lo stato iniziale (con bit di controllo indicato con $c$ e secondo bit con $a$) può essere una \textit{combinazione lineare} degli stati possibili di $2$ qubit, e di conseguenza l'output sarà anch'esso una combinazione lineare. In altre parole, in una tavola di verità quantistica è possibile che \q{più righe siano applicate contemporaneamente}.
 
 \begin{table}[H]
 \centering
@@ -151,7 +175,10 @@ $\ket{1}$ & $\ket{1}$ & $\hlc{SkyBlue}{\ket{0}}$ & $\ket{1}\hlc{SkyBlue}{\ket{0}
 \label{tab:C-NOT}
 \end{table}
 
-\textbf{Nota}: come si nota dalla tavola di verità la porta CNOT ha $2$ output: uno è quello condizionale descritto, e l'altro è sempre pari al qubit $c$ di controllo. In particolare, non è possibile realizzare una porta quantistica a $2$ bit con meno di $2$ output, dato che in tal caso non si potrebbe avere corrispondenza biunivoca tra stati finali e iniziali, violando l'unitarietà dell'evoluzione quantistica (torneremo su questa \textit{reversibilità} nei prossimi paragrafi).\\
+\textbf{Nota}: come si nota dalla tavola di verità la porta CNOT ha $2$ output: uno è quello condizionale descritto, e l'altro è sempre pari al qubit $c$ di controllo. In particolare, non è possibile realizzare una porta quantistica a $2$ bit con meno di $2$ output, dato che in tal caso non si potrebbe avere corrispondenza biunivoca tra stati finali e iniziali, violando l'unitarietà dell'evoluzione quantistica (torneremo su questa \textit{reversibilità} nei prossimi paragrafi).
+\begin{expl}
+\textbf{Porte logiche classiche a 2 bit}. Poiché le porte logiche quantistiche devono essere reversibili (essendo operazioni unitarie), non vi è modo di implementare \textit{direttamente} AND o OR (e relative), dato che associano $2$ input a un solo output. Vedremo però più avanti come \q{reversibilizzare} una qualsiasi funzione classica, in modo da adattarla naturalmente al mondo quantistico.
+\end{expl}
 
 Nei circuiti il gate CNOT ha la seguente rappresentazione:
 
@@ -202,8 +229,8 @@ Analogamente al caso di CNOT, quando il bit di controllo $c$ è $1$ allora viene
 $\bm{c}$ & $\bm{a}$ & \textbf{out} \\ \midrule
 $\ket{0}$ & $\hlc{Yellow}{\ket{0}}$ & $\ket{0}\hlc{Yellow}{\ket{0}}$ \\
 $\ket{0}$ & $\hlc{Yellow}{\ket{1}}$ & $\ket{0}\hlc{Yellow}{\ket{1}}$ \\
-$\ket{1}$ & $\ket{0}$ & $\ket{1}\hlc{SkyBlue}{R_z(\delta)\ket{1}}$ \\
-$\ket{1}$ & $\ket{1}$ & $\ket{1}\hlc{SkyBlue}{R_z(\delta)\ket{0}}$ \\ \bottomrule
+$\ket{1}$ & $\hlc{SkyBlue}{\ket{0}}$ & $\ket{1}\hlc{SkyBlue}{R_z(\delta)\ket{0}}$ \\
+$\ket{1}$ & $\hlc{SkyBlue}{\ket{1}}$ & $\ket{1}\hlc{SkyBlue}{R_z(\delta)\ket{1}}$ \\ \bottomrule
 \end{tabular}
 \caption{Tavola di verità per la porta CPHASE}
 \label{tab:C-PHASE}
@@ -224,7 +251,7 @@ In realtà lo schema si può generalizzare, partendo per il secondo registro da 
 \begin{figure}[H]
 \centering
 \input{Tikz/28_2/funzioniBinarie1.tex}
-\caption{Si può estendere una qualsiasi funzione binaria $f:\{0,1\}^n \to \{0,1\}^m$ a una \textbf{funzione reversibile} $f':\{0,1\}^n \times \{0,1\}^n \to \{0,1\}^n \times \{0,1\}^m$ dove i primi $n$ qubit dell'output sono esattamente pari ai primi $n$ dell'input.\label{fig:computazione-reversibile}}
+\caption{Si può estendere una qualsiasi funzione binaria $f:\{0,1\}^n \to \{0,1\}^m$ a una \textbf{funzione reversibile} $f':\{0,1\}^n \times \{0,1\}^m \to \{0,1\}^n \times \{0,1\}^m$ dove i primi $n$ qubit dell'output sono esattamente pari ai primi $n$ dell'input.\label{fig:computazione-reversibile}}
 \end{figure}
 
 Avremo cioè:
@@ -237,7 +264,7 @@ In generale, potremmo usare come stato iniziale una combinazione dei $2^n-1$ pos
 U_f \sum_{x=0}^{2^n-1} \alpha_x \ket{x}\ket{y} = \sum_{x=0}^{2^n-1} c_x \ket{x}\ket{y+ f(x)}
 \end{align*}
 Così facendo stiamo calcolando \textit{contemporaneamente} $U_f$ su \textit{ognuna} delle combinazioni.\marginpar{Quantum parallelism}\index{Parallelismo quantistico} Questo è il fenomeno del \textbf{parallelismo quantistico}.\\
-Unico problema: per leggere il risultato dobbiamo fare una misura, e quindi effettivamente avremo accesso a solo \textit{uno dei valori}. Per sapere tutti i risultati dovremo ripetere l'esperimento un numero di volte di ordine $2^n$ e perciò non si ha, per ora, particolari guadagni rispetto al caso classico.\\
+Unico problema: per leggere il risultato dobbiamo fare una misura, e quindi effettivamente avremo accesso a solo \textit{uno dei valori}. Per sapere tutti i risultati dovremo ripetere l'esperimento un numero di volte di ordine $2^n$ e perciò non si hanno, per ora, particolari guadagni rispetto al caso classico.\\
 
 \begin{figure}[H]
 \centering
@@ -269,15 +296,15 @@ che riproduce la stessa casistica definita in precedenza. Infatti se $x = 0$, al
 
 Se abbiamo due qubit, $\ket{x_1}$ e $\ket{x_2}$, e li mandiamo ciascuno attraverso una $H$, otteniamo:
 \begin{align*}
-(H\otimes H)\ket{x_1} \ket{x_2} &= \frac{1}{\sqrt{2}}\left(\sum_{y_1} (-1)^{x_1 y_1} \ket{y_1}\right)\frac{1}{\sqrt{2}}\left(\sum_{y_2}(-1)^{x_2y_2}\ket{y_2}\right)=\\
-&=\frac{1}{2} \left(\sum_{y_1 y_2} (-1)^{x_1 y_1 + x_2y_2} \ket{y_1}\ket{y_2}\right)
+(H\otimes H)\ket{x_1} \ket{x_2} &= \frac{1}{\sqrt{2}}\left(\sum_{y_1=0}^1 (-1)^{x_1 y_1} \ket{y_1}\right)\frac{1}{\sqrt{2}}\left(\sum_{y_2=0}^1(-1)^{x_2y_2}\ket{y_2}\right)=\\
+&=\frac{1}{2} \left(\sum_{y_1, y_2=0}^1 (-1)^{x_1 y_1 + x_2y_2} \ket{y_1}\ket{y_2}\right)
 \end{align*}
 Generalizzando a $n$ qubit, e schematizzando la somma dei prodotti di bit corrispondenti con un \textit{prodotto scalare} $\vec{x}\cdot \vec{y}$, con $\vec{x}$ e $\vec{y}$ vettori di bit:
 \begin{align*}
-(H\otimes \dots \otimes H) \ket{x_1}\dots \ket{x_n} = \frac{1}{(\sqrt{2})^n} \sum (-1)^{\vec{x}\cdot \vec{y}}\ket{y_1, \dots, y_n} = \frac{1}{\sqrt{2^n}} \sum_{y=0}^{2^n-1} (-1)^{\vec{x}\cdot\vec{y}} \ket{\vec{y}}
+(H\otimes \dots \otimes H) \ket{x_1}\dots \ket{x_n} = \frac{1}{(\sqrt{2})^n} \sum_{\{y_i\}=0}^1 (-1)^{\vec{x}\cdot \vec{y}}\ket{y_1, \dots, y_n} = \frac{1}{\sqrt{2^n}} \sum_{y=0}^{2^n-1} (-1)^{\vec{x}\cdot\vec{y}} \ket{\vec{y}}
 \end{align*}
 
-Nel caso che $\vec{x}=(0,\dots,0)$  il coefficiente $(-1)^{\vec{x}\cdot \vec{y}}$ sparisce, e quindi otteniamo l'output desiderato:
+Se $\vec{x}=(0,\dots,0)$  il coefficiente $(-1)^{\vec{x}\cdot \vec{y}}$ sparisce, e quindi otteniamo l'output desiderato:
 \begin{align*}
 \ket{\psi_{f}}=\sum_{y=0}^{2^n-1} \ket{\vec{y}}
 \end{align*}
@@ -285,9 +312,9 @@ Nel caso che $\vec{x}=(0,\dots,0)$  il coefficiente $(-1)^{\vec{x}\cdot \vec{y}}
 \textbf{Nota}: nonostante la complessità della forma finale, non si ha alcuna correlazione tra i vari qubit - infatti lo stato finale è un prodotto tensore di $H$ applicate ciascuna a \textit{una singola entrata}, ossia \textbf{non è} uno stato entangled. Pittorescamente: stiamo agendo sui singoli qubit \textit{uno alla volta}, e quindi nessuno \q{è a conoscenza} dello stato degli altri - perciò non possono esservi effetti di interferenza.
 
 \section{No cloning theorem}
-Abbiamo accennato che in \MQ non è possibile copiare esattamente uno stato. Esaminiamo ora tale questione\index{Teorema!No cloning}.\\
+Abbiamo accennato che in \MQ non è possibile copiare esattamente uno stato. Vediamo ora esattamente perché.\index{Teorema!No cloning}.\\
 
-Possiamo trovare un'operazione che possa copiare uno stato $\ket{\psi}$, indipendentemente dallo stato? Formalmente, vogliamo scrivere una certa $U$ tale che:
+Cerchiamo un'operazione che possa copiare uno stato $\ket{\psi}$, indipendentemente dal suo stato. Formalmente, vogliamo scrivere una certa $U$ tale che:
 \begin{align}
 U\ket{\psi}\ket{0} = \ket{\psi}\ket{\psi} \qquad U \text{ unitaria}, \forall \ket{\psi} \label{eqn:Ucopy}
 \end{align}
@@ -334,7 +361,7 @@ cosa che \textbf{non è vera} in generale per ogni stato. Perciò \textit{non è
 Dal risultato trovato, tuttavia, notiamo che stati ortogonali, per cui $\braket{\varphi|\psi}=0$, possono però essere clonati senza problemi: possiamo quindi clonare tutti gli stati \textit{di una base ortonormale}, ma non le loro generiche combinazioni (che formano stati generici).
 
 \begin{appr}
-    Dimostrazione alternativa: proviamo a clonare una sovrapposizione, e in un caso otteniamo uno stato separabile \(U (\ket{x} + \ket{y}) \otimes \ket{0} = (\ket{x} + \ket{y}) ^{\otimes 2} \). Ma per linearità di $U$ possiamo anche guardarla come \(U (\ket{x} + \ket{y}) \otimes \ket{0} = \ket{x} \ket{x} + \ket{y} \ket{y} \), che in generale sarà uno stato entangled.
+    \textbf{Dimostrazione alternativa}: proviamo a clonare una sovrapposizione, e in un caso otteniamo uno stato separabile \(U (\ket{x} + \ket{y}) \otimes \ket{0} = (\ket{x} + \ket{y}) ^{\otimes 2} \). Ma per linearità di $U$ possiamo anche guardarla come \(U (\ket{x} + \ket{y}) \otimes \ket{0} = \ket{x} \ket{x} + \ket{y} \ket{y} \), che in generale sarà uno stato entangled.
 \end{appr}
 
 \section{Classi di complessità algoritmica}
@@ -373,7 +400,7 @@ Notiamo infine che non sappiamo la \textbf{gerarchia} delle classi di complessit
 \begin{figure}[H]
 \centering
 \input{Tikz/28_2/complexityClasses.tex}
-\caption{Attualmente sappiamo che NP$\subset$NPC, e P$\subset$NP, ma non è chiaro se valgano (eventualmente) inclusioni inverse.\label{fig:n-np-npc}}
+\caption{Attualmente sappiamo che NPC$\subset$NP, e P$\subset$NP, ma non è chiaro se valgano (eventualmente) inclusioni inverse.\label{fig:n-np-npc}}
 \end{figure}
 
 Considerando macchine di Turing non deterministiche, consideriamo altre classi di complessità:
@@ -522,7 +549,7 @@ Partiamo da $\ket{00}$, che si presenta come il caso più semplice, dato che la 
 \begin{align*}
 \ket{00}\xrightarrow{(2)\frac{\delta}{2}}\ket{00}\xrightarrow{\op{CNOT}} \ket{00}\xrightarrow{(2)-\frac{\delta}{2}}\ket{00}\xrightarrow{\op{CNOT}} \ket{00} \xrightarrow{(1)\frac{\delta}{2}}\ket{00}
 \end{align*}
-Per semplicità, indicheremo un risultato con $(\op{id})$ è esattamente pari a quello immediatamente precedente.\\
+Per semplicità, indicheremo un risultato con $(\op{id})$ se è esattamente pari a quello immediatamente precedente.\\
 Nel caso di $\ket{01}$, invece, abbiamo una doppia fase aggiunta dalla $\delta$:
 \begin{align*}
 \ket{01} \xrightarrow{(2)\frac{\delta}{2}} \ket{0}\otimes e^{i\frac{\delta}{2}}\ket{1} \xrightarrow{\op{CNOT}} (\op{id})\xrightarrow{(2)-\frac{\delta}{2}} \ket{01}\xrightarrow{\op{CNOT}}(\op{id})  \xrightarrow{(1)\frac{\delta}{2}}

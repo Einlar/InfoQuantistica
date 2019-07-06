@@ -3,7 +3,7 @@
 \begin{document}
 
 \section{Matrici densità - parte 2}
-\lesson{6 \orangedot}{14/3/2019}
+\lesson{6 \bluedot}{14/3/2019}
 
 \subsection{Correlazioni tra stati}
 Nella sezione precedente abbiamo notato che $\rho_{12}=\rho_1 \otimes \rho_2$ vale solo se $\rho_1$ e $\rho_2$ sono \textbf{indipendenti}, cioè \textbf{scorrelati}. Se così non è, come nella maggior parte dei casi, $\rho_1$ e $\rho_2$ codificano solo una parte delle informazioni del sistema composto $\rho_{12}$, dato che mancano i termini di \textit{interazione} tra i due sottosistemi, che effettivamente in tal caso non hanno una individualità ben definita.\\
@@ -13,9 +13,9 @@ Partiamo dal caso più semplice di due variabili casuali classiche $x_i$ e $y_i$
  Possiamo campionare $N$ volte le due variabili costruendo due vettori $\vec{x}$ e $\vec{y}$:
 \begin{align*}
 \vec{x} &= \{1, -1, -1,-1, \dots, -1\}\\
-\vec{y} &= \{-1, 1, +1, +1\dots, +1\}
+\vec{y} &= \{-1, 1, +1, +1, \dots, +1\}
 \end{align*} 
-$\vec{x}$ e $\vec{y}$ corrispondono, fisicamente, a misure ripetute di osservabili con risultati binari (sì/no) eseguite sui due sistemi.\\
+I vettori $\vec{x}$ e $\vec{y}$ corrispondono, fisicamente, a misure ripetute di osservabili con risultati binari (sì/no) eseguite sui due sistemi.\\
 Supponiamo che le $x_i$ e $y_i$ si distribuiscano simmetricamente attorno a $0$, e cioè abbiano media nulla:
 \begin{align*}
 \bar{x} = 0; \qquad \bar{y}=0
@@ -25,7 +25,7 @@ Un modo per quantificare la \textbf{correlazione} tra le due è dato dal calcola
 \overline{x\,y} = \frac{1}{N}\sum_{i=1}^N x_i\,y_i
 \end{align*}
 
-Ci si potrebbe aspettare che, poiché $\bar{x}=0$ e $\bar{y}=0$, anche $\overline{x\,y}=0$. In realtà è vero solo se le due variabili sono \textit{indipendenti}. Se esiste una qualche relazione tra le due, per cui $y$ tende ad assumere valori che dipendono da quelli di $x$ (e viceversa), non è detto che i singoli prodotti $x_i y_i$ si distribuiscano ancora in modo simmetrico.\\
+Ci si potrebbe aspettare che, poiché $\bar{x}=0$ e $\bar{y}=0$, anche $\overline{x\,y}=0$. In realtà ciò succede solo se le due variabili sono \textit{indipendenti}. Se esiste una qualche relazione tra le due, per cui $y$ tende ad assumere valori che dipendono da quelli di $x$ (e viceversa), non è detto che i singoli prodotti $x_i y_i$ si distribuiscano ancora in modo simmetrico.\\
 
 Per esempio:
 \begin{itemize}
@@ -45,9 +45,9 @@ Nel caso generale avremo una correlazione \textit{parziale}, che si valuta trami
 \end{cases}
 \end{align*}
 dove $E(x)$ indica il valore di aspettazione (speranza matematica) di una certa variabile casuale $x$.\\
-Notiamo che il coefficiente di Pearson corrisponde alla media di \textit{infiniti} prodotti $(x_i-\mu_x)\,(y_i-\mu_y)$ (per cui le $x_i$ e $y_i$ possono non essere simmetriche attorno a $0$), normalizzata alle loro dispersioni attorno alle loro medie.\\
+Notiamo che il coefficiente di Pearson corrisponde alla media di \textit{infiniti} prodotti (nel senso di $N\to \infty$ misure) $(x_i-\mu_x)\,(y_i-\mu_y)$ (per cui le $x_i$ e $y_i$ possono non essere simmetriche attorno a $0$), normalizzata alle loro dispersioni attorno alle loro medie.\\
 
-Tale formula si adatta immediatamente al caso quantistico, calcolando medie di operatori:
+Tale formula si adatta immediatamente al caso quantistico, usando operatori al posto di variabili, e applicando la linearità del valore di aspettazione:
 \begin{align*}
 E[(X-\mu_x)(Y-\mu_y)] &= \langle (\hat{X}-\langle \hat{X}\rangle)(\hat{Y}-\langle \hat{Y}\rangle)\rangle = \\
 &= \avg{\hat{X}\hat{Y}} - \avg{\avg {\hat{X}}\hat{Y}} - \avg{\hat{Y}\avg{ \hat{X}}}+ \avg{\avg{\hat{X}}\avg{\hat{Y}}} = \\
@@ -55,7 +55,7 @@ E[(X-\mu_x)(Y-\mu_y)] &= \langle (\hat{X}-\langle \hat{X}\rangle)(\hat{Y}-\langl
 \end{align*}
 
 \subsection{Correlazioni ed entanglement}
-La presenza di correlazioni è propria degli \textbf{stati} \textbf{entangled}, ossia stati composti non decomponibili in un prodotto tensore:
+La presenza di correlazioni in \textbf{stati puri} è propria\footnote{Ed esclusiva, nel caso specifico dei soli \textit{stati puri} stiamo trattando.} degli \textbf{stati} \textbf{entangled}, ossia stati composti $\ket{\phi}$ non decomponibili in un prodotto tensore:
 \begin{align*}
 \ket{\phi} \neq \ket{\phi_1}\otimes \ket{\phi_2}
 \end{align*}
@@ -74,7 +74,7 @@ Siano $\hat{X}_A$ e $\hat{X}_B$ due generiche osservabili relative, rispettivame
 D'altro canto, per uno stato $\ket{\phi}$ non separabile (entangled), in generale $\sigma_{xy}$ può assumere valori non nulli: si hanno quindi \textbf{correlazioni} tra misure di osservabili eseguite sulle \textbf{diverse componenti} del sistema composto.
 
 \subsection{Schmidt decomposition}
-Come possiamo riconoscere uno stato \textbf{entangled}?\\
+Come possiamo riconoscere uno \textbf{stato puro} \textbf{entangled}?\\
 Per esempio, dato un sistema $S$ composto di due qubit $A$ e $B$, con $\hs_S = \hs_A \otimes \hs_B$, si nota immediatamente che:
 \begin{align}\nonumber
 \ket{\psi_1} &= \ket{0}_A\ket{0}_B
@@ -103,7 +103,7 @@ Tale processo prende il nome di \textbf{decomposizione di Schmidt}.\marginpar{De
 \begin{align*}
 \ket{\psi}\in \hs = \hs_A \otimes \hs_B
 \end{align*}
-Allora esistono due \textbf{basi} ON $\{\ket{u_i}_A\}_{i=1}^{N_A}$ e $\{\ket{v_i}_B\}_{i'=1}^{N_B}$ per cui vale la decomposizione:
+Allora esistono due \textbf{basi} ON $\{\ket{u_i}_A\}_{i=1}^{\op{dim}\hs_A}$ e $\{\ket{v_j}_B\}_{j=1}^{\op{dim}\hs_B}$ per cui vale la decomposizione:
 \begin{align}
 \ket{\psi}=\sum_{i=1}^k \sqrt{p_i} \ket{u_i}_A \ket{v_i}_B \quad p_i \geq 0;\quad \sum_{i=1}^k p_i = 1; \quad k\leq\min\{\op{dim}\hs_A
 , \op{dim}\hs_B\}\label{eqn:schmidt}
@@ -111,7 +111,7 @@ Allora esistono due \textbf{basi} ON $\{\ket{u_i}_A\}_{i=1}^{N_A}$ e $\{\ket{v_i
 
 \textbf{Nota}: In (\ref{eqn:schmidt}) stiamo sommando sugli indici di una \textbf{sola} base. La decomposizione di Schmidt è quindi molto più semplice della normale decomposizione di $\ket{\psi}$ su due \textbf{generiche} basi $\{\ket{\alpha}_A\}$ e $\{\ket{\beta}_B\}$ di $\hs_A$ e $\hs_B$:
 \begin{align}
-\ket{\psi} = \sum_{ij} \gamma_{ij}\ket{\alpha_i}_A\ket{\beta_j}_B\label{eqn:decomp-composto}
+\ket{\psi} = \sum_{ij}^{\op{dim}\hs_{A,B}} \gamma_{ij}\ket{\alpha_i}_A\ket{\beta_j}_B\label{eqn:decomp-composto}
 \end{align}
 dove la somma avviene su \textbf{entrambi} gli indici $i$ e $j$. Il risultato di Schmidt dimostra che è possibile \textit{rimuovere} uno dei due indici con una scelta opportuna delle due basi.\\
 
@@ -128,48 +128,51 @@ dove gli apici mostrano che il qubit del sistema B può in generale utilizzare \
 \textbf{Dimostrazione}.\marginpar{Dimostrazione}
 Partiamo dalla scrittura (\ref{eqn:decomp-composto}) di $\ket{\psi}$ in due basi ON generiche $\{\ket{\alpha}_A\}$ e $\{\ket{\beta}_B\}$ di $\hs_A$ e $\hs_B$:
 \begin{align}
-\ket{\psi} = \sum_{ij}\gamma_{ij}\ket{\alpha_i}_A\ket{\beta_j}_B = \sum_i \ket{\alpha_i}_A \underbrace{\left( \sum_{j} \gamma_{ij} \ket{\beta}_B\right)}_{\ket{v_i}} = \sum_i \ket{\alpha_i}\ket{v_i}
+\ket{\psi} = \smashoperator{\sum_{ij}^{\op{dim}\hs_{A,B}}} \gamma_{ij}\ket{\alpha_i}_A\ket{\beta_j}_B = \smashoperator{\sum_i^{\op{dim}\hs_A}} \ket{\alpha_i}_A \underbrace{\left( \smashoperator[r]{\sum_{j}^{\op{dim}\hs_B}} \gamma_{ij} \ket{\beta}_B\right)}_{\ket{v_i}} = \smashoperator{\sum_i^{\op{dim}\hs_A}} \ket{\alpha_i}\ket{\tilde{v}_i}
 \label{eqn:passo-decomp}
 \end{align}
-Il problema è che $\{\ket{v_i}\}$ \textbf{non} è, in generale, una base ON di $\hs_B$. Poiché i $\ket{v_i}$ dipendono dai fattori $\gamma_{ij}$, che a loro volta dipendono dalla scelta dei $\ket{\alpha_i}$, possiamo giocare su questi ultimi per avere la proprietà desiderata.\\
-In effetti, si trova che se se invece di partire da una base ON $\{\ket{\alpha_i}\}$ generica per $\hs_A$, consideriamo la base $\{\ket{u_i}\}$ che \textit{diagonalizza} la matrice densità ridotta $\rho_1$, automaticamente $\{\ket{v_i}\}$ è ortogonale. Vediamo come.\\
+Il problema è che $\{\ket{\tilde{v}_i}\}$ \textbf{non} è, in generale, una base ON di $\hs_B$. Poiché i $\ket{\tilde{v}_i}$ dipendono dai fattori $\gamma_{ij}$, che a loro volta dipendono dalla scelta dei $\ket{\alpha_i}$, possiamo giocare su questi ultimi per avere la proprietà desiderata.\\
+In effetti, si trova che se se invece di partire da una base ON $\{\ket{\alpha_i}\}$ generica per $\hs_A$, consideriamo la base $\{\ket{u_i}\}$ che \textit{diagonalizza} la matrice densità ridotta $\rho_1$, automaticamente $\{\ket{\tilde{v}_i}\}$ è ortogonale. Vediamo come.\\
 
 Sia quindi $\{\ket{u}_i\}$ la base di $\hs_A$ in cui la matrice $\rho_1$ è diagonale:
 \begin{align}
-\rho_1 = \sum_i p_i\ket{u_i}_A \bra{u_i}_A
+\rho_1 = \sum_{i=1}^{k} p_i\ket{u_i}_A \bra{u_i}_A
 \label{eqn:rho-1-diagonal}
 \end{align}
-Dove $\rho_1$ è calcolata a partire dalla definizione:
+dove $k$ è il numero delle popolazioni di $\rho_1$.\\
+Calcolando $\rho_1$ a partire dalla definizione otteniamo:
 \begin{align} \nonumber
-\rho_1 &= \underset{2}{\op{Tr}}\rho_{12} =\underset{2}{\op{Tr}}\ket{\psi}\bra{\psi} \underset{(\ref{eqn:passo-decomp})}{=} \underset{2}{\op{Tr}} \left(\sum_{ij}\ket{\alpha_i}_A\ket{v_i}_B \bra{\alpha_j}_A\bra{v_j}_A \right) =\\ \nonumber
-&\underset{(a)}{=} \sum_k \bra{k}_B \left(\sum_{ij}\ket{\alpha_i}_A\ket{v_i}_B \bra{\alpha_j}_A \bra{v_j}_B \right)\ket{k}_B =\\
-&= \nonumber \sum_{ij} \ket{\alpha_i}_A\bra{\alpha_j}_A \left(\sum_k \braket{k|v_i} \braket{v_j|k}\right) =
- \sum_{ij} \ket{\alpha_i}_A\bra{\alpha_j}_A \left(\sum_k \bra{v_j}\underbrace{\ket{k}\bra{k}}_{\bb{I}}\ket{v_i}\right) =\\
-&\underset{(b)}{=} \sum_{ij} \braket{v_j|v_i} \ket{\alpha_i}_A \bra{\alpha_j}_A
+\rho_1 &= \underset{2}{\op{Tr}}\rho_{12} =\underset{2}{\op{Tr}}\ket{\psi}\bra{\psi} \underset{(\ref{eqn:passo-decomp})}{=} \underset{2}{\op{Tr}} \left(\smashoperator[r]{\sum_{ij}^{\op{dim}\hs_{A,B}}}\ket{\alpha_i}_A\ket{\tilde{v}_i}_B \bra{\alpha_j}_A\bra{\tilde{v}_j}_A \right) =\\ \nonumber
+&\underset{(a)}{=} \smashoperator{\sum_k^{\op{dim}\hs_B}} \bra{k}_B \left( \smashoperator[r]{\sum_{ij}^{\op{dim}\hs_{A,B}}} \ket{\alpha_i}_A\ket{\tilde{v}_i}_B \bra{\alpha_j}_A \bra{\tilde{v}_j}_B \right)\ket{k}_B =\\
+&= \nonumber \smashoperator{\sum_{ij}^{\op{dim}\hs_{A,B}}} \ket{\alpha_i}_A\bra{\alpha_j}_A \left(\smashoperator[r]{\sum_k^{\op{dim}\hs_B}} \braket{k|\tilde{v}_i} \braket{\tilde{v}_j|k}\right) =
+ \smashoperator{\sum_{ij}^{\op{dim}\hs_{A,B}}} \ket{\alpha_i}_A\bra{\alpha_j}_A \left(\smashoperator[r]{\sum_k^{\op{dim}\hs_B}} \bra{\tilde{v}_j}\underbrace{\ket{k}\bra{k}}_{\bb{I}}\ket{\tilde{v}_i}\right) =\\
+&\underset{(b)}{=} \smashoperator{\sum_{ij}^{\op{dim}\hs_{A,B}}} \braket{\tilde{v}_j|\tilde{v}_i} \ket{\alpha_i}_A \bra{\alpha_j}_A
 \label{eqn:rho-1-def}
 \end{align}
 dove in (a) usiamo una generica base ON $\{\ket{k}_B\}$ di $\hs_B$ per calcolare la traccia (che risulta la stessa per \textit{qualsiasi} scelta di base) e in (b) usiamo la completezza di Dirac per la base ON $\{\ket{k}_B\}$.\\
-Usando allora la base $\{\ket{u_i}_A\}$ in (\ref{eqn:rho-1-def}), possiamo uguagliare con l'espressione equivalente in (\ref{eqn:rho-1-diagonal}), e giungere a:
+Usando allora la base $\{\ket{u_i}_A\}$ al posto di $\{\ket{\alpha_i}_A\}$ in (\ref{eqn:rho-1-def}), possiamo uguagliare con l'espressione equivalente in (\ref{eqn:rho-1-diagonal}), e giungere a:
 \begin{align*}
-\sum_{ij} \braket{v_j|v_i}\ket{u_i}_A \bra{u_i}_A = \sum_i p_i \ket{u_i}_A \bra{u_i}_A \Leftrightarrow \braket{v_j|v_i}=p_i\,\delta_{ij}
+\smashoperator{\sum_{ij}^{\op{dim}\hs_{A,B}}} \braket{\tilde{v}_j|\tilde{v}_i}\ket{u_i}_A \bra{u_i}_A = \sum_{i=1}^k p_i \ket{u_i}_A \bra{u_i}_A \Leftrightarrow \braket{\tilde{v}_j|\tilde{v}_i}=p_i\,\delta_{ij}
 \end{align*}
 
+\begin{comment}
 \begin{align}
 \ket{\psi}=\sum_{i, \alpha} c_{i\alpha}\ket{i}_A\ket{\alpha}_B = \sum_{i} \ket{i}_A \left(\sum_\alpha c_{i\alpha} \ket{\alpha}_B \right)\underset{(a)}{=} \sum_{i}\ket{i}_A \ket{\tilde{i}}_B
 \label{eqn:psi-i-j}
 \end{align}
+\end{comment}
 
-Perciò si ha che, usando per $\hs_A$ la base $\{\ket{u_i}\}$ che diagonalizza $\rho_1$, la decomposizione (\ref{eqn:passo-decomp}) produce una base $\{v_i\}$ che è ortogonale. Perché sia orto\textbf{normale} basta normalizzare:
+Perciò si ha che, usando per $\hs_A$ la base $\{\ket{u_i}\}$ che diagonalizza $\rho_1$, la decomposizione (\ref{eqn:passo-decomp}) produce una base $\{\ket{\tilde{v}_i}\}$ che è ortogonale. Perché sia orto\textbf{normale} basta normalizzare:
 \begin{align*}
-\ket{v_i}\mapsto \frac{1}{\sqrt{p_i}}\ket{v_i} \Rightarrow \braket{v_i|v_j}=\delta_{ij}
+    \ket{v_i} = \frac{1}{\sqrt{p_i}} \ket{\tilde{v}_i} \Rightarrow \ket{\tilde{v}_i} = \sqrt{p_i}\ket{v_i} \Rightarrow \braket{v_i|v_j} = \delta_{ij}
 \end{align*}
 
-E perciò la (\ref{eqn:passo-decomp}) porta alla tesi:
+Partendo allora dalla (\ref{eqn:passo-decomp}) e ponendo $\ket{\alpha_i} = \ket{u_i}$, e di conseguenza $\ket{\tilde{v}_i} = \sqrt{p_i}\ket{v_i}$ otteniamo la tesi:
 \begin{align*}
-\ket{\psi} = \sum_i \sqrt{p_i} \ket{u_i}_A\ket{v_i}_B
+\ket{\psi} = \sum_{i=1}^k \sqrt{p_i} \ket{u_i}_A\ket{v_i}_B
 \end{align*}
 
-Vale inoltre (come mostrato nei passaggi intermedi):\marginpar{Matrici ridotte nelle basi di Schmidt}
+Vale inoltre (\ref{eqn:rho-1-diagonal}):\marginpar{Matrici ridotte nelle basi di Schmidt}
 \begin{align*}
 \rho_1 = \underset{2}{\op{Tr}}\ket{\psi}\bra{\psi} = \sum_{i=1}^k
 p_i \ket{u_i}\bra{u_i}
@@ -178,7 +181,7 @@ E in maniera simmetrica si trova\footnote{Basta calcolare $\rho_{12} = \ket{\psi
 \begin{align*}
 \rho_2 = \underset{1}{\op{Tr}} \ket{\psi}\bra{\psi} = \sum_{j=1}^k p_{j} \ket{v_j}\bra{v_j}
 \end{align*}
-$k$ è il numero di coefficienti $p_i$ non nulli nell'espansione di $\ket{\psi}$ (pari al numero di \textbf{popolazioni} - cioè termini sulla diagonale - di $\rho_1$ o $\rho_2$). Per come è definita la sommatoria in (\ref{eqn:passo-decomp}), si ha che $k$ è al più pari al minimo tra la $\op{dim}\hs_A$ e $\op{dim}\hs_B$.\\
+Dove $k$ è il numero di coefficienti $p_i$ non nulli nell'espansione di $\ket{\psi}$ (pari al numero di \textbf{popolazioni} - cioè termini sulla diagonale - di $\rho_1$ o $\rho_2$). Per come è definita la sommatoria in (\ref{eqn:passo-decomp}), si ha che $k$ è al più pari al minimo tra la $\op{dim}\hs_A$ e $\op{dim}\hs_B$.\\
 Usando le basi $\{\ket{u_i}_A\}$ e $\{\ket{v_i}_B\}$, perciò, $\rho_1$ e $\rho_2$ hanno la forma:
 \begin{align*}
 \rho_1 = \left(\begin{array}{ccccc}
@@ -244,7 +247,8 @@ D'altro canto, per verificare l'implicazione inversa partiamo da $\ket{\psi}_{AB
 \begin{align*}
 \ket{\psi}=\ket{\psi_A} \ket{\psi_B} \Rightarrow \rho = \ket{\psi_A}\ket{\psi_B} \bra{\psi_A}\bra{\psi_B}
 \end{align*}
-E le matrici ridotte sono diagonali $\op{diag}(p_1, \dots, p_n)$, con $p_1=1$ e $p_{i\neq 1} = 0$:
+
+Scegliendo una base ON $\ket{u_i}$ per $\hs_A$ con $\ket{u_1} = \ket{\psi_A}$ e allo stesso modo una base ON $\{\ket{v_j}\}$  per $\hs_B$ con $\ket{v_1} = \ket{\psi_B}$, troviamo che le matrici ridotte dei due sottosistemi sono diagonali $\op{diag}(p_1, \dots, p_n)$, con $p_1=1$ e $p_{i\neq 1} = 0$:
 \begin{align*}
 \rho_A &= \underset{B}{\op{Tr}}\rho = \ket{\psi_A}\bra{\psi_A}=\begin{pmatrix}
 1 & 0 & \cdots & 0\\
@@ -283,7 +287,8 @@ Per esempio, in un sistema bipartito con $3$ livelli $\{\ket{0}, \ket{1}, \ket{2
 \ket{\psi_a}\approx \ket{00}
 \end{align*}
 Cioè lo stato $\ket{\psi_a}$ è approssimativamente uno stato separabile (non entangled).\\
-Nella pratica, per poter usare computazionalmente l'entanglement è necessario lavorare con \textit{correlazioni forti}, e quindi un $k\neq 1$ non è per forza indice di uno stato \q{usabile} sperimentalmente, per cui servirà valutare parametri più sofisticati.
+Nella pratica, per poter usare computazionalmente l'entanglement è necessario lavorare con \textit{correlazioni forti}, e quindi un $k\neq 1$ non è per forza indice di uno stato \q{usabile} sperimentalmente, per cui servirà valutare parametri più sofisticati.\\
+Inoltre, il rango di Schmidt è utile per valutare la presenza di entanglement \textbf{solo per stati puri}. Più avanti mostreremo tecniche più avanzate per superare tali limitazioni.
 
 \begin{comment}
 \begin{table}
@@ -298,23 +303,23 @@ Nella pratica, per poter usare computazionalmente l'entanglement è necessario l
 \subsection{Purificazione}
 L'evoluzione temporale di stati misti può essere complessa da calcolare, e spesso si vorrebbe operare con \textbf{stati puri}, senza però perdere la maggiore flessibilità offerta dalle misture statistiche.\\
 Un metodo ingegnoso per realizzar ciò è dato dalla procedura di \textbf{purificazione}. Ricordiamo infatti che, dato un sistema composto nello stato $\rho_{12}$, le matrici ridotte $\rho_1$ e $\rho_2$ generalmente \textbf{non} conservano la purità dello stato originario. Può allora capitare che lo stato totale $\rho_{12}$ sia puro, ma quello \q{singolo} $\rho_1$ sia misto. In tal caso, facendo evolvere $\rho_{12}$ come uno stato puro (seppur con la complessità di operare in dimensione maggiore) è completamente determinata l'evoluzione dello stato misto $\rho_1$.\\
-La procedura di \textbf{purificazione}\index{Purificazione} si occupa di trovare la $\rho_{12}$ partendo da uno stato misto conosciuto $\rho_1$. Vediamo come.\\
+La procedura di \textbf{purificazione}\index{Purificazione} si occupa di trovare la $\rho_{12}$ pura partendo da uno stato misto conosciuto $\rho_1$. Vediamo come.\\
 
 
 \subsubsection{La procedura di purificazione}
-Partiamo \q{dalla fine}, e cioè dallo stato puro $\ket{\psi}_{AB}$ del sistema composto. Vogliamo trovare la relazione che lo lega ai termini di $\rho_1$, e che ci permetterà di di determinarlo a partire da questi ultimi.\\
-Consideriamo il sistema $S$ in $\hs_S = \hs_A \otimes \hs_B$. Dette $\{\ket{\alpha}_A\}$ e $\{\ket{\beta}_B\}$ due basi ON per $\hs_A$ e $\hs_B$ vale la decomposizione:
+Partiamo \q{dalla fine}, e cioè dallo stato puro $\ket{\psi}_{AB}$ del sistema composto. Vogliamo trovare la relazione che lo lega ai termini di $\rho_1$, e che ci permetterà di determinarlo a partire da questi ultimi.\\
+Consideriamo un sistema $S$ bipartito, con stati in $\hs_S = \hs_A \otimes \hs_B$. Dette $\{\ket{\alpha}_A\}$ e $\{\ket{\beta}_B\}$ due basi ON per $\hs_A$ e $\hs_B$, un generico stato di $S$ si scrive come:
 \begin{align}
-\ket{\psi}_{AB} = \sum_{\alpha\beta}^{\op{dim}\hs_S} c_{\alpha \beta} \ket{\alpha}_A \ket{\beta}_B
+\ket{\psi}_{AB} = \sum_{\alpha\beta}^{\op{dim}\hs_{A,B}} c_{\alpha \beta} \ket{\alpha}_A \ket{\beta}_B
 \label{eqn:decomp-purif}
 \end{align}
 La matrice densità è allora data da:
 \begin{align*}
-\rho_{AB} = \ket{\psi}\bra{\psi} = \sum_{\alpha\beta}^{\op{dim}\hs_S}\sum_{ab}^{\op{dim}\hs_S} c_{\alpha \beta}(c_{ab})^* \ket{\alpha\beta}_{AB} \bra{ab}_{AB}
+\rho_{AB} = \ket{\psi}\bra{\psi} = \sum_{\alpha\beta}^{\op{dim}\hs_{A,B}}\sum_{ab}^{\op{dim}\hs_{A,B}} c_{\alpha \beta}(c_{ab})^* \ket{\alpha\beta}_{AB} \bra{ab}_{AB}
 \end{align*}
 E la matrice ridotta $\rho_1$ si ricava calcolando la traccia parziale:
 \begin{align} \nonumber
-\rho_A &= \underset{B}{\op{Tr}} \rho_{AB} = \sum_\gamma \bra{\gamma}_B \rho_{AB}\ket{\gamma}_B = \sum_{\alpha\beta}\sum_{ab} c_{\alpha \beta}(c_{ab})^* \ket{\alpha}_A \bra{a}_A \sum_\gamma \braket{b|\gamma}\braket{\gamma|\beta} =\\
+\rho_A &= \underset{B}{\op{Tr}} \rho_{AB} = \smashoperator{\sum_\gamma^{\op{dim}\hs_B}} \bra{\gamma}_B \rho_{AB}\ket{\gamma}_B = \sum_{\alpha\beta}\sum_{ab} c_{\alpha \beta}(c_{ab})^* \ket{\alpha}_A \bra{a}_A \smashoperator{\sum_\gamma^{\op{dim}\hs_B}} \braket{b|\gamma}\braket{\gamma|\beta} =\\
 &\underset{(a)}{=} \sum_{\alpha a}^{\op{dim}\hs_A} \sum_{k=1}^{\op{dim}\hs_B} c_{\alpha k} (c_{ak})^* \ket{\alpha}_A \bra{a}_A \label{eqn:rho1-purification}
 \end{align}
 dove in $(a)$ si è usata la completezza di Dirac, per cui $\sum_\gamma \ket{\gamma}\bra{\gamma}=\bb{I}$, e il fatto che la base di $\hs_B$, di cui $\ket{\beta}$ e $\ket{b}$ sono elementi, è ortonormale, per cui $\braket{b|\beta}=\delta_{b\beta}$ permette di \q{far collassare} una sommatoria, e di identificare gli indici $b$ e $\beta$ con un unico indice $k$.\\
@@ -324,15 +329,15 @@ Dalla (\ref{eqn:rho1-purification}) ricaviamo che l'elemento $ij$ della matrice 
 \label{eqn:rhoA-terms}
 \end{align}
 Sia $a = \op{dim}\hs_A$ e $b=\op{dim}\hs_B$.
-Interpretando la matrice $\rho_{AB}$ come una matrice $b\times b$ in cui ogni elemento è in realtà un blocco di dimensioni $a \times a$ (da cui $\rho_{AB}$ ha dimensioni $(ab)\times (ab)$), la (\ref{eqn:rhoA-terms}) collega le entrate di $\rho_A$ alle somme sulle diagonali dei singoli blocchi di $\rho_{AB}$ (come già visto nell'introdurre la notazione matriciale per le tracce parziali). Abbiamo quindi un \textbf{sistema} di $a^2$ \textbf{equazioni}, ciascuna delle quali riguarda un singolo blocco di una matrice $b\times b$, che ha quindi $b^2$ blocchi. Avremo\marginpar{Condizione per la risolubilità}la possibilità di trovare una soluzione solo quando $a^2 = b^2$, e cioè quando:
+Interpretando la matrice $\rho_{AB}$ come una matrice $b\times b$ in cui ogni elemento è in realtà un blocco di dimensioni $a \times a$ (da cui $\rho_{AB}$ ha dimensioni $(ab)\times (ab)$), la (\ref{eqn:rhoA-terms}) collega le entrate di $\rho_A$ alle somme sulle diagonali dei singoli blocchi di $\rho_{AB}$ (come già visto nell'introdurre la notazione matriciale per le tracce parziali). Abbiamo quindi un \textbf{sistema} di $a^2$ \textbf{equazioni}, ciascuna delle quali riguarda un singolo blocco di una matrice $b\times b$, che ha quindi $b^2$ blocchi. Avremo\marginpar{Condizione per la risolubilità}la possibilità di trovare una soluzione (unica) solo quando $a^2 = b^2$, e cioè quando:
 \begin{align*}
 a=b\Rightarrow \op{dim}\hs_A = \op{dim}\hs_B
 \end{align*}
-Volendo possiamo scegliere $\op{dim}\hs_B$ maggiore, giungendo lo stesso a trovare una soluzione, seppur con uno spreco di computazione.
+Volendo possiamo scegliere $\op{dim}\hs_B$ maggiore, giungendo lo stesso a trovare (più di) una soluzione, seppur con uno spreco di computazione.
 
 
 \subsubsection{Esempio: purificazione di 1 qubit}\index{Esempio!Purificazione di 1 qubit}
-Sia dato $1$ qubit in un generico stato $\rho_1$, che vogliamo purificare ad uno stato $\rho_{12}$ di un sistema a $2$ qubit. Partiamo scrivendo le equazioni per le entrate di $\rho_1$, seguendo la (\ref{eqn:rhoA-terms}):
+Sia dato $1$ qubit in un generico stato $\rho_1$, che vogliamo purificare ad uno stato puro $\rho_{12} = \ket{\psi}\bra{\psi}$ di un sistema a $2$ qubit. Partiamo scrivendo le equazioni per le entrate di $\rho_1$, seguendo la (\ref{eqn:rhoA-terms}):
 \begin{align}\label{eqn:sist-purificazione}
 \begin{cases}
 (\rho_1)_{00} &= c_{00} c_{00}^* + c_{01} c^*_{01}\\
@@ -371,103 +376,127 @@ Si dice quindi che $\ket{\psi}$ \q{\textbf{purifica}} lo stato misto $\rho_1$ da
 %http://www.markwilde.com/teaching/2015-fall-qit/lectures/lecture-07.pdf (dim. alternativa schmidt)
 %http://pages.cs.wisc.edu/~dieter/Courses/2010f-CS880/Scribes/20/lecture20.pdf (density matrix)
 
-\subsection{Rappresentazione di Krauss}
-Come possiamo scrivere \q{in maniera diretta} l'evoluzione temporale di una matrice ridotta?\\
-Sappiamo che la $\rho_{12}$ del sistema composto si evolve unitariamente secondo la relazione:
-\begin{align*}
-\rho_{12}(t) = U \rho_{12}U^\dag
-\end{align*}
-Possiamo trovare un'espressione del genere anche per la $\rho_1$? Ciò sarebbe conveniente, perché permetterebbe all'occorrenza di lavorare in uno spazio di dimensione inferiore.\\
-
-Partiamo notando che, se $\rho_{12}$ rappresenta uno stato in cui i sottosistemi $1$ e $2$ interagiscono, non abbiamo grandi speranze di poter ricostruire l'evoluzione temporale del primo partendo solo dalle informazioni parziali di $\rho_1$. Dovremo quindi supporre che $\rho_{12}(0)$ sia \textbf{separabile}\marginpar{Ipotesi: separabilità}. Per semplicità assumeremo la seguente forma:
+\subsection{Rappresentazione di Kraus} %Pag. 278-280 vol. II Benenti
+Consideriamo un sistema composto da due sottosistemi $1$ e $2$, che si trova inizialmente in un generico stato $\rho_{12}$ (puro o misto). Se $U(t)$ è l'operatore di evoluzione temporale, lo stato al tempo $t$ si ottiene dalla formula di evoluzione per una matrice densità:
 \begin{align}
-\rho_0 \equiv \rho_{12}(0)=\rho_1 \otimes \ket{0}_2 \bra{0}_2
+\rho_{12}(t) = U(t) \rho_{12}U^\dag(t)
+\label{eqn:ev-composta}
+\end{align}
+Ci chiediamo \textit{come appaia} tale relazione dal punto di vista del sottosistema $1$. In termini matematici, ci interessa scrivere una \textbf{relazione di evoluzione} come la (\ref{eqn:ev-composta}) per gli stati del sottosistema $1$, che sono descritti dalla matrice ridotta $\rho_1$. Vogliamo trovare allora una mappa $K$ tra matrici densità:
+\begin{align*}
+K:\rho_1 \overset{?}{\mapsto} \rho_1(t)
+\end{align*}
+Si trova che, seppur $\rho_{12}$ evolva unitariamente, non è detto che lo faccia anche $\rho_1$. In altre parole in generale \textbf{non esiste} un operatore \textbf{unitario} $U_1$ per cui valga:
+\begin{align}
+    \rho_1(t) = U_1(t) \rho_1 U_1^\dag(t)
+    \label{eqn:rho1-unitaria}
+\end{align}
+Vediamolo esplicitamente. Partiamo, per semplicità, facendo due supposizioni:
+\begin{itemize}
+\item Lo stato iniziale $\rho_{12}(0)$ è \textbf{separabile}, cioè vale:
+\begin{align*}
+\rho_{12}(0) = \rho_1 \otimes \rho_2
+\end{align*}
+Fisicamente ciò corrisponde al fatto che i sistemi $1$ e $2$ sono inizialmente \textbf{scorrelati} (non entangled)
+\item Lo stato $\rho_2$ è puro, ossia:
+\begin{align*}
+\rho_2 = \ket{0}_2 \bra{0}_2
+\end{align*}
+dove con $\ket{0}_2 \in \hs_2$ indichiamo uno stato di riferimento del sottosistema $2$.\\
+\textbf{Nota}: tale assunzione non fa perdere generalità, poiché se $\rho_2$ non è inizialmente puro basta ampliare il secondo sottosistema, aumentando la dimensione di $\hs_2$, e \textbf{purificare} $\rho_2$ con la procedura vista nelle sezioni precedenti.
+\end{itemize} 
+
+Dalle ipotesi fatte possiamo scrivere lo stato iniziale del sistema composto come:
+\begin{align}
+ \rho_{12}(0)=\rho_1 \otimes \ket{0}_2 \bra{0}_2
 \label{eqn:rho-0}
 \end{align}
 
-\textbf{Nota}: Scrivendo (\ref{eqn:rho-0}) stiamo supponendo che il sottosistema $2$ si trovi in uno \textbf{stato puro}. Ciò ci servirà per semplicità dei conti - ma visti gli argomenti di \textit{purificazione} della sezione precedente è possibile estendere la formula di evoluzione di $\rho_1$ anche al caso in cui il sottosistema $2$ si trovi inizialmente in uno stato misto.\\
-
-
-Determiniamo perciò l'\textbf{evoluzione temporale} della matrice ridotta $\rho_1$:
+Calcoliamone allora l'evoluzione temporale tramite la (\ref{eqn:ev-composta}):
+\begin{align*}
+\rho_{12}(t) = U(t) \rho_{12}(0) U^\dag(t)
+\end{align*}
+Determiniamo infine la matrice ridotta $\rho_1(t)$ calcolandone la traccia parziale:
 \begin{align}\nonumber
-\rho_1(t) &= \underset{2}{\op{Tr}}(\rho_0) = \underset{2}{\op{Tr}} [U(\rho_1 \otimes \ket{0}_2\bra{0}_2)U^\dag ] = \sum_{k=1}^{\op{dim}\hs_2} \underbrace{\bra{k}_2U\ket{0}_2}_{E_k}\rho_1 \underbrace{\bra{0}_2U^\dag \ket{k}_2}_{E_k^\dag} = \\
+\rho_1(t) &= \underset{2}{\op{Tr}}(\rho_{12}(t)) = \underset{2}{\op{Tr}} [U(\rho_1 \otimes \ket{0}_2\bra{0}_2)U^\dag ] \underset{(a)}{=} \sum_{k=1}^{\op{dim}\hs_2} \underbrace{\bra{k}_2U\ket{0}_2}_{E_k}\rho_1 \underbrace{\bra{0}_2U^\dag \ket{k}_2}_{E_k^\dag} = \\
 &= \sum_{k=1}^{\op{dim}\hs_2} E_k \rho_1 E_k^\dag
 \label{eqn:kraus-rep}
 \end{align}
+dove in (a) abbiamo introdotto una base ON $\{\ket{k}_2\}$ di $\hs_2$ per poter calcolare la traccia parziale.\\ La (\ref{eqn:kraus-rep}) mostra come l'evoluzione di $\rho_1$ abbia una forma \textit{più generale} di quella che sarebbe propria di un'evoluzione unitaria (\ref{eqn:rho1-unitaria}).\\
+In altre parole, un'\textit{evoluzione generalizzata} è composta dalla \q{somma di più di una evoluzione} - analogamente ad uno stato entangled, che non può essere espresso come un singolo prodotto tensore.\\
 
-Notiamo ora che:
+Come nel caso unitario, dove $U^\dag U = \bb{I}$, troviamo che anche gli operatori $\{E_k: \hs_1 \to \hs_1\}$, detti \textbf{operatori di Kraus}\index{Operatore!Kraus}, che agiscono\footnote{Infatti $U:\hs_1 \otimes \hs_2 \to \hs_1 \otimes \hs_2$, e perciò $E_k = \bra{k}_2 U \ket{0}_2:\hs_1 \to \hs_1$} sugli stati di $\hs_1$, soddisfano una simile \textit{relazione di normalizzazione}:
 \begin{align}
-\sum_k E_k^\dag E_k =\ \sum_k \bra{0} U^\dag \underbrace{\ket{k}\bra{k}}_{\bb{I}}U\ket{0} = \bra{0} \underbrace{U^\dag U}_{\bb{I}} \ket{0} = \braket{0|0} = 1
+\smashoperator{\sum_{k=1}^{\op{dim}\hs_2}} E_k^\dag E_k = \smashoperator{\sum_{k=1}^{\op{dim}\hs_2}} \bra{0}_2 U^\dag \underbrace{\ket{k}_2\bra{k}_2}_{\bb{I}_2}U\ket{0}_2 \underset{(a)}{=} \bra{0}_2 \underbrace{U^\dag U}_{\bb{I}_{12}} \ket{0}_2 = \bra{0}_2\bb{I}_{12}\ket{0}_2 \underset{(b)}{=} \bb{I}_1
 \label{eqn:kraus-prop}
 \end{align}
+In (a) abbiamo usato la completezza di Dirac, e il fatto che $\bb{I}_2 U = U$. Poiché $\bb{I}_2$ e $U$ hanno dimensioni differenti, l'espressione ha senso in ambito tensoriale (perciò $U^\dag \bb{I}_2 U$ non indica un prodotto di matrici, che non si potrebbe fare). Possiamo risolvere tutto lavorando in notazione di Dirac:
+\begin{align*}
+    \bb{I}_2 U = \left( \smashoperator[r]{\sum_{j=1}^{d_2}} \ket{j}_2 \bra{j}_2 \right) \left( \smashoperator[r]{\sum_{ik}^{d_1,d_2}} c_{ij}\ket{i}_1 \ket{k}_2 \right) = \smashoperator{\sum_{ij}^{d_{1},d_2}} c_{ij} \ket{i}_1 \ket{j}_2 = U
+\end{align*}
+dove $d_1 = \op{dim}\hs_1$ e $d_2 = \op{dim}\hs_2$.\\
+Analogamente, in (b) si ha:
+\begin{align*}
+    \bra{0}_2 \bb{I}_{12} \ket{0}_2 = \bra{0}_2 \smashoperator[l]{\sum_{i=0}^{d_1-1}} 
+    \smashoperator[r]{\sum_{j=0}^{d_2-1}}
+    \ket{i}_1 \ket{j}_2 \bra{i}_1 \bra{j}_2 \ket{0}_2 = \smashoperator{\sum_{i=0}^{d_1-1}} \ket{i}_1 \bra{i}_1 \braket{0|0} = \bb{I}_1
+\end{align*}
 
-La mappa $S:\rho_1 \to \rho_1'$ definita da (\ref{eqn:kraus-rep}), con la condizione (\ref{eqn:kraus-prop}), è detta \textbf{rappresentazione di Kraus}\marginpar{Rappresentazione di Kraus}\index{Rappresentazione di Kraus} dell'evoluzione temporale unitaria $U$, e gode delle seguenti proprietà:
+
+La mappa $S:\rho_1 \to \rho_1'$ definita da (\ref{eqn:kraus-rep}), con la condizione (\ref{eqn:kraus-prop}), è detta \textbf{operazione quantistica}, o \textbf{superoperatore}, dato che si tratta di una \textit{trasformazione di operatori} (matrici). In particolare l'equazione (\ref{eqn:kraus-rep})\index{Rappresentazione di Kraus} è detta \textbf{rappresentazione di Kraus} (o in \q{somma di operatori}) di $S$.\\
+In questo caso siamo partiti dall'evoluzione temporale per costruire $S$, ma potremmo considerare delle evoluzioni \q{più esotiche} in cui si parte da generici operatori $U$ unitari, giungendo sempre alla stessa rappresentazione:
+\begin{align*}
+S: \rho_1 \mapsto \rho_1' = \sum_{k} E_k \rho_1 E_k^\dag
+\end{align*}
+
+Un superoperatore $S$ è una \textbf{mappa lineare} tra operatori. Di più, si dimostra che $S$ mappa matrici densità in matrici densità, dato che:
 \begin{itemize}
-\item $S$ preserva l'hermitianicità
-\item $S$ conserva la traccia
-\item $S$ conserva la non-negatività
+\item $S(\rho_1)$ è hermitiana se lo è $\rho_1$:
+\begin{align*}
+(\rho_1)^\dag = \left( \sum_k E_k \rho_1 E_k^\dag\right)^\dag \underset{(a)}{=} \sum_k (E_k^\dag)^\dag \rho_1^\dag E_k^\dag = \sum_k E_k \rho_1 E_k^\dag = \rho_1'
+\end{align*}
+dove in (a) si usa il fatto che $E_k \rho_1 E_k^\dag$ è un prodotto di matrici, e la trasposta coniugata inverte il senso della moltiplicazione ($(AB)^\dag = B^\dag A^\dag$).\\
+Perciò $S$ conserva l'hermitianicità.
+\item $S$ conserva la traccia:
+\begin{align*}
+\op{Tr}(\rho_1') = \op{Tr}\left(\sum_k E_k \rho_1 E_k^\dag \right) \underset{(b)}{=} \sum_k \op{Tr}(\rho_1 E_k^\dag E_k) = \op{Tr}\left(\rho_1 \sum_k E_k^\dag E_k \right) = \op{Tr}(\rho_1)
+\end{align*}
+dove in (b) si è usata la ciclicità della traccia ($\op{Tr}(ABC)=\op{Tr}(BCA)$).\\
+In particolare, per una matrice densità avremo $\op{Tr}(\rho_1)=1$, e quindi $\op{Tr}(\rho_1')=1$.
+\item Se $\rho_1$ è non negativa, allora anche $\rho_1'$ lo è. Supponiamo allora che $\bra{m}\rho_1 \ket{m}\geq 0$ per ogni $\ket{m} \in \hs_1$. Calcolando lo stesso valor medio per $\rho_1'$:
+\begin{align*}
+\bra{m}_1 \rho_1' \ket{m}_1 = \sum_k \underbrace{\bra{m}_1 E_k}_{\bra{n}} \rho_1 \underbrace{E_k^\dag \ket{m}_1}_{\ket{n}} = \sum_k \bra{n}_1 \rho_1 \ket{n}_1 \geq 0 
+\end{align*}
 \end{itemize}
-Ne deriva che $S$ mappa matrici densità in matrici densità.\\
 
 Inoltre $S$ ha altre caratteristiche utili:
 \begin{itemize}
-\item \textbf{Proprietà di gruppo}. Si possono comporre due mappe di Kraus una dopo l'altra:
-
-
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
-\begin{center}
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
-
-%Straight Lines [id:da4078450591380367] 
-\draw    (186,145.5) -- (238.25,145.5) ;
-\draw [shift={(240.25,145.5)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-%Straight Lines [id:da9736233485654777] 
-\draw    (269,146) -- (321.25,146) ;
-\draw [shift={(323.25,146)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-%Curve Lines [id:da5450320200035714] 
-\draw    (184.25,159.5) .. controls (220.88,188.21) and (281.52,184.09) .. (318.15,158.29) ;
-\draw [shift={(319.25,157.5)}, rotate = 504.02] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
-
-
-% Text Node
-\draw (165,143.83) node   {$\rho ( 0)$};
-% Text Node
-\draw (256.33,144.17) node   {$\rho _{1}$};
-% Text Node
-\draw (340.5,144) node   {$\rho _{2}$};
-% Text Node
-\draw (253,193.5) node   {$S$};
-% Text Node
-\draw (210.5,128.5) node   {$S_{1}$};
-% Text Node
-\draw (295,129.5) node   {$S_{2}$};
-
-
-\end{tikzpicture}
-\end{center}
-
+\item \textbf{\q{Proprietà di gruppo}}. Si possono comporre due mappe di Kraus una dopo l'altra:
+\input{Tikz/14_3/Krauss_group.tex}
 e il risultato è ancora una mappa di Kraus $S(\rho) = (S_2 \circ S_1)(\rho) = S_2(S_1(\rho))$ che gode ancora di tutte le proprietà di $S$.
-\item \textbf{Invertibilità}. Data $S$, $S^{-1}$ esiste solo se è anche unitaria. Se non lo è significa, fisicamente, che vi è stata un'interazione tra $A$ e $B$ che non è racchiusa nella descrizione di $A$ data da $\rho_A$, cioè si è persa dell'informazione nel passaggio da $\rho_{A+B}$ alla singola $\rho_A$.
+
+
+\item \textbf{Invertibilità}. Data $S$, $S^{-1}$ esiste solo se è anche unitaria. Se non lo è significa, fisicamente, che vi è stata un'interazione tra $A$ e $B$ che non è racchiusa nella descrizione di $A$ data da $\rho_A$, cioè si è persa dell'informazione nel passaggio da $\rho_{A+B}$ alla singola $\rho_A$ (tale processo è detto \textit{decoerenza}). In altre parole, compare una \textit{freccia del tempo}: la transizione $\rho \mapsto \rho'$ ha una descrizione completa, ma non quella inversa.
 \end{itemize}
 
-\subsection{Krauss Representation Theorem}
-L'aver elencato le proprietà di $S$ ci permette di \textbf{generalizzare} tale costruzione.\\
-Data infatti una mappa \textit{tra stati} $S: \rho_1 \to \rho_1'$ (detta anche \textit{superoperatore}, dato che è un operatore che agisce su una matrice - cioè su un'osservabile) con le seguenti proprietà:
+\textbf{Nota}: uno stesso superoperatore $S$ può essere scritto come combinazione di diverse classi di operatori di Kraus, legate fra loro da una trasformazione unitaria. Per esempio $S(\rho_1)= \sum_k E_k \rho_1 E_k^\dag$ e $S'(\rho_1)= \sum_k F_k \rho_1 F_k^\dag$ coincidono se $F_i = \sum_j W_{ij}E_j$, con $W$ matrice unitaria.\\
+Geometricamente, $S$ mappa matrici $N\times N$ in matrici $N\times N$. Una base di $\mathcal{M}_{N\times N}$ ha $N^2$ elementi, e perciò una generica trasformazione lineare $\mathcal{M}_{N\times N}\to\mathcal{M}_{N\times N}$ ha $(N^2)^2$ parametri. Considerando che $\sum_k E_k E_k^\dag = \bb{I}_1$ forma un sistema di $N^2$ equazioni, avremo $N^4-N^2$ parametri liberi per un superoperatore. Per stati di singolo qubit, le $\rho$ sono matrici $2\times 2$, e quindi $N=2$ e $2^4-2^2=12$. Per $2$ qubit $N=2^2 = 4$ e $4^4-4^2=240$ (!). 
+\subsection{Kraus Representation Theorem}
+L'aver elencato le proprietà di $S$ ci permette di \textbf{generalizzare} tale costruzione, considerando \q{evoluzioni generalizzate} relative alle varie \textit{operazioni quantistiche} che si possono fare su un sistema. Vedremo diversi esempi di ciò nel trattare i \q{canali quantistici} nella prossima sezione.\\
+
+Consideriamo allora una mappa \q{evoluzione generalizzata} \textit{tra stati} $S: \rho_1 \to \rho_1'$  con le seguenti proprietà (che abbiamo notato partendo dall'esempio sull'evoluzione temporale nel paragrafo precedente):
 \begin{enumerate}
-\item Lineare
-\item Manda matrici Hermitiane in matrici Hermitiane
-\item Conserva la traccia
-\item Completamente positiva
+\item \textbf{Lineare}: $S(a\rho_1 + b\rho_2) = aS(\rho_1) + bS(\rho_2)$
+\item Manda matrici Hermitiane in matrici \textbf{Hermitiane}: in dimensione finita vale allora $S(\rho)=[S(\rho)^T]^*$ ($S(\rho)$ descrive un operatore simmetrico)
+\item Conserva la \textbf{traccia}: $\op{Tr}\rho = \op{Tr}S(\rho)$
+\item \textbf{Completamente} \textbf{positiva}. La positività significa che se $\rho$ è un operatore non negativo, ossia ha valor medi $\geq 0$, allora lo è anche $S(\rho)$. La \textit{completa} positività, invece, aggiunge anche che $S\otimes \bb{I}_E$, ossia l'estensione di $S$ da $\hs_1$ a $\hs_1 \otimes \hs_E$ per un certo $\hs_E$, è una mappa positiva. In altre parole, è sempre possibile estendere $S(\rho)$ ad un'operazione che agisce \textit{localmente su un sistema}, lasciando \textit{invariato} tutto il resto (che è il caso di interesse sperimentale, dato che non lavoreremo mai con stati dell'intero universo). La completa positività garantisce che tale operazione naturale sia sempre ben definita.
+
 \end{enumerate}
-Allora $S$ si può scrivere in \textbf{rappresentazione di Kraus}, cioè nella forma \q{decomposta}:
+Allora si dimostra che $S$ si può scrivere in \textbf{rappresentazione di Kraus}, cioè nella forma \q{decomposta} come somma di $M$ termini:
 \begin{align*}
-\rho_1' = \sum_{k=1}^{\op{dim}\hs_2} E_k \rho_1 E_k^\dag \qquad \sum_{k}E_k^\dag E_k = 1
+S: \rho \mapsto \rho_1' = \sum_{k=1}^{M} E_k \rho_1 E_k^\dag \qquad \sum_{k=1}^M E_k^\dag E_k = \bb{I}
 \end{align*}
 
-\textbf{Nota}: in questa formula generale, \textbf{non} è richiesto che $\rho_1$ derivi da una $\rho_{12}$ composta separabile.
 
 \subsubsection{Esempio}
 Sia $\rho_1$ la matrice densità di un generico qubit. Consideriamo il sistema di $2$ qubit nello stato $\rho$ \textbf{separabile}:
@@ -487,15 +516,13 @@ Verifichiamo che la traccia è conservata:
 \op{Tr}(\rho_1') &= \op{Tr}(A\rho_1 A^\dag + C\rho_1 C^\dag) \underset{(a)}{=} \op{Tr}(\rho_1 A A^\dag) + \op{Tr}(\rho_1 CC^\dag) =\\
 &= \op{Tr}(\rho(\underbrace{AA^\dag + CC^\dag}_{\bb{I}})) = \op{Tr}(\rho_1)
 \end{align*}
-dove in (a) abbiamo usato la ciclicità della traccia, cioè l'invarianza per permutazione cicliche dell'argomento:
+dove in (a) abbiamo usato la ciclicità della traccia, cioè l'invarianza per permutazioni cicliche dell'argomento:
 \begin{align*}
 \op{Tr}(ABC)=\op{Tr}(BCA) = \op{Tr}(CAB)
 \end{align*}
 
 \begin{comment}
 Con operazioni di questo tipo possiamo esplorare stati \q{all'interno} della sfera di Bloch, considerando quindi un'evoluzione non unitaria, dato che si perde la reversibilità. Per esempio, l'origine della sfera di Bloch corrisponde allo stato massimamente misto, e chiaramente un'evoluzione che porta dalla superficie della sfera di Bloch all'origine non può essere reversibile, dato che l'informazione del punto di partenza viene persa nel tragitto.
-
-
 \end{comment}
 
 \end{document}

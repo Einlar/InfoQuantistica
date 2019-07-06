@@ -42,12 +42,17 @@ Ogni computazione quantistica deve essere \textit{reversibile}. Dobbiamo perciò
 \centering
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{Immagini/17_4/1.jpg}
+        \begin{quantikz}
+        \lstick{$\ket{x}$\\Input} \qw & \qw & \gate{\textbf{Oracolo}} & \qw & \rstick{$\ket{f(x)}$\\Output} \qw
+        \end{quantikz}
         \caption{\footnotesize Schema del funzionamento della \textit{scatola nera} (o oracolo), che \q{applica} una certa funzione $f$ all'input $x$\label{fig:scatola-nera}}
     \end{subfigure}%
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
-        \includegraphics[width=0.7\textwidth]{Immagini/17_4/2.jpg}
+        \begin{quantikz}
+        \lstick{$\ket{x}$} & \gate[wires=2][1.7cm]{\begin{array}{c}\textbf{Oracolo}\\ U_f\end{array}} & \rstick{$\ket{x}$} \qw\\
+        \lstick{$\ket{y}$} & \qw & \rstick{$\ket{y\oplus f(x)}$} \qw
+        \end{quantikz}
         \caption{\footnotesize Funzionamento dell'oracolo quantistico (reversibile)\label{fig:oracolo-quant}}
     \end{subfigure}
 \caption{Scatola nera: versione \textit{classica} e \textit{quantistica}}
@@ -56,8 +61,11 @@ Ogni computazione quantistica deve essere \textit{reversibile}. Dobbiamo perciò
 L'algoritmo di Deutsch consiste allora nel seguente circuito quantistico:
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{Immagini/17_4/3.jpg}
-\caption{Schema a porte logiche quantistiche dell'algoritmo di Deutsch\label{fig:Deutsch-gates}}
+\begin{quantikz}
+\lstick{$\ket{0}$} & \qw \slice{$\ket{\Psi_0}$} & \gate{H} \slice{$\ket{\Psi_1}$} & \gate[wires=2][1.7cm]{U_f} \gateinput{$x$} \gateoutput{$x$} \slice{$\ket{\Psi_2}$} & \gate{H} \slice{$\ket{\Psi_3}$} & \meter{} \\
+\lstick{$\ket{1}$} & \qw & \gate{H} & \gateinput{$y$} \gateoutput{$y \oplus f(x)$} & \qw & \qw  
+\end{quantikz}
+\caption{Schema a porte logiche quantistiche dell'algoritmo di Deutsch ($n=1$) \label{fig:Deutsch-gates}}
 \end{figure}
 
 Esaminiamone il funzionamento. Consideriamo come input iniziale $\ket{\Psi_0} = \ket{0}\ket{1}$.\\
@@ -113,7 +121,7 @@ Lo stato di partenza è, in questo caso, pari a:
 \end{align*}
 Estendendo il circuito visto in figura \ref{fig:Deutsch-gates} (che ora è detto algoritmo di Deutsch-Jorza), ciascuno degli $n+1$ input viene mandato in una Hadamard, dopo le quali otteniamo un nuovo stato:
 \begin{align*}
-\ket{\Psi_1} &= (H^{\otimes n} \otimes H) \ket{\Psi_0} = \frac{1}{\sqrt{2^n}} \left(\sum_{x=0}^{2^n-1}\ket{x}_n\right) \frac{(\ket{0}-\ket{1})}{\sqrt{2}}
+\ket{\Psi_1} &= (H^{\otimes n} \otimes H) \ket{\Psi_0} = \frac{1}{\sqrt{2^n}} \left(\sum_{x=0}^{2^n-1}\ket{x}_n\right) \frac{(\ket{0}-\ket{1})_{n+1}}{\sqrt{2}}
 \intertext{dove con $\ket{x}_n$ si intende lo stato di $n$ qubit $\ket{x_0}\ket{x_1}\ket{x_2}\otimes \dots \otimes \ket{x_{n-1}}$, con $x_i$ $i$-esima cifra binaria di $x$.}
 \intertext{L'estensione naturale dell'azione dell'oracolo a più qubit risulta in:}
 \ket{\Psi_2} &= U_f \ket{\Psi_1} =  \frac{1}{\sqrt{2}}\frac{1}{\sqrt{2^n}} \sum_{x=0}^{2^n-1}(-1)^{f(x)} \ket{x}_n (\ket{0}-\ket{1})_{n+1}
@@ -157,7 +165,7 @@ Perciò un computer quantistico è in grado, con una sola misura, di distinguere
 \textbf{Nota}: il problema appena esaminato richiede $2^{n-1}+1$ misure classiche, o una sola misura quantistica. Il guadagno computazionale, nel caso quantistico, sembrerebbe esponenziale.\\
 In realtà stiamo ignorando un fatto importante: $2^{n-1}+1$ misure classiche sono richieste nel caso \textit{peggiore}. In generale, se immaginiamo che gli input $x$ siano mappati \q{uniformemente} a $0$ e $1$, le prime $2^{n-1}$ misure producono lo stesso output solo in due casi su $2^n$, ossia con probabilità $2^{-n+1}$. Mediamente, perciò, sono richieste \textit{molte meno} misure classiche per poter discriminare la classe di $f$, ma comunque almeno $2$. In ogni caso, perciò, l'algoritmo di Deutsch permette un significativo guadagno computazionale (nell'ipotesi che la \textit{black-box} sia implementata efficientemente).
 
-\subsection{Algoritmo di Grover}
+\section{Algoritmo di Grover}
 Un altro problema che può essere risolto in maniera efficiente da un computer quantistico è la ricerca in un database non strutturato.\\
 
 Possiamo schematizzare un semplice \textbf{database} come un set $A$ di \textit{stringhe} indicizzate dalla loro \textit{posizione}, ossia una mappa $g\colon \bb{N} \supset U \to A$. Il database si dice \textit{strutturato} se gli indici rispettano una relazione d'ordine su $A$, ossia se esiste un modo per \textit{comparare} le stringhe e vale:

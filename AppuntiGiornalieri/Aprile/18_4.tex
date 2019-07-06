@@ -89,7 +89,7 @@ D' = \left( \begin{array}{cc|cc}
 \end{align*}
 dove in (a) abbiamo evidenziato e rimosso una fase globale $e^{i\pi}$ per semplicità di calcolo. La $D'$ così ottenuta, perciò, aggiunge una fase $-1$ solo\footnote{O, equivalentemente, a tutti gli stati che non sono $\ket{00}$} allo stato $\ket{00}$ (=NOT $\ket{11}$).\\
 
-La matrice $D'$ è trasformata a sua volta da $H^{o\times 2}$:
+La matrice $D'$ è trasformata a sua volta da $H^{\otimes 2}$:
 \begin{align*}
     D = (H^{\otimes 2}) (-\bb{I} + 2\ket{00}\bra{00}) H^{\otimes 2}
 \end{align*}
@@ -174,23 +174,23 @@ In tal caso, tuttavia, l'angolo $\theta_0$ di partenza (ossia quello tra $\ket{S
 \begin{align*}
     \sin\theta_0 = \frac{1}{\sqrt{2^n}} \leq \frac{1}{2} \Rightarrow \theta_0 \leq 30^\circ
 \end{align*}
-Dopo l'applicazione dell'algoritmo di Grover, $\ket{\Psi_1}$ viene ruotato di $2\theta$ verso $\bar{x}$, ma per $n>2$ ciò non è sufficiente a far sì che $\ket{\Psi_1} = \ket{\bar{x}}$. Risulta quindi necessario \textbf{ripetere} più volte l'algoritmo. In generale, dopo $j$ ripetizioni di $G$ lo stato del sistema è:
+Dopo l'applicazione dell'algoritmo di Grover, $\ket{\Psi_1}$ viene ruotato di $2\theta_0$ verso $\bar{x}$, ma per $n>2$ ciò non è sufficiente a far sì che $\ket{\Psi_1} = \ket{\bar{x}}$. Risulta quindi necessario \textbf{ripetere} più volte l'algoritmo. In generale, dopo $j$ ripetizioni di $G$ lo stato del sistema è:
 \begin{align}
-    \ket{\Psi_j} \equiv G^j \ket{S} = \sin((2j+1)\theta)\ket{x_0} + \cos((2j+1)\theta)\ket{\bar{x}^\perp}
+    \ket{\Psi_j} \equiv G^j \ket{S} = \sin((2j+1)\theta_0)\ket{\bar{x}} + \cos((2j+1)\theta_0)\ket{\bar{x}^\perp}
     \label{eqn:Gj}
 \end{align}
 Possiamo fermare l'algoritmo dopo un certo numero $k$ di passi per cui:
 \begin{align*}
-    (2k+1)\theta \approx \frac{\pi}{2}
+    (2k+1)\theta_0 \approx \frac{\pi}{2}
 \end{align*}
 ossia tale che $\ket{\psi_k} \approx \ket{\bar{x}}$. Invertendo la relazione si trova:
 \begin{align*}
-    k = \left \lfloor \frac{\pi}{4\theta} - \frac{1}{2} \right \rceil 
+    k = \left \lfloor \frac{\pi}{4\theta_0} - \frac{1}{2} \right \rceil 
 \end{align*}
 dove $\lfloor \cdots \rceil$ indica l'arrotondamento all'intero più vicino (poiché chiaramente non si può effettuare un numero frazionario di passi).\\
 Per $n$ sufficientemente grande:
 \begin{align*}
-    \sin \theta = \braket{S|\bar{x}} = \frac{1}{\sqrt{2^n}} \Rightarrow \theta \approx \frac{1}{\sqrt{2^n}} \Rightarrow k=\left \lfloor \frac{\pi}{4} \sqrt{N} - \frac{1}{2} \right \rceil = O(\sqrt{N})
+    \sin \theta_0 = \braket{S|\bar{x}} = \frac{1}{\sqrt{2^n}} \Rightarrow \theta_0 \approx \frac{1}{\sqrt{2^n}} \Rightarrow k=\left \lfloor \frac{\pi}{4} \sqrt{N} - \frac{1}{2} \right \rceil = O(\sqrt{N})
 \end{align*}
 dove $N=2^n$ è la dimensione del database.\\
 

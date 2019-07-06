@@ -1,7 +1,7 @@
 \documentclass[../../InformazioneQuantistica.tex]{subfiles}
 
 \begin{document}
-\lesson{5 \greendot}{13/3/2019}
+\lesson{5 \bluedot}{13/3/2019}
 
 \onlyinsubfile{
 \section{Note organizzative}
@@ -32,11 +32,11 @@ Se $S$ fosse nello stato $\ket{\psi_k}$ potremmo usare direttamente la formula p
 \end{align}
 Non sapendo però in quale $\ket{\psi_k}$ si trovi il sistema, dovremo considerare tutte le $N$ possibilità $\{\ket{\psi_k}\}$, pesandole con le rispettive probabilità di occorrenza $p_k$. La media pesata dei valori di aspettazione dell'$i$-esimo proiettore $\hat{P}_i$ nell'\textit{ensemble} dei possibili stati $\{\ket{\psi_k}\}$ viene denotata con $\tilde{P}(i)$. 
 \begin{align*}
-\tilde{P}(i) = \sum_{k=0}^N p_k \,q_k(i) = \sum_{k=0}^N p_k \bra{\psi_k}\hat{P}_i \ket{\psi_k}
+\tilde{P}(i) = \sum_{k=1}^N p_k \,q_k(i) = \sum_{k=1}^N p_k \bra{\psi_k}\hat{P}_i \ket{\psi_k}
 \end{align*}
 Sommando allora su tutti i proiettori giungiamo alla formula per il valor medio di $\hat{A}$ della mistura statistica $\{(\ket{\psi_k},p_k)\}$:
 \begin{align}
-\langle \hat{A} \rangle = \sum_i a_i \tilde{P}(i) = \sum_{k=0}^N p_k \sum_i a_i \bra{\psi_k}\hat{P}_i\ket{\psi_k} = \sum_{k=0}^N p_k \bra{\psi_k}\hat{A}\ket{\psi_k} = \op{Tr}(\bm{\rho} \hat{A})
+\langle \hat{A} \rangle = \sum_i a_i \tilde{P}(i) = \sum_{k=1}^N p_k \sum_i a_i \bra{\psi_k}\hat{P}_i\ket{\psi_k} = \sum_{k=1}^N p_k \bra{\psi_k}\hat{A}\ket{\psi_k} = \op{Tr}(\bm{\rho} \hat{A})
 \label{eqn:traccia-valor-medio}
 \end{align}
 Dove $\rho$ è detta \textbf{matrice di densità} ed è definita da:\marginpar{Matrice densità}\index{Matrice densità}
@@ -68,11 +68,11 @@ dove in (a) abbiamo infine utilizzato la \textbf{linearità} della traccia.
 \subsection{Evoluzione temporale}
 Le singole $\ket{\psi_k}$ evolvono in maniera unitaria:
 \begin{align*}
-\ket{\psi_k(t)} = U(t-t_0) \ket{\psi(t_0)}
+\ket{\psi_k(t)} = U(t-t_0) \ket{\psi_k(t_0)} \leftrightarrow \bra{\psi_k(t)} = \bra{\psi_k(t_0)} U^\dag (t-t_0)
 \end{align*}
 Sostituendo nella definizione (\ref{eqn:matrice-density}) otteniamo perciò l'\textbf{evoluzione} della matrice densità:
 \begin{align*}
-\rho(t) = \sum_{k=0}^N p_k \ket{\psi_k(t)}\bra{\psi_k(t)} = \sum_{k=0}^N p_k [U\ket{\psi(t_0)}][\bra{\psi(t_0)}U^\dag] = U \rho_0 U^\dag
+\rho(t) = \sum_{k=1}^N p_k \ket{\psi_k(t)}\bra{\psi_k(t)} = \sum_{k=1}^N p_k [U\ket{\psi_k(t_0)}][\bra{\psi_k(t_0)}U^\dag] = U(t-t_0) \rho_0 U^\dag(t-t_0)
 \end{align*}
 
 Per gli stati puri $\ket{\psi}$ (che siano nel dominio dell'Hamiltoniana $\hat{H}$ del sistema) vale l'equazione di Schr\"odinger dipendente dal tempo:
@@ -80,11 +80,19 @@ Per gli stati puri $\ket{\psi}$ (che siano nel dominio dell'Hamiltoniana $\hat{H
 i\hbar \frac{\partial \psi(t)}{\partial t} = \hat{H}\psi(t)
 \label{eqn:schrody-temp}
 \end{align}
+In notazione braket:
+\begin{align}
+    i \hbar \frac{d}{dt} \ket{\psi} = H\ket{\psi} \leftrightarrow -i\hbar \frac{d}{dt}\bra{\psi} = \bra{\psi}H
+    \label{eqn:schrody-ket}
+\end{align}
 
 Un'equazione analoga vale per le misture statistiche (dette anche \textbf{stati misti}), e prende il nome di equazione di \textbf{Liouville-von Neumann}.\index{Equazione!Liouville-von Neumann}\marginpar{Equazione di Liouville-von Neumann} La si ricava calcolando la derivata temporale della matrice densità:
 \begin{align*}
-\dot{\rho}(t) &=\frac{d}{dt} \sum_{k=0}^N p_k \ket{\psi_k}\bra{\psi_k} = \sum_{k=0}^N p_k \left[\left(\frac{d}{dt}\ket{\psi_k}\right) \bra{\psi_k} + \ket{\psi_k}\left(\frac{d}{dt}\bra{\psi_k}\right)\right]=\\
-&\underset{(\ref{eqn:schrody-temp})}{=} \frac{1}{i\hbar}(H\rho - \rho H) = \frac{1}{i\hbar}[H,\rho]
+\dot{\rho}(t) &=\frac{d}{dt} \sum_{k=1}^N p_k \ket{\psi_k}\bra{\psi_k} = \sum_{k=1}^N p_k \left[\left(\frac{d}{dt}\ket{\psi_k}\right) \bra{\psi_k} + \ket{\psi_k}\left(\frac{d}{dt}\bra{\psi_k}\right)\right]=\\
+&\underset{(\ref{eqn:schrody-ket})}{=} 
+\sum_{k=1}^N p_k \left( \frac{H \ket{\psi_k}}{i\hbar}\bra{\psi_k} - \ket{\psi_k} \bra{\psi_k} \frac{H}{i\hbar}\right) =
+\\
+&=\frac{1}{i\hbar}(H\rho - \rho H) = \frac{1}{i\hbar}[H,\rho]
 \end{align*}
 Riarrangiando giungiamo a:
 \begin{align*}
@@ -103,30 +111,35 @@ a meno di una differenza di segno, data dalla diversa visuale.
 La matrice densità $\rho$ gode delle seguenti proprietà:
 \begin{enumerate}
 \item $\rho$ è \textbf{hermitiana}.\marginpar{Hermitiana}\\
-\textbf{Dim}. Sia $\{\ket{i}\}$ una base ON. Scriviamo le $\ket{\psi_k}$ in questa base:
+\textbf{Dim}. 
+Una matrice è hermitiana se vale la seguente relazione tra i suoi elementi:
+\begin{align*}
+    \rho_{ij} = (\rho_{ji})^*
+\end{align*}
+Verifichiamolo direttamente. Sia $\{\ket{i}\}$ una base ON. Scriviamo le $\ket{\psi_k}$ in questa base:
 \begin{align}
-\ket{\psi_k} = \sum_{i=1}^{\op{dim}\hs} c_i^k \ket{i} \qquad c_i^k \in \bb{C}
+\ket{\psi_k} = \sum_{i=1}^{\op{dim}\hs} c_i^k \ket{i} \qquad c_i^k = \braket{i|\psi_k} \in \bb{C}
 \label{eqn:expandi-base}
 \end{align} 
 Gli elementi di matrice di $\rho$ sono quindi dati da:
 \begin{align}\nonumber
-\rho_{ij} &= \bra{i}\rho\ket{j} = \sum_{k=0}^N
-p_k \braket{i|\psi_k}\braket{\psi_k|j} \underset{(a)}{=} \sum_{k=0}^N p_k \sum_{l,m} c^k_l (c_m^k)^* \underbrace{\braket{i|l}}_{\delta_{il}}\underbrace{\braket{m|j}}_{\delta_{mj}} =\\
-&=\sum_{k=0}^N p_k\, c_i^k (c_j^k)^*
+\rho_{ij} &= \bra{i}\rho\ket{j} = \sum_{k=1}^N
+p_k \braket{i|\psi_k}\braket{\psi_k|j} \underset{(a)}{=} \sum_{k=1}^N p_k \sum_{l,m}^{\op{dim}\hs} c^k_l (c_m^k)^* \underbrace{\braket{i|l}}_{\delta_{il}}\underbrace{\braket{m|j}}_{\delta_{mj}} =\\
+&=\sum_{k=1}^N p_k\, c_i^k (c_j^k)^*
 \label{eqn:rho-matrix} 
 \end{align}
 dove in (a) abbiamo usato l'espansione delle $\ket{\psi_k}$ nella base (\ref{eqn:expandi-base}). In altre parole, gli elementi di matrice $\rho_{ij}$ sono prodotti dei coefficienti $i$ e $j$ della rappresentazione di $\ket{\psi_k}$ nella base $\ket{i}$ in cui $\rho$ è scritta, mediati sull'intero ensemble delle $\{\ket{\psi_k}\}$ possibili, con i pesi dati dalle loro probabilità $p_k$. \\
 Invertendo $i$ e $j$ e coniugando otteniamo lo stesso risultato:
 \begin{align*}
-\rho_{ji}^* = \sum p_k (c_j^k)^* c_i^k = \rho_{ij}
+\rho_{ji}^* = \sum p_{k=1}^N (c_j^k)^* c_i^k = \rho_{ij}
 \end{align*}
-Ne deriva allora che $\rho$ è hermitiana (essendo simmetrica e a dimensione finita\footnote{L'hermitianicità si dimostra anche nel caso di dimensione infinita.}).
+Ne deriva allora che $\rho$ è hermitiana.
 \item $\op{Tr}\rho \bm{= 1}$.\marginpar{Traccia unitaria}\\
 \textbf{Dim}. Basta fare il conto diretto usando l'espressione (\ref{eqn:rho-matrix}) per gli elementi di matrice:
 \begin{align*}
-\op{Tr}\rho = \sum_{i=0}^{\op{dim}\hs} \rho_{ii} = \sum_{k=0}^N p_k \left(\sum_{i=0}^{\op{dim} \hs} |c_i^k|^2 \right) \underset{(a)}{=} \sum_{k=0}^N p_k \underset{(b)}{=} 1
+\op{Tr}\rho = \sum_{i=1}^{\op{dim}\hs} \rho_{ii} = \sum_{k=1}^N p_k \left(\sum_{i=1}^{\op{dim} \hs} |c_i^k|^2 \right) = \sum_{k=1}^N p_k \sum_{i=1}^{\op{dim}\hs} \braket{\psi_k|i}\braket{i|\psi_k} \underset{(a)}{=} \sum_{k=1}^N p_k \underset{(b)}{=} 1
 \end{align*}
-La somma dei $|c_i^k|^2$ su $i$ in (a) è pari a $\norm{\ket{\psi_k}}^2$ (lo si vede usando (\ref{eqn:expandi-base})), che è pari a $1$ per la normalizzazione. In (b) usiamo poi la \textit{convessità} delle $p_k$, che quindi \q{esauriscono tutte le possibilità}, dato che sappiamo con certezza il sistema si trova in uno stato in $\{\ket{\psi_k}\}$ (per come abbiamo definito la mistura statistica).
+dove in (a) si è usata la completezza di Dirac, e la normalizzazione $\braket{\psi_k|\psi_k}=1$. In (b) usiamo poi la \textit{convessità} delle $p_k$, che quindi \q{esauriscono tutte le possibilità}, dato che sappiamo con certezza il sistema si trova in uno stato in $\{\ket{\psi_k}\}$ (per come abbiamo definito la mistura statistica).
 \item $\rho$ è un operatore \textbf{non-negativo}\marginpar{Non negativa}, cioè $\forall \ket{\psi}$ vale $\bra{\psi}\rho\ket{\psi}\geq 0$.\\
 \textbf{Dim}. Per calcolo diretto con una generica $\ket{\varphi}$, usando di nuovo la (\ref{eqn:rho-matrix}):
 \begin{align*}
@@ -140,24 +153,25 @@ La matrice di densità $\rho$ può essere usata sia per rappresentare \textbf{st
 \begin{align*}
 \rho_p &=\ket{\psi}\bra{\psi}
 \intertext{Mentre per uno stato \textbf{misto} si ha:}
-\rho_m &= \sum_{k=0}^N p_k \ket{\psi_k}\bra{\psi_k}
+\rho_m &= \sum_{k=1}^N p_k \ket{\psi_k}\bra{\psi_k}
 \end{align*}
 
 Si possono differenziare i due casi notando che il primo è un \textbf{proiettore}, e quindi\marginpar{Differenza tra stati misti e puri} $\rho_p^2 = \rho_p$. Da ciò segue che:
 \begin{align*}
-\op{Tr} \rho_m^2 < 1 \qquad \op{Tr} \rho_p = 1
+\op{Tr} \rho_m^2 < 1 \qquad \op{Tr} \rho_p^2 = 1
 \end{align*}
-\textbf{Dim.} Eseguiamo il calcolo diretto, usando la base $\{\ket{j}\}$ in cui $\rho$ è diagonale:
+\textbf{Dim.} Eseguiamo il calcolo diretto, usando la base $\{\ket{j}\}$ in cui $\rho$ è diagonale (ossia scrivendo $\rho$ nella sua rappresentazione spettrale):
 \begin{align*}
-\rho = \sum_{j=0}^{N} \lambda_j \ket{j}\bra{j} \Rightarrow \rho^2 = \sum_{j,k=0}^N \lambda_j \lambda_k \, \ket{k}\underbrace{\braket{k|j}}_{\delta_{kj}}\bra{j}= \sum_{j=0}^{N} \lambda_j^2 \ket{j}\bra{j}
+\rho = \sum_{j=1}^{N} \lambda_j \ket{j}\bra{j} \Rightarrow \rho^2 = \sum_{j,k=1}^N \lambda_j \lambda_k \, \ket{k}\underbrace{\braket{k|j}}_{\delta_{kj}}\bra{j}= \sum_{j=1}^{N} \lambda_j^2 \ket{j}\bra{j}
 \end{align*}
-Notiamo che:
+Dalle proprietà di $\rho$ deriva che:
 \begin{align*}
-\sum_{j=0}^N \lambda_j = 1; \> \lambda_j \geq 0 \Rightarrow 0\leq \lambda_j \leq 1
+    \op{Tr} \rho = 1 &\Rightarrow \sum_{j=1}^N \lambda_j = 1\\
+    \rho \geq 0 & \Rightarrow \lambda_j \geq 0
 \end{align*}
-E perciò, in generale:
+e perciò $0\leq \lambda_j \leq 1$. Vale allora la disuguaglianza:
 \begin{align*}
-\op{Tr} \rho^2 = \sum_{j=0}^N \lambda_j^2  \leq \sum_{j=0}^N \lambda_j = 1
+\op{Tr} \rho^2 = \sum_{j=1}^N \lambda_j^2  \leq \sum_{j=1}^N \lambda_j = 1
 \end{align*}
 E si ha l'uguaglianza solo nel caso specifico in cui $\lambda_{j^*}=1$ per un certo $0 \leq j^* \leq N$, e tutti gli altri $\lambda_{j \neq j^*}=0$, che corrisponde a quello in cui $\rho$ rappresenta uno \textbf{stato puro}. In tutti gli altri casi (\textbf{stati misti}), $\op{Tr}(\rho^2)$ sarà quindi \textit{strettamente} minore di $1$.\\
 Per questò la grandezza (misurabile sperimentalmente, dato che $\rho$ è hermitiana, e quindi è un'osservabile) $\op{\textbf{Tr}}\bm{(\rho^2)}$ è detta \textbf{purità}\marginpar{Purità di uno stato $\rho$}\index{Purità} dello stato $\rho$: è massima (pari a $1$) per stati puri, e $0\leq \op{Tr}(\rho^2) < 1$ per stati misti.\\
@@ -165,7 +179,7 @@ Per questò la grandezza (misurabile sperimentalmente, dato che $\rho$ è hermit
 \textbf{Nota}: l'evoluzione \textbf{unitaria} \textbf{conserva} la purità. Segue che uno stato puro può evolvere unitariamente esclusivamente a stati puri, e allo stesso modo uno stato misto resterà sempre misto (almeno finché il sistema rimane isolato).\\
 
 Nella base $\{\ket{j}\}$ che abbiamo appena considerato, la matrice $\rho$ è diagonale, ma generalmente potremmo scriverla in una qualsiasi altra base ON.\\
-Distinguiamo perciò tra gli elementi $\lambda_1 \dots \lambda_N$ sulla diagonale di $\rho$, detti \textbf{termini di popolazione}, e quelli fuori dalla diagonale, detti \textbf{termini di coerenza}.\marginpar{Termini di popolazione/coerenza}\index{Termini di popolazione}\index{Termini di coerenza} Come vedremo nelle prossime sezioni, questi ultimi sono indice delle \textit{correlazioni} tra i singoli stati.\\
+Distinguiamo perciò tra gli elementi $\lambda_1 \dots \lambda_N$ sulla diagonale di $\rho$, detti \textbf{termini di popolazione}, e quelli fuori dalla diagonale, detti \textbf{termini di coerenza}.\marginpar{Termini di popolazione/coerenza}\index{Termini di popolazione}\index{Termini di coerenza} Come vedremo nelle prossime sezioni, questi ultimi sono indice delle \textit{correlazioni} tra i singoli stati (o meglio, di superposizioni quantistiche che possono portare a correlazioni).\\
 
 \textbf{Nota}: la \q{misurabilità} delle correlazioni dipende quindi dalla base utilizzata. Se la base computazionale è quella che diagonalizza $\rho$, avremo solo termini di popolazione, e nessuna correlazione:
 \begin{align*}
@@ -234,7 +248,7 @@ Nell'ultimo passaggio si è ottenuta un'espansione nella base delle matrici herm
 
 Ponendo $\vec{r}=(x,y,z)$, il determinante di $\rho$ è dato da: 
 \begin{align}
-\op{det}\rho = \frac{1}{4}[(1+z)(1-z)-(x+iy)(x-iy)]= \frac{1}{4}(1-\norm{\vec{r}}^2)
+\op{det}\rho = \frac{1}{4}[(1+z)(1-z)-(x+iy)(x-iy)]= \frac{1}{4}(1-\norm{\vec{r}\,}^2)
 \label{eqn:det-rho}
 \end{align}
 
@@ -245,9 +259,9 @@ Poiché $\rho$ è hermitiana e non-negativa, ha autovalori reali positivi (al pi
 \begin{align*}
 \op{det}\rho \geq 0
 \end{align*}
-Tale condizione, unita alla (\ref{eqn:det-rho}), porta a $\norm{\vec{r}}\leq 1$.\\
+Tale condizione, unita alla (\ref{eqn:det-rho}), porta a $\norm{\vec{r}\,}\leq 1$.\\
 
-Mostriamo ora che l'uguaglianza $\norm{\vec{r}}=1$ avviene solo quando $\vec{r}$ rappresenta\marginpar{Gli stati puri $\leftrightarrow$ superficie della sfera di Bloch ($\norm{\vec{r}}=1$)} uno \textbf{stato puro}. Sappiamo già che le $\rho$ di stati puri generano vettori $\vec{r}$ unitari (deriva dalla condizione (\ref{eqn:versore-coord})), e manca solo da mostrare il viceversa. Se $\norm{\vec{r}}=1$, si ha per la (\ref{eqn:det-rho}) che $\op{det}\rho = 0$, ma vale sempre $\op{Tr}(\rho)=1$. Detti $\lambda_1$ e $\lambda_2$ gli autovalori di $\rho$, si ha quindi:
+Mostriamo ora che l'uguaglianza $\norm{\vec{r}\,}=1$ avviene solo quando $\vec{r}$ rappresenta\marginpar{Gli stati puri $\leftrightarrow$ superficie della sfera di Bloch ($\norm{\vec{r}\,}=1$)} uno \textbf{stato puro}. Sappiamo già che le $\rho$ di stati puri generano vettori $\vec{r}$ unitari (abbiamo infatti mostrato che ogni $\rho=\ket{\psi}\bra{\psi}$ individua (\ref{eqn:rho-matrix-cartesiana}) un vettore unitario (\ref{eqn:versore-coord})), e manca solo da mostrare il viceversa. Se $\norm{\vec{r}\,}=1$, si ha per la (\ref{eqn:det-rho}) che $\op{det}\rho = 0$, ma vale sempre $\op{Tr}(\rho)=1$. Detti $\lambda_1$ e $\lambda_2$ gli autovalori di $\rho$, si ha quindi:
 \begin{align*}
 \begin{cases}
 \op{det}\rho = \lambda_1\lambda_2 = 0\\
@@ -256,8 +270,8 @@ Mostriamo ora che l'uguaglianza $\norm{\vec{r}}=1$ avviene solo quando $\vec{r}$
 \end{align*}
 Perciò uno dei due (es. $\lambda_1$) è identicamente $1$, e l'altro è nullo. Ma allora, se $\ket{u}$ è l'autovettore di autovalore $1$, si ha $\rho = \ket{u}\bra{u}$, che rappresenta uno stato puro.\\
 
-Perciò, si ha che tutte le scelte di $\norm{\vec{r}}<1$, che corrispondono ad altrettante possibilità per $\rho$, codificano\marginpar{Stati misti $\leftrightarrow$ $\norm{\vec{r}}<1$} \textbf{stati misti}.\\
-Perciò, tra tutte le $\rho$ possibili per un sistema a \textbf{1 qubit} (date da generici vettori nella sfera di Bloch) la maggior parte è prodotta da stati misti (l'interno). Considerare misture statistiche (nella notazione della matrici di densità) permette di sfruttare tale numero molto più ampio di possibilità.\\
+Perciò, si ha che tutte le scelte di $\norm{\vec{r}\,}<1$, che corrispondono ad altrettante possibilità per $\rho$, codificano\marginpar{Stati misti $\leftrightarrow$ $\norm{\vec{r}}<1$} \textbf{stati misti}.\\
+In definitiva, tra tutte le $\rho$ possibili per un sistema a \textbf{1 qubit} (date da generici vettori nella sfera di Bloch) la maggior parte è prodotta da stati misti (l'interno). Considerare misture statistiche (nella notazione della matrici di densità) permette di sfruttare tale numero molto più ampio di possibilità.\\
 
 \begin{figure}
     \centering
@@ -266,7 +280,7 @@ Perciò, tra tutte le $\rho$ possibili per un sistema a \textbf{1 qubit} (date d
     \label{fig:sfera-bloch-stati}
 \end{figure}
 
-In questa notazione vettoriale possiamo visualizzare la genesi di uno stato misto come \textit{somma} di vettori di stati puri opportunamente pesati da probabilità. Il caso più semplice è quello in cui $\vec{r}$ è distribuito uniformemente su tutta la superficie della sfera unitaria, e corrisponde alla \textbf{mistura} di tutti gli stati puri possibili, ossia allo \textbf{stato massimamente misto}. Possiamo calcolare analiticamente la $\rho$ risultante integrando sulla superficie della sfera di Bloch (dove l'integrazione si intende su ciascun elemento di (\ref{eqn:rho-qubit})):
+In questa notazione vettoriale possiamo visualizzare la genesi di uno stato misto come \textit{somma} di vettori di stati puri opportunamente pesati da probabilità. Il caso più semplice è quello in cui $\vec{r}$ è distribuito uniformemente su tutta la superficie della sfera unitaria, e corrisponde alla \textbf{mistura} di tutti gli stati puri possibili, ossia allo \textbf{stato massimamente misto}. Possiamo calcolare analiticamente la $\rho$ risultante integrando sulla superficie della sfera di Bloch (dove l'integrazione si intende su ciascun elemento della matrice (\ref{eqn:rho-qubit})):
 \begin{align*}
 \rho = \frac{1}{4\pi}\int_0^{2\pi} d\varphi \int_0^\pi (d\theta \sin\theta) \rho(\theta,\varphi) = \frac{1}{2}\bb{I} = \begin{pmatrix}
 \frac{1}{2} & 0 \\ 0 & \frac{1}{2}\end{pmatrix} = \frac{1}{2}\ket{0}\bra{0} + \frac{1}{2}\ket{1}\bra{1}
@@ -276,19 +290,30 @@ In questa notazione vettoriale possiamo visualizzare la genesi di uno stato mist
 Nell'ultima sezione abbiamo esaminato un sistema formato da un singolo qubit, notando l'utilità della nuova notazione introdotta.\\
 Il principale utilizzo delle matrici densità, tuttavia, si realizza nel considerare \textit{sistemi composti}, tali da codificare $2$ o più qubit.\\
 Procedendo con ordine, partiamo dal caso più semplice di \textbf{2 qubit}.\\
-Sappiamo che se gli stati del sistema $1$ stanno in uno spazio di Hilbert $\hs_1$ e gli stati del sistema $2$ in $\hs_2$, gli stati del sistema composto si trovano nel prodotto tensore dei due spazi, cioè in:
+Sappiamo che se gli stati del sistema $1$ sono elementi di uno spazio di Hilbert $\hs_1$ e gli stati del sistema $2$ in $\hs_2$, gli stati del sistema composto si trovano nel prodotto tensore dei due spazi, cioè in:
 \begin{align*}
 \hs_{12} = \hs_1 \otimes \hs_2
 \end{align*}
 Una generica funzione d'onda in $\hs_{12}$ si scrive come:
 \begin{align*}
-\ket{\psi} = \sum_{i,\alpha} c_{i\alpha} \ket{i}_1\ket{\alpha}_2 \qquad \sum_{i,\alpha} |c_{i,\alpha}|^2 = 1
+\ket{\psi} = \sum_{i,\alpha}^{\op{dim}\hs_{1,2}} c_{i\alpha} \ket{i}_1 \otimes \ket{\alpha}_2 \qquad \sum_{i,\alpha}^{\op{dim}\hs_{1,2}} |c_{i,\alpha}|^2 = 1
 \end{align*}
 dove $\{\ket{i}_1\}$ e $\{\ket{\alpha}_2\}$ sono basi ON rispettivamente di $\hs_1$ e $\hs_2$.\\
 
+\textbf{Convenzioni di notazione}. Spesso useremo notazioni abbreviate per il prodotto tensore, come:
+\begin{align*}
+    \ket{a,b} \equiv \ket{a}\ket{b} \equiv \ket{a}\otimes \ket{b}
+\end{align*}
+Analogamente, per sommatorie su più indici:
+\begin{align*}
+    \sum_{ij}^{\op{dim}\hs_{1,2}} \equiv \sum_{i}^{\op{\dim}\hs_1} \sum_{j}^{\op{dim}\hs_2}
+\end{align*}
+Quando i limiti delle sommatorie sono chiari dal contesto, tenderemo ad ometterli.\\
+Infine, impropriamente, useremo direttamente gli indici come ket, ossia $\ket{\alpha_i} \equiv \ket{i}$.\\
+
 Riadattando allora la definizione di matrice di densità giungiamo a scrivere\footnote{La posizione degli indici non indica nessun tipo di covarianza/controvarianza, è solo un fatto di comodità stilistica.}:\marginpar{Matrice densità di sistemi composti}
 \begin{align}
-\rho_{12} = \ket{\psi}\bra{\psi} = \sum_{i,\alpha}\sum_{j,\beta}c_{i\alpha}c^*_{j,\beta} \ket{i}\ket{\alpha}\bra{j}\bra{\beta} = \sum_{i,\alpha}\sum_{j,\beta} \rho_{i\alpha}^{j\beta} \ket{i,\alpha}\bra{j,\beta}
+\rho_{12} = \ket{\psi}\bra{\psi} = \sum_{i,\alpha}\sum_{j,\beta}c_{i\alpha}c^*_{j\beta} \ket{i}\ket{\alpha}\bra{j}\bra{\beta} = \sum_{i,\alpha}\sum_{j,\beta} \rho_{i\alpha}^{j\beta} \ket{i,\alpha}\bra{j,\beta}
 \label{eqn:rho-composta}
 \end{align}
 
@@ -296,7 +321,7 @@ Consideriamo allora un'osservabile $\hat{A}$ del sistema $1$:
 \begin{align*}
 \hat{A} = \hat{A}_1 \otimes \bb{I}_2
 \end{align*}
-Il suo valore atteso nello stato $\rho$ si ottiene dalla formula (\ref{eqn:traccia-valor-medio}), con l'unica differenza di usare per la traccia una base ON del sistema composto. Esprimendo anche $\rho$ in questa base, possiamo sfruttare l'ortonormalità e calcolare:
+Il suo valore atteso nello stato $\rho$ si ottiene dalla formula (\ref{eqn:traccia-valor-medio}), con l'unica differenza di usare per la traccia una base ON $\{\ket{\kappa\gamma}\}$ del sistema composto. Esprimendo anche $\rho$ in questa base, possiamo sfruttare l'ortonormalità e calcolare:
 \begin{align*}
 \langle \hat{A}\rangle_\rho &=
 \op{Tr}(\rho \hat{A}) = \sum_{\kappa\gamma}\bra{\kappa\gamma} \rho A 
@@ -306,12 +331,12 @@ Il suo valore atteso nello stato $\rho$ si ottiene dalla formula (\ref{eqn:tracc
 \end{align*}
 dove in (a) usiamo le $\delta$ di Kronecker per \q{collassare} le sommatorie.\\
 
-Se nel calcolare la traccia usassimo la base ON di uno solo dei due sistemi, otterremo una \textbf{matrice densità ridotta}\index{Matrice densità!ridotta}\marginpar{Matrice densità ridotta}, di elementi:
+Se nel calcolare la traccia usassimo la base ON di uno solo dei due sistemi, otterremo una \textbf{matrice densità ridotta}\index{Matrice densità!ridotta}\marginpar{Matrice densità ridotta}. Per esempio, se $\{\ket{\alpha}\}$ è base ON di $\hs_2$, allora la traccia parziale risulta nella matrice ridotta del primo sistema, i cui elementi sono dati da:
 \begin{align*}
-(\rho_1)_{ij} = \left(\underset{2}{\op{Tr}}\rho_{12}\right)_{ij} =\sum_\alpha \bra{\alpha}_2 \rho_{12}\ket{\alpha}_2 = \sum_\alpha \rho_{i\alpha}^{j\alpha} \ket{i}\bra{j}
+(\rho_1)_{ij} = \left(\underset{2}{\op{Tr}}\rho_{12}\right)_{ij} =\sum_\alpha^{\op{\dim}\hs_2} \bra{\alpha}_2 \rho_{12}\ket{\alpha}_2 = \sum_\alpha^{\op{dim}\hs_2} \rho_{i\alpha}^{j\alpha} \ket{i}\bra{j}
 \end{align*}
 Poiché non stiamo usando una base del sistema composto, l'operazione di traccia si dice \textbf{traccia parziale}\index{Traccia!parziale}, ed è analoga al processo di \textbf{marginalizzazione} di distribuzioni statistiche, per cui si integra (o nel nostro caso, si somma) sulle variabili che non interessano (nell'esempio quelle del sistema $2$).\\
-La matrice ridotta appena calcolata è comoda per calcolare il valor medio di $\hat{A}$ che agisce solo sul primo sistema, poiché si ha:
+La matrice ridotta appena calcolata è comoda per calcolare il valor medio di un'osservabile $\hat{A}$ che agisce solo sul primo sistema, poiché si ha:
 \begin{align*}
 \langle \hat{A}\rangle_1 = \op{Tr}(\rho_1 A_1)
 \end{align*}

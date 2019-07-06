@@ -3,7 +3,7 @@
 \begin{document}
 
 \section{Teletrasporto quantistico}
-\lesson{3 \greendot}{6/3/2019}
+\lesson{3 \bluedot}{6/3/2019}
 L'idea del teletrasporto quantistico\index{Teletrasporto quantistico} consiste nel partire da un \textbf{qubit}, definito da una funzione d'onda generica $\ket{\psi}$ \textbf{non nota}, e trasmettere l'informazione in esso contenuta ad un qubit di un altro laboratorio. Dato che non è possibile \textbf{clonare} $\ket{\psi}$, il teletrasporto ha come effetto la distruzione del qubit originale.\\
 \textbf{Nota}: stiamo comunque parlando di un trasporto di \textbf{informazione}, non di materia. Nel laboratorio di arrivo deve essere presente una particella a cui \q{applicare} il qubit trasportato.\\
 
@@ -51,7 +51,7 @@ Alla fine del circuito Alice misura i qubit $A$ e $C$, registra i risultati in u
 Esaminiamo perciò passo per passo l'azione del circuito, indicando con $\ket{\Phi_0}$ lo stato iniziale, $\ket{\Phi_1}$ lo stato a seguito del primo CNOT, e $\ket{\Phi_2}$ lo stato prima della misura di Alice. Si ha che:
 \begin{align} \nonumber
 \ket{\Phi_1} &= U_{\op{CNOT}} \ket{\Phi_0} = U_{\op{CNOT}}\left[\alpha\ket{0}_C\left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right) _{AB}+ \beta\ket{1}_C \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)_{AB}\right] =\\ \label{eqn:Phi-1}
-&= \alpha\ket{0}_C \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)_{AB} + \beta\ket{1}_C \left(\frac{\hlc{Yellow}{\ket{01}+\ket{10}}}{\sqrt{2}}\right)_{AB}\\
+&= \alpha\ket{0}_C \left(\frac{\ket{00}+\ket{11}}{\sqrt{2}}\right)_{AB} + \beta\ket{1}_C \left(\frac{\hlc{Yellow}{\ket{10}+\ket{01}}}{\sqrt{2}}\right)_{AB}\\
 \nonumber \ket{\Phi_2} &=H_C \ket{\Phi_1} = \frac{1}{2}\left[\alpha (\ket{0} + \ket{1})_C (\ket{00}+\ket{11})_{AB} + \beta(\ket{0}-\ket{1})_{C}(\ket{10}+\ket{01})_{AB}\right] =\\ \nonumber
 &=\frac{1}{2}\Big[\ket{00}_{AC} (\alpha\ket{0}+\beta\ket{1})_B \quad+\\ \nonumber
 &+\quad\>\,  \ket{01}_{AC}(\alpha\ket{1} + \beta\ket{0})_B \quad+\\ \nonumber
@@ -98,6 +98,24 @@ Notiamo due cose:
 \item Dato che Alice effettua una misura su $C$, lo stato originale $\ket{\psi}_C$ viene distrutto nel processo. Ritroviamo quindi, come già dimostrato, che \textbf{non è possibile clonare} stati quantistici arbitrari.
 \end{itemize}
 
+\begin{expl}
+Lo stato EPR può essere creato partendo da $\ket{00}_{AB}$ tramite:
+\begin{align*}
+    \op{CNOT} (H\otimes \bb{I}) \ket{01} = \op{CNOT} \frac{1}{\sqrt{2}}(\ket{00}+\ket{10})_{AB} = \frac{1}{\sqrt{2}}(\ket{00}+\ket{11})_{AB} 
+\end{align*}
+Perciò, uno schema del circuito che comprenda anche la generazione dello stato è dato da:
+\end{expl}
+\begin{figure}[H]
+    \centering
+    \begin{quantikz}
+        \lstick{$\ket{\psi}_C$} & \qw & \qw \slice{$\ket{\Phi_0}$} & \ctrl{1} \slice{$\ket{\Phi_1}$} & \gate{H} \slice{$\ket{\Phi_2}$} & \meter{} & \cwbend{2}\\
+        \lstick{$\ket{0}_A$} & \gate{H} & \ctrl{1} & \targ{} & \qw & \meter{} & \cwbend{1} \\
+        \lstick{$\ket{0}_B$} & \qw & \targ{} & \qw & \qw & \ket{\phi} \qw & \gate{U} & \rstick{$\ket{\psi}$} \qw
+    \end{quantikz}
+    \caption{Schema a porte logiche quantistiche del teletrasporto quantistico - con anche la generazione dello stato EPR}
+    \label{fig:teletrasporto-circuito-epr}
+\end{figure}
+
 \section{Misure quantistiche}
 Consideriamo uno stato $\ket{\psi}$ e un'osservabile\marginpar{III postulato della \MQ} $\hat{A}$, che consideriamo a spettro discreto e non degenere. Si ha quindi che gli autoket $\ket{a_n}$ di $\hat{A}$, tali da soddisfare l'equazione agli autovalori:
 \begin{align*}
@@ -109,7 +127,7 @@ formano una base ortonormale di $\hs$, e perciò possiamo rappresentare (per il 
 \end{align*}
 Effettuando una misura (ideale di prima specie) di $\hat{A}$ sullo stato $\ket{\psi}$ si ottiene uno stato $\ket{\phi}$ dato, per il \textbf{postulato di proiezione di von Neumann}\index{Postulato!Proiezione di Von Neumann}, da:
 \begin{align*}
-\ket{\phi} = \frac{\hat{P}_n \ket{\psi}}{\sqrt{\bra{\psi_n}\hat{P}_n \ket{\psi_n}}}
+\ket{\phi} = \frac{\hat{P}_n \ket{\psi}}{\sqrt{\bra{\psi}\hat{P}_n \ket{\psi}}}
 \end{align*}
 In altre parole, se una misura di $\hat{A}$ sullo stato iniziale $\ket{\psi}$ è pari a $a_n$, lo stato finale $\ket{\psi}$ è pari alla componente di $\ket{\psi}$ \textit{parallela} all'autoket $\ket{a_n}$, opportunamente normalizzata.\\
 

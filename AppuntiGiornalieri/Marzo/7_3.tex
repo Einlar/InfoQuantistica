@@ -4,7 +4,7 @@
 
 \onlyinsubfile{\section{L'effetto Zenone quantistico}}
 \subsection{Introduzione}
-\lesson{4 \greendot}{7/3/2019}
+\lesson{4 \bluedot}{7/3/2019}
 L'idea dell'effetto Zenone quantistico sta nel fatto che, osservando \textit{ripetutamente} e \textit{frequentemente} una particella quantistica la si può \textit{bloccare} nello stesso stato di partenza.\\
 
 In questa sezione \marginpar{Schema dei paragrafi} ci occuperemo di derivare matematicamente l'effetto, usando solo l'operatore di evoluzione temporale unitaria e il postulato di proiezione di von Neumann, seguendo lo schema riportato in \cite{zeno}. Mostreremo quindi un esempio di sistema che esibisce tale fenomeno, e daremo un cenno a come ciò possa essere esito di una \textit{interazione} con l'ambiente, dando un significato \q{più fisico} alle proiezioni geometriche finora usate.\\
@@ -27,12 +27,12 @@ AD un certo tempo $t$, il sistema si è evoluto ad uno stato $\ket{\psi(t)}$, ch
 \ket{\psi(t)} = e^{-iHt}\ket{\psi_0}
 \label{eqn:ev-temp}
 \end{align}
-Ci interessa quantificare quanto $\ket{\psi(t)}$ sia \q{vicino} allo stato iniziale $\ket{\psi_0}$. Consideriamo allora l'\textit{ampiezza} della funzione d'onda che è rimasta \textit{parallela} a $\ket{\psi_0}$, e che è data dal prodotto scalare:
+Ci interessa quantificare quanto $\ket{\psi(t)}$ sia \q{vicino} allo stato iniziale $\ket{\psi_0}$. Consideriamo allora l'\textit{ampiezza} della funzione d'onda che è rimasta \textit{parallela} a $\ket{\psi_0}$, e che è data dal prodotto scalare: \marginpar{Survival amplitude}
 \begin{align}
 \mathcal{A}(t) = \braket{\psi_0|\psi(t)} = \bra{\psi_0}e^{-iHt}\ket{\psi_0}
 \label{eqn:surv-amplitude}
 \end{align}
-Prendendo il modulo quadro otteniamo la \textit{probabilità} $p(t)$ che lo stato al tempo $t$ sia ancora pari a quello iniziale, detta \textbf{survival probability}\index{Effetto Zenone!Survival probability}:
+Prendendo il modulo quadro otteniamo la \textit{probabilità} $p(t)$ che lo stato al tempo $t$ sia ancora pari a quello iniziale, detta \textbf{survival probability}\index{Effetto Zenone!Survival probability}: \marginpar{Survival probability}
 \begin{align}
 p(t) = |\mathcal{A}(t)|^2 = |\bra{\psi_0}e^{-iHt}\ket{\psi_0}|^2
 \label{eqn:surv-prob}
@@ -44,15 +44,16 @@ Esaminiamo l'evoluzione temporale per un piccolo intervallo di tempo $\delta t$.
 \ket{\psi(\delta t)} = e^{-iH\delta t} \ket{\psi_0} \approx \left(\bb{I} - iH\delta t -\frac{H^2}{2} (\delta t)^2 + O((\delta t)^3) \right) \ket{\psi_0} \equiv \ket{\psi_0} + \ket{\delta \psi}
 \end{align*}
 Tronchiamo questa espressione al secondo ordine, e calcoliamo la \q{survival amplitude} $\mathcal{A}(t)$ prendendo il prodotto scalare con $\ket{\psi_0}$, e riconoscendo i valor medi $\langle H \rangle_{\psi_0}=\bra{\psi_0}H\ket{\psi_0}$:
-\begin{align*}
+\begin{align}
 \mathcal{A}(\delta t) = 1 - i\langle H \rangle_{\psi_0} \delta t- \frac{1}{2}\langle H^2 \rangle_{\psi_0} (\delta t)^2
-\end{align*}
+\label{eqn:survival-amplitude-small}
+\end{align}
 E a sua volta calcoliamo la survival probability prendendo il modulo quadro, sfruttando il fatto che, poiché $H$ è hermitiano, i suoi valori medi sono reali:\marginpar{Survival probability per tempi piccoli}
 \begin{align}\nonumber
 p(\delta t) &= \left(1 + i\langle H \rangle_{\psi_0} \delta t- \frac{1}{2}\langle H^2\rangle_{\psi_0} (\delta t)^2 \right) \left(1-i\langle H \rangle_{\psi_0}\delta t - \frac{1}{2}\langle H^2\rangle_{\psi_0}(\delta t)^2\right) \\ \nonumber
-&\underset{(a)}{\approx} 1 - \cancel{i\langle H \rangle_{\psi_0} \delta t}- \frac{1}{2}\langle H^2\rangle_{\psi_0} (\delta t)^2 + \cancel{i\langle H \rangle_{\psi_0} \delta t} + \langle H^2\rangle_{\psi_0} (\delta t)^2 - \frac{1}{2}\langle H^2\rangle_{\psi_0} (\delta t)^2=\\
+&\underset{(a)}{\approx} 1 - \cancel{i\langle H \rangle_{\psi_0} \delta t}- \frac{1}{2}\langle H^2\rangle_{\psi_0} (\delta t)^2 + \cancel{i\langle H \rangle_{\psi_0} \delta t} + \langle H\rangle_{\psi_0}^2 (\delta t)^2 - \frac{1}{2}\langle H^2\rangle_{\psi_0} (\delta t)^2=\\
 &= 1-(\langle H^2\rangle_{\psi_0} (\delta t)^2 - \langle H^2\rangle_{\psi_0}(\delta t)^2)
-= 1-(\delta t)^2 \underbrace{(\langle H^2\rangle_{\psi_0}-\langle H^2\rangle_{\psi_0})}_{\tau_z^{-2}} \equiv 1-\frac{(\delta t)^2}{\tau^2_z} 
+= 1-(\delta t)^2 \underbrace{(\langle H^2\rangle_{\psi_0}-\langle H\rangle_{\psi_0}^2)}_{\tau_z^{-2}} \equiv 1-\frac{(\delta t)^2}{\tau^2_z} 
 \label{eqn:p-tau}
 \end{align}
 dove in (a) trascuriamo tutti i termini di ordine superiore a $2$. Nell'ultimo passaggio abbiamo introdotto la grandezza $\tau_z$, detta \textbf{tempo di Zenone}\index{Effetto Zenone!Tempo di Zenone}, definita da:
@@ -72,9 +73,10 @@ Consideriamo allora una misura che verifichi se il sistema si trova ancora nello
 Dopo ogni misura il sistema ha una probabilità $p(\tau)$ (survival probability valutata in $t=\tau$) di rimanere nello stato iniziale, e una probabilità $1-p(\tau)$ di muoversi allo stato $\ket{\psi_0^\perp}$ ortogonale a quello iniziale. Se $\tau$ è piccolo, poiché $p(\tau) = 1-\tau^2/\tau_z^2$, avremo $p(\tau) \approx 1$, e perciò il sistema \textit{tende} a rimanere nello stato iniziale.\\
 
 Dopo $N$ misure le probabilità si combinano tra loro\footnote{Stiamo qui trascurando tutti i \textit{percorsi molto improbabili} in cui il sistema visita stati differenti, come quello ortogonale, e poi ritorna a $\ket{\psi}_0$ nel corso delle $N$ misure.}, e si ha $\ket{\psi(t)}=\ket{\psi_0}$ con una probabilità:
-\begin{align*}
+\begin{align}
 p^{(N)}(t) = \left[p(\tau)\right]^N \underset{(\ref{eqn:p-tau})}{=} \left[1-\frac{\tau^2}{\tau_z^2}\right]^N \underset{(\ref{eqn:tau})}{=} \left(1-\left(\frac{t}{N \tau_z}\right)^2\right)^N \xrightarrow[(b)]{N \gg 1} \exp\left(-\frac{t^2}{N\tau_z^2}\right) \xrightarrow[{N\to\infty}]{}1
-\end{align*}
+\label{eqn:Pnt}
+\end{align}
 dove in (b) si è usata la definizione dell'esponenziale:
 \begin{align*}
 e^x = \lim_{n\to+\infty} \left(1+\frac{x}{n}\right)^n
@@ -97,11 +99,18 @@ dove abbiamo definito opportunamente la \q{costante di decadimento effettiva} $\
 \begin{align*}
 \gamma_{\op{eff}} = -\frac{1}{\tau}\log p(\tau)
 \end{align*}
-Per $\tau \to 0$, che corrisponde a $N\to \infty$, vale l'espansione $p(\tau)=1-\tau^2/\tau_z^2$, e quindi ricaviamo:
+Per $\tau \to 0$, che corrisponde a $N\to \infty$, vale l'espansione $p(\tau)=1-\tau^2/\tau_z^2$, e quindi ricaviamo (dato che $\log(1+x)\sim x$ per $x\to 0$):
 \begin{align}
 \gamma_{\op{eff}}(\tau) \approx \frac{\tau}{\tau_z^2}\qquad \tau \to 0
 \label{eqn:gamma-eff}
 \end{align}
+
+\begin{expl}
+Equivalentemente, tale espressione si ricava confrontando (\ref{eqn:Pnt}) con $\exp(-t \gamma_{\op{eff}})$, dato che:
+\begin{align*}
+    p^{(N)}(t) \underset{N\gg1}{=} \exp\left(-\frac{t^2}{N\tau_z^2}\right) = \exp\left(-t \hlc{Yellow}{\frac{\tau}{\tau_z^2}}\right) \underset{(\ref{eqn:tau})}{=} \exp\left(-t \hlc{Yellow}{\gamma_{\op{eff}}}\right)
+\end{align*}
+\end{expl}
 
 Riepilogando, se si esegue una misure ogni $\tau$, la probabilità $p(t)$ che il sistema rimanga nello stato iniziale $\ket{\psi_0}$ ha l'andamento esponenziale decrescente della frazione \textit{non decaduta} di atomi radioattivi. Il decadimento è tanto più lento quanto $\gamma_{\op{eff}}$, proporzionale a $\tau$, è piccolo. Perciò, nell'ipotetico caso in cui si effettui una misura ad ogni istante, $\tau=0$, $\gamma_{\op{eff}}=\infty$ e $p(t)\equiv 1 \> \forall t$.
 
@@ -168,24 +177,25 @@ p(t) \approx 1 - \frac{t^2}{\tau_z^2} = 1-\Omega^2 t^2
 
 \subsection{Effetto Zenone per interazione}
 Nel calcolare il tempo di Zenone $\tau_z$ nell'esempio abbiamo visto, si è trovato che l'unico contributo deriva da $\langle H^2 \rangle_{\psi_0}$. Questo \textit{non} è un caso, ma è indice dell'origine dell'effetto Zenone come \textit{interazione}.\\
-In generale, consideriamo un sistema di Hamiltoniana $H$, che dividiamo in una matrice diagonale $H_0$ e una matrice con tutti gli elementi che non stanno sulla diagonale $H_{\op{int}}$ che indica i \textit{coupling} tra i livelli energetici, e quindi chiamiamo \textbf{hamiltoniana di interazione}.\index{Effetto Zenone!Hamiltoniana di interazione}
-%Esattamente che base stiamo usando prima di scomporre l'Hamiltoniana in free e interaction?
+In generale, consideriamo un sistema di Hamiltoniana $H$, scritta in una qualche base $\{\ket{\psi_n}\}$ che non sia quella dei suoi autostati. Perciò $H$ è una matrice non diagonale, che può essere scomposta in una matrice diagonale $H_0$ e una matrice con tutti gli elementi che non stanno sulla diagonale $H_{\op{int}}$. Quest'ultima è detta \textbf{hamiltoniana di interazione}, in quanto i suoi termini caratterizzano i \textit{coupling} tra i livelli $\ket{\psi_n}$.\index{Effetto Zenone!Hamiltoniana di interazione}
 \begin{align*}
 H=H_0+ H_{\op{int}}
 \end{align*}
-Siano $\{\ket{\psi_n}\}$ gli autostati di $H_0$, e $\ket{\psi_0}$ sia uno di essi:
+In questa notazione, chiaramente $\{\ket{\psi_n}\}$ sono gli autostati di $H_0$ (dato che è diagonale in questa base, per costruzione). Detto $\ket{\psi_0}$ uno di essi, avremo:
 \begin{align*}
 H_0 \ket{\psi_0} = \omega_0 \ket{\psi_0}
 \end{align*}
 Calcoliamo il tempo di Zenone $\tau_z$ dalla definizione:
 \begin{align*}
-\tau_z^{-2} = \langle H^2 \rangle_{\psi_0}-\langle H \rangle_{\psi_0} = \langle H_0^2 + H_0 H_{\op{int}} + H_{\op{int}}H_0 + H_{\op{int}}^2 \rangle_{\psi_0}-\langle H_0 + H_{\op{int}}\rangle_{\psi_0}
+\tau_z^{-2} = \langle H^2 \rangle_{\psi_0}-\langle H \rangle_{\psi_0} = \langle H_0^2 + H_0 H_{\op{int}} + H_{\op{int}}H_0 + H_{\op{int}}^2 \rangle_{\psi_0}-\langle H_0 + H_{\op{int}}\rangle_{\psi_0}^2
 \end{align*}
 Notiamo che $\langle H_{\op{int}}\rangle_{\psi_0} = 0$, dato che il valor medio \q{seleziona} un termine sulla diagonale, che è nulla per come abbiamo definito $H_{\op{int}}$. Allo stesso modo, i prodotti tra $H_0$ e $H_{\op{int}}$ hanno sempre la diagonale nulla. Infatti moltiplicando una matrice diagonale $A$ con una $B$ con diagonale nulla si ottiene una matrice $C$ con diagonale nulla:
 \begin{align*}
-C_{ij} = A_{ik}B_{kj}=\delta_{ik}A_{ik}B_{kj}\Rightarrow C_{ii}=A_{ii}B_{ii}=0
+C_{ij} = A_{ik}B_{kj}\underset{(a)}{=}\delta_{ik}A_{ik}B_{kj}\Rightarrow C_{ii}=A_{ii}\underbrace{B_{ii}}_{0}=0
 \end{align*}
-Perciò i valor medi dei \q{termini misti} sono nulli. Inoltre, dato che $\ket{\psi_0}$ è autostato di $H_0$ vale (per definizione di autostato):
+dove in (a) si è usata la definizione di matrice diagonale.\\
+
+Abbiamo allora ricavato che i valor medi dei \q{termini misti} sono nulli. Inoltre, dato che $\ket{\psi_0}$ è autostato di $H_0$ vale (per definizione di autostato):
 \begin{align*}
 \langle H_0^2 \rangle_{\psi_0} - \langle H_0 \rangle^2_{\psi_0} =0
 \end{align*}  
@@ -193,13 +203,15 @@ Perciò resta un unico termine:
 \begin{align*}
 \tau_z^{-2} = \langle H_{\op{int}}^2 \rangle_{\psi_0} = \sum_n \bra{\psi_0}H_{\op{int}}\ket{\psi_n}\bra{\psi_n}H_{\op{int}}\ket{\psi_0}
 \end{align*}
-Perciò, in questo caso il tempo di Zenone dipende esclusivamente dall'Hamiltoniana di interazione, che contiene i \textit{coupling} tra i livelli del sistema considerato. Come vedremo nei prossimi paragrafi, questa idea di \textit{interazione} sorge esaminando nel dettaglio i \q{retroscena} delle proiezioni di Von Neumann.
+Perciò, in questo caso il tempo di Zenone dipende esclusivamente dall'Hamiltoniana di interazione, che contiene i \textit{coupling} tra i livelli del sistema considerato. In effetti, questo è proprio il caso del sistema (oscillatore di Rabi) esaminato nel paragrafo precedente, dove $H= H_{\op{int}}$.\\
+
+Come vedremo nei prossimi paragrafi, questa idea di \textit{interazione} sorge esaminando nel dettaglio i \q{retroscena} delle proiezioni di Von Neumann.
 
 \subsection{Matrici \q{Hamiltoniane} non hermitiane}
 
 Poiché l'operatore $U$ di evoluzione temporale è unitario, si ha che:
 \begin{align*}
-\braket{\psi(t)|\psi(t)} = \braket{\psi_0|\psi_0}
+\braket{\psi(t)|\psi(t)} = \bra{\psi_0}\underbrace{U^\dag U}_{\bb{I}}\ket{\psi_0} = \braket{\psi_0|\psi_0}
 \end{align*} 
 Perciò l'evoluzione temporale di un qubit avviene tra punti posti sulla \textit{superficie} della sfera di Bloch, ossia rimane nel sottospazio di Hilbert definito da $\norm{\psi}=1$ (figura \ref{fig:sfera-bloch-evoluzione}.a). Un'eventuale evoluzione non unitaria (figura \ref{fig:sfera-bloch-evoluzione}.b) fa sì che la funzione d'onda \textit{abbandoni} tale sottospazio (come vedremo più in dettaglio nelle prossime sezioni).
 
@@ -212,7 +224,7 @@ Perciò l'evoluzione temporale di un qubit avviene tra punti posti sulla \textit
 
 L'evoluzione di sistemi instabili, in cui la \textit{survival probability} diminuisce nel tempo, può essere vista come un processo che \q{porta via probabilità}, ossia un'evoluzione non unitaria. In altre parole, ci stiamo muovendo nella direzione di \textit{integrare} gli effetti delle misure ripetute precedentemente considerate direttamente nell'Hamiltoniana.\\
 
-Per trattare l'evoluzione non unitaria si introduciamo allora \textit{ad hoc} una \q{Hamiltoniana modificata} data da:
+Per trattare l'evoluzione non unitaria introduciamo allora \textit{ad hoc} una \q{Hamiltoniana modificata} data da:
 \begin{align}
 H = H -i V\bb{I} \qquad V\in \bb{R}^+
 \label{eqn:non-hermitian-Hamiltonian}
@@ -221,8 +233,8 @@ dove $V$ è un'opportuna grandezza detta \textbf{potenziale ottico}\footnote{In 
 Un sistema che evolve con un'Hamiltoniana del genere, che non è hermitiana, \q{perde probabilità}, ossia giunge a stati non normalizzati. Partendo da uno stato iniziale $\ket{\psi_0}$, avremo cioè $\norm{\ket{\psi(t)}} \leq \norm{\ket{\psi_0}}$. Fisicamente, tale \q{probabilità mancante} va a finire in altri stati - non contemplati nel sistema che stiamo esaminando - attraverso un \textit{decay channel}. Pittorescamente, possiamo immaginare la probabilità come un fluido, racchiuso in un contenitore, di cui osserviamo la dinamica. L'evoluzione unitaria corrisponde allora alla \textit{visuale completa} dell'intero contenitore, per cui la \textit{quantità di fluido} osservata rimane sempre la stessa. Se invece ci concentriamo solo su una parte dell'insieme, può capitare che del fluido scorra via, muovendosi nel resto del sistema, e apparentemente scomparendo da questa visuale \textit{parziale}.\\
 Giustificheremo tutto ciò matematicamente tra qualche paragrafo. Per ora, partiamo analizzando l'evoluzione dettata dall'Hamiltoniana non hermitiana appena introdotta, calcolandone \textit{survival amplitude} $\mathcal{A}(t)$ e \textit{survival probability} $p(t)$:
 \begin{align*}
-\mathcal{A}(\delta t) &= e^{-Vt} \bra{\psi_0} e^{-iH\delta t}\ket{\psi_0}=\\
-&=\left(1-V\delta t + \frac{1}{2}V^2 [\delta t]^2 + O([\delta t]^3)\right)\left[1 - i\langle H \rangle_{\psi_0}\delta t-\frac{1}{2}\langle H^2 \rangle_{\psi_0}[\delta t]^2 + \dots \right]=\\
+\mathcal{A}(\delta t) &= \hlc{Yellow}{e^{-Vt}} \hlc{SkyBlue}{\bra{\psi_0} e^{-iH\delta t}\ket{\psi_0}}=\\
+&\underset{(\ref{eqn:survival-amplitude-small})}{=}\hlc{Yellow}{\left(1-V\delta t + \frac{1}{2}V^2 [\delta t]^2 + O([\delta t]^3)\right)}\hlc{SkyBlue}{\left[1 - i\langle H \rangle_{\psi_0}\delta t-\frac{1}{2}\langle H^2 \rangle_{\psi_0}[\delta t]^2 + \dots \right]}=\\
 &= 1-\left(V+i\langle H \rangle_{\psi_0}\right)\delta t -\frac{1}{2}\left(\langle H^2\rangle_{\psi_0} - V^2 - 2iV\langle H \rangle_{\psi_0} \right) [\delta t]^2 + O([\delta t]^3)\\
 p(\delta t) &= e^{-2Vt} |\bra{\psi_0} e^{-iHt}\ket{\psi_0}|^2 \approx 1-2V \delta t + O([\delta t]^2)
 \end{align*}
@@ -272,8 +284,8 @@ Per esaminare l'effetto Zenone ci servirà un \textbf{forte coupling} con l'ambi
 Possiamo allora applicare la (\ref{eqn:exp-pauli-vector}) all'esponenziale che dobbiamo calcolare:
 \begin{align*}
 \exp(-it\vec{h}\cdot \vec{\sigma})&=\exp\left(i\underbrace{(-\textcolor{Blue}{ih}t)}_{a} \underbrace{\frac{\vec{h}}{\textcolor{Blue}{ih}}\cdot \vec{\sigma}}_{\hat{n}\cdot\vec{\sigma}}\right) =
-\bb{I}\cos(-iht) + i^2 \left(\frac{\vec{h}\cdot\vec{\sigma}}{ih}\right)\sin(-iht) =\\
-&\underset{(a)}{=}\bb{I}\cosh(ht) -i(-i\sin(iht))\left(\frac{\vec{h}\cdot\vec{\sigma}}{h}\right) \underset{(b)}{=} \cosh(ht)\bb{I} - i\sinh(th) \left(\frac{\vec{h}\cdot\vec{\sigma}}{h}\right)
+\bb{I}\cos(-iht) + \textcolor{Red}{i} \left(\frac{\vec{h}\cdot\vec{\sigma}}{\textcolor{Purple}{i}h}\right)\sin(\textcolor{Orange}{-}iht) =\\
+&\underset{(a)}{=}\bb{I}\cosh(ht) \textcolor{Purple}{-i}(\textcolor{Orange}{-}\textcolor{Red}{i}\sin(iht))\left(\frac{\vec{h}\cdot\vec{\sigma}}{h}\right) \underset{(b)}{=} \cosh(ht)\bb{I} - i\sinh(th) \left(\frac{\vec{h}\cdot\vec{\sigma}}{h}\right)
 \end{align*}
 Dove in (a) e in (b) abbiamo usato rispettivamente le due relazioni:
 \begin{align*}
@@ -343,7 +355,7 @@ Perciò è possibile per un sistema rimanere \textit{limitato allo stato inizial
 Finora abbiamo motivato fisicamente l'utilizzo di \q{Hamiltoniane} non hermitiane come modelli in cui il sistema interagisce con un \textit{ambiente} più grande che non è accessibile allo sperimentatore, generando una \q{fuga di probabilità}.\\
 Vediamo ora, matematicamente, come si possa giustificare tutto ciò, almeno nell'esempio \textit{semplice} del sistema a due stati finora caratterizzato.\\
 
-Partiamo dal sistema in (\ref{eqn:rabi-oscillation-H}), in cui abbiamo due stati $\ket{0}$ e $\ket{1}$ \textit{non stazionari}, per cui il sistema può oscillare da uno all'altro. Immaginiamo che tale sistema sia immerso nell'ambiente, che modellizziamo con un \textit{continuo} di stati $\ket{\omega}$, ciascuno dei quali avrà una certa energia. Da queste considerazioni, l'Hamiltoniana nella base $\{\ket{0}, \ket{1},\ket{\omega}\}$ diviene:
+Partiamo dal sistema in (\ref{eqn:rabi-oscillation-H}), in cui abbiamo due stati $\ket{0}$ e $\ket{1}$ \textit{non stazionari}, per cui il sistema può oscillare da uno all'altro. Immaginiamo che tale sistema sia immerso nell'ambiente, che modellizziamo con un \textit{continuo} di stati $\ket{\omega}$, ciascuno dei quali avrà una certa energia. Da queste considerazioni, l'Hamiltoniana nella base ON $\{\ket{0}, \ket{1},\ket{\omega}\}$ diviene:
 \begin{align*}
 H_0=\underbrace{\Omega (\ket{0}\bra{1} + \ket{1}\bra{0})}_{\text{Qubit}} +\underbrace{\int d\omega\, \omega \ket{\omega}\bra{\omega}}_{\text{Ambiente}}
 \end{align*}
@@ -352,7 +364,7 @@ Aggiungiamo infine un'interazione tra qubit e ambiente. Seguendo l'idea di (\ref
 H=\underbrace{\Omega (\ket{0}\bra{1} + \ket{1}\bra{0})}_{\text{Qubit}} +\underbrace{\int d\omega\, \omega \ket{\omega}\bra{\omega}}_{\text{Ambiente}} +\underbrace{ \sqrt{\frac{\Gamma}{2\pi}}\int \overbrace{d\omega (\ket{1}\bra{\omega}+ \ket{\omega}\bra{1})}^{g(\omega)}}_{\text{Interazione qubit-ambiente}}
 \label{eqn:hamiltoniana-interagente-totale}
 \end{align}
-La funzione $g(\omega)$ è detta \textbf{form-factor}, e specifica l'accoppiamento (coupling) tra lo stato del qubit che funge da \textit{decay channel} ($\ket{1}$) e l'ambiente circostante. In questo caso $g(\omega)$ è \textit{piatta}, ossia $\ket{1}$ è accoppiato in ugual misura a tutti gli stati del continuo $\ket{\omega}$ - e infatti l'\textit{intensità} di tale coupling è stata estratta a fattor comune nel termine $\sqrt{\Gamma}$, normalizzato a $\sqrt{2\pi}$ per convenzione sulle trasformate di Fourier.
+La funzione $g(\omega)$ specifica l'accoppiamento (coupling) tra lo stato del qubit che funge da \textit{decay channel} ($\ket{1}$) e l'ambiente circostante. In questo caso $g(\omega)$ è \textit{piatta}, ossia $\ket{1}$ è accoppiato in ugual misura a tutti gli stati del continuo $\ket{\omega}$ - e infatti l'\textit{intensità} di tale coupling è stata estratta a fattor comune nel termine $\sqrt{\Gamma}$, normalizzato a $\sqrt{2\pi}$ per convenzione sulle trasformate di Fourier.
 
 \begin{expl}
 \textbf{Notazione}.\index{Notazione!Matrici e braket} Una qualsiasi matrice $M$, fissata una base ON $\{\ket{v_i}\}$, può essere espressa in notazione di Dirac come:
@@ -375,11 +387,11 @@ Per esempio, la matrice di Pauli $\sigma_x$ è data, nella base $\{\ket{+}, \ket
 \sigma_x = \begin{pmatrix}0 & 1\\1 & 0
 \end{pmatrix} = \ket{+}\bra{-} + \ket{-}\bra{+}
 \end{align*}
-Se consideriamo $\ket{0}$ e $\ket{1}$ come equivalenti rispettivamente a $\ket{+}$ e $\ket{-}$, si ha che la parte di Hamiltoniana del qubit è data da:
+Se consideriamo $\ket{0}$ e $\ket{1}$ come equivalenti rispettivamente a $\ket{+}$ e $\ket{-}$, si ha:
 \begin{align*}
 H_{00} = \Omega \sigma_x = \Omega(\ket{0}\bra{1}+\ket{1}\bra{0})
 \end{align*}
-E otteniamo perciò l'espressione usata in (\ref{eqn:hamiltoniana-interagente-totale}).
+E otteniamo perciò l'espressione usata in (\ref{eqn:hamiltoniana-interagente-totale}) (limitatamente alla parte del sistema-qubit).
 \end{expl}
  
 \textbf{Nota}: l'Hamiltoniana (\ref{eqn:hamiltoniana-interagente-totale}) compare in \textit{Quantum Field Theory} (QFT) per descrivere l'interazione tra un sistema a due livelli e un \q{one-dimensional massless boson field in the rotating-wave approximation}.\\
@@ -398,12 +410,12 @@ i\frac{\partial}{\partial t}\ket{\psi(t)}=H\ket{\psi(t)}
 \end{align}
 Calcolando $H\ket{\psi(t)}$ è dato da:
 \begin{align*}
-H\ket{\psi(t)} = \Omega (y(t)\ket{0}+y(t)\ket{1}) + \int d\omega\, z(\omega,t)\omega\ket{\omega} + \sqrt{\frac{\Gamma}{2\pi}}\int d\omega (z(\omega, t)\ket{1}+y(t)\ket{\omega})
+H\ket{\psi(t)} = \Omega (y(t)\ket{0}+x(t)\ket{1}) + \int d\omega\, z(\omega,t)\omega\ket{\omega} + \sqrt{\frac{\Gamma}{2\pi}}\int d\omega (z(\omega, t)\ket{1}+y(t)\ket{\omega})
 \end{align*}
 Lo sostituiamo in (\ref{eqn:Schrody-temp-es}), e separiamo i vari termini in tre equazioni prendendo i prodotti scalari con $\ket{0}$, $\ket{1}$ e un generico $\ket{\omega}$ (che ci consente di \q{far collassare} gli integrali, dato che supponiamo che gli $\ket{\omega}$ siano ON):
 \begin{align*}
-&\ket{0}: \dot{ix}(t)=\Omega y(t)\\
-&\ket{1}: \dot{iy}(t)=\Omega x(t)+\sqrt{\frac{\Gamma}{2\pi}}\int d\omega\, z(\omega,t)\\
+&\ket{0}: i\dot{x}(t)=\Omega y(t)\\
+&\ket{1}: i\dot{y}(t)=\Omega x(t)+\sqrt{\frac{\Gamma}{2\pi}}\int d\omega\, z(\omega,t)\\
 &\ket{\omega}: i\dot{z}(t)=\omega z(\omega, t) + \sqrt{\frac{\Gamma}{2\pi}}y(t)
 \end{align*}
 che formano un sistema di equazioni differenziali lineari alle derivate parziali.\\
@@ -422,7 +434,7 @@ z(\omega, t) = -i\sqrt{\frac{\Gamma}{2\pi}}\int_0^t d\tau\, e^{-i\omega(t-\tau)}
 \end{align}
 Sostituendo (\ref{eqn:z-sol}) nell'equazione per $y(t)$ giungiamo a:
 \begin{align*}
-i \dot{y}(t) = \Omega x(t) - i\frac{\Gamma}{2\pi}\int d\omega \int d\tau e^{-i\omega (t-\tau}) y(\tau)= \Omega x(t) - i\frac{\Gamma}{2} y(t)
+i \dot{y}(t) = \Omega x(t) - i\frac{\Gamma}{2\pi}\int d\omega \int d\tau e^{-i\omega (t-\tau)} y(\tau)= \Omega x(t) - i\frac{\Gamma}{2} y(t)
 \end{align*}
 Otteniamo perciò un sistema di sole due equazioni differenziali, che sono quelle che riguardano gli stati $\ket{0}$ e $\ket{1}$ del qubit che ci interessano:
 \begin{align*}
@@ -506,9 +518,9 @@ i\begin{pmatrix}
 \end{pmatrix}
 \end{align*}
 dove abbiamo introdotto le pulsazioni $\omega_0$ e $\omega_1$:
-\begin{align*}
+\begin{align}\label{eqn:pulsazioni}
 \omega_0 = -2\mu\frac{B_0}{\hbar} \qquad \omega_1 = -2\mu \frac{B_1}{\hbar}
-\end{align*}
+\end{align}
 \textbf{Nota}: il fattore $2$ che evidenziamo serve a prepararsi per la risoluzione del secondo punto, in cui studieremo il caso con $\omega = -2\mu B_0/\hbar = \omega_0$.\\
 
 L'equazione matriciale equivale ad un sistema lineare di due equazioni differenziali:
@@ -605,9 +617,9 @@ Partendo allora da (\ref{eqn:H-tilda}), cerchiamo gli autovalori $\lambda_{1,2}$
 \Rightarrow \lambda_{1,2}= \pm \sqrt{(\Delta \omega_0)^2+\omega_1^2}\span
 \end{align*}
 E reinserendo il fattore $\hbar/2$:\marginpar{Autovalori di $\tilde{H}$}
-\begin{align*}
+\begin{align}\label{eqn:autovalori-rabi}
 \bm{\mathcal{E}_1} = \frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \bm{\mathcal{E}_2} = -\frac{\hbar}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \qquad \Delta \omega_0 = \omega_0-\omega
-\end{align*}
+\end{align}
 
 Per l'autovettore $\ket{\mathcal{E}_1}$ cerchiamo il ker di $\tilde{H}-\mathcal{E}_1 \bb{I}$, che è lo spazio dei vettori $(a, b)^T$ che soddisfano l'equazione:
 \begin{align*}
@@ -634,32 +646,60 @@ Conti analoghi (con una sola differenza di segno) portano a trovare anche $\ket{
 Ponendo allora $\ket{\psi(0)}=\ket{0}$ possiamo calcolare l'esponenziale, e quindi l'\textbf{evoluzione temporale }cercata:
 \begin{align*}
 \bm{\ket{\tilde{\psi}(t)}} &= \sum_{i=1}^2 c_i \exp\left(-\frac{i}{\hbar}t\mathcal{E}_i\right) \ket{\mathcal{E}_i} \qquad c_i = \braket{\mathcal{E}_i|0}\\
-&= \cos\frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t\mathcal{E}_1\right) \ket{\mathcal{E}_1} -\sin\frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t\mathcal{E}_2\right) \ket{\mathcal{E}_2}
+&= \cos\frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t\mathcal{E}_1\right) \ket{\mathcal{E}_1} -\sin\frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t\mathcal{E}_2\right) \ket{\mathcal{E}_2} = \\
+&= \begin{pmatrix}
+\cos^2 \frac{\theta}{2} \exp\left(-\frac{i}{\hbar} t \mathcal{E}_1 \right) + \sin^2 \frac{\theta}{2} \exp\left(-\frac{i}{\hbar}t \mathcal{E}_2\right) \\
+\cos\frac{\theta}{2}\sin\frac{\theta}{2} \left[ \exp\left(-\frac{i}{\hbar}t \mathcal{E}_1\right) - \exp\left(-\frac{i}{\hbar} t \mathcal{E}_2 \right) \right]
+\end{pmatrix}
 \end{align*}
 
-Possiamo ora calcolare la survival probability per lo stato $\ket{1}$: \marginpar{\danger La parte seguente è ancora in lavorazione}
+Possiamo ora calcolare la survival probability per lo stato $\ket{1}$:
 \begin{align*}
 p_1(t) &= |\braket{1|\psi(t)}|^2 = |\beta(t)|^2 \underset{(a)}{=}
 |\braket{\tilde{1}|\tilde{\psi}(t)}|^2=|b(t)|^2=
 \\
-&= \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} \sin^2 \left(\underbrace{\sqrt{(\omega_0-\omega_1)^2 + \omega_1^2}}_{\Omega}\frac{t}{2}\right)
+&= \left| \cos\frac{\theta}{2}\sin\frac{\theta}{2} \left[ \exp\left(-\frac{i}{\hbar}t \mathcal{E}_1\right) - \exp\left(-\frac{i}{\hbar} t \mathcal{E}_2 \right) \right] \right|^2
 \end{align*}
-In (a) si è usato il fatto che la trasformazione \textbf{unitaria} $R_z(\omega t)$ che collega le due autofunzioni \textit{preserva} i prodotti scalari (geometricamente si intuisce dal fatto che una rotazione preserva le lunghezze).
-dove $\Omega$ è detta \textbf{frequenza di Rabi}.\\
-Graficando la probabilità che il sistema, partito dallo stato $\ket{0}$, si evolva nello stato $\ket{1}$ otteniamo l'andamento in figura \ref{fig:plot-rabi}.
+In (a) si è usato il fatto che la trasformazione \textbf{unitaria} $R_z(\omega t)$ che collega le due autofunzioni \textit{preserva} i prodotti scalari (geometricamente si intuisce dal fatto che una rotazione preserva le lunghezze).\\
 
-\missingfigure{fig:plot-rabi}
-
-che mostra un'oscillazione sinusoidale di periodo $T=(2\pi)/\Omega$.\\
-
-Per ottenere una porta logica NOT imponiamo che la probabilità massima valga $1$:
+Semplifichiamo questa espressione. Partiamo da:
 \begin{align*}
-p_1^{\max} \overset{!}{=} 1 \Rightarrow \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} = 1 \Rightarrow \begin{cases}
-\Omega = \omega_1\\
-\omega_0 = \omega
-\end{cases}
+   \left| \cos\frac{\theta}{2} \sin\frac{\theta}{2}\right|^2 = \frac{1}{4} \sin^2 \theta = \frac{1}{4} \sin^2 \arctan \frac{\omega_1}{\Delta \omega_0} \underset{(b)}{=} \frac{1}{4} \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2}
 \end{align*}
-Fisicamente ciò significa avere la pulsazione della radiazione che incide sul sistema in risonanza con quella relativa alla transizione energetica tra i due livelli $\ket{0}$ e $\ket{1}$ considerati (che si calcola mediante $\hbar$).\\
+dove in (b) si è usato:
+\begin{align*}
+    \sin(\arctan x) = \frac{x}{\sqrt{1+x^2}}
+\end{align*}
+D'altro canto, nella differenza delle due esponenziali riconosciamo un $\sin$. Sostituendo le espressioni per $\mathcal{E}_1$ e $\mathcal{E}_2$:
+\begin{align*}
+    &\left|\textcolor{Red}{\frac{2i}{2i}} \left( \exp\left(-\frac{it}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2} \right) - \exp\left( \frac{it}{2}\sqrt{\Delta \omega_0^2 + \omega_1^2}\right) \right)\right|^2 = \\
+    = & \left|-2i \sin\left(\sqrt{\Delta\omega_0^2 + \omega_1^2}\frac{t}{2}\right) \right|^2 = 4 \sin^2 \left(\sqrt{\Delta \omega_0^2 + \omega_1^2} \frac{t}{2}\right)
+\end{align*}
+
+Mettendo tutto insieme otteniamo:
+\begin{align*}
+    p_1(t) = \frac{\omega_1^2}{\Delta \omega_0^2 + \omega_1^2} \sin^2 \left(\underbrace{\sqrt{(\omega_0-\omega)^2 + \omega_1^2}}_{\Omega}\frac{t}{2}\right)
+\end{align*}
+dove $\Omega$ è detta \textbf{frequenza di Rabi}.\\
+La probabilità di transizione a $\ket{1}$, perciò, oscilla nel tempo.\\
+
+\item Esaminiamo ora il \textbf{caso risonante}, ossia quello in cui $\omega = -2\mu B_0/\hbar = \omega_0$. Ne deriva che $\Delta \omega_0 = 0$, e quindi:
+\begin{align*}
+    p_1(t) = \sin^2 \left(\frac{\omega_1 t}{2}\right)
+\end{align*}
+
+In generale, l'ampiezza delle oscillazioni di probabilità è $<1$. Solo nel caso risonante, con $\omega = \omega_0$, si ottengono \q{oscillazioni complete} - ossia tali che, dopo $\pi/\Omega$, si abbia probabilità di transizione a $\ket{1}$ (partendo da $\ket{0})$ pari a $1$ (certezza). In tal caso, inoltre $\Omega = \omega_1$ (figura \ref{fig:plot-rabi}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Immagini/7_3/rabi.PNG}
+    \caption{Probabilità di transizione a $\ket{0}$ per uno stato di partenza $\ket{0}$ ($P_g(t)$) o $\ket{1}$ ($P_e(t)$). Si nota che dopo un tempo $\pi/\Omega$ lo stato finale è \textit{invertito} rispetto a quello iniziale.}
+    \label{fig:plot-rabi}
+\end{figure}
+
+Si può sfruttare tale dinamica per costruire un gate NOT. L'idea è di inizializzare lo stato del qubit a $\ket{\psi} \in \bb{C}^2$, accendere il campo magnetico rotante ponendo $\omega = \omega_0$, e aspettare $\Delta t= \pi/\Omega = \pi/\omega_1$. A questo punto, lo stato finale è $\sigma_x \ket{\psi}$, ossia NOT $\ket{\psi}$, come desiderato.\\
+
+A livello fisico, ciò corrisponde ad \textit{eccitare} la transizione $\ket{0} \leftrightarrow \ket{1}$ con una pulsazione $\omega = (\mathcal{E}_1-\mathcal{E}_2)/\hbar = \omega_1$ (come si verifica dalle espressioni (\ref{eqn:autovalori-rabi})).
 \end{enumerate}
 
 \begin{comment}
@@ -716,24 +756,36 @@ Fisicamente ciò significa avere la pulsazione della radiazione che incide sul s
 
 \end{comment}
 
-\section{Implementazione di un gate a 2 qubit} \marginpar{\danger Da ricontrollare}
-Per realizzare un gate a 2 qubit sarà necessario \q{farli interagire} in un qualche modo.\\
-Uno dei casi più semplici si basa sull'Hamiltoniana:
+\section{Implementazione di un gate CNOT}
+Per poter realizzare gate a $2$ qubit è necessario considerare \textit{interazioni} tra i singoli qubit. A scopo dimostrativo, esaminiamo ora un semplice modello di gate CNOT.\\
+Partiamo da un'Hamiltoniana $H(t)$:
 \begin{align*}
-H_S &= -(\mu_1 \hat{\sigma}_z^1 + \mu_2 \hat{\sigma}_z^2 )B_0 + J \sigma_z^1 \sigma_z^2  =\\
-&= \begin{pmatrix}
-_B(\mu_1+\mu_2)+J & 0 & 0 & 0\\
-0 & B(-\mu_1+\mu_2)- J & 0 & 0\\
-0 & 0 & B(\mu_1-\mu_2)-J & 0\\
-0 & 0 & 0 & B(\mu_1 + \mu_2) + J
-\end{pmatrix}
+    H(t) = H_s + H_p(t); \qquad H_s = -(\mu_1 \sigma_z^{(1)} + \mu_2 \sigma_z^{(2)})B_0 + J \sigma_z^{(1)} \sigma_z^{(2)} 
 \end{align*}
-(dove con la moltiplicazione tra matrici si intende un prodotto tensore: $\sigma_z^1 \sigma_z^2 = \sigma_z \otimes \sigma_z^2$ e nella somma tra $\sigma_z^1$ e $\sigma_z^2$ stiamo sottintendendo dei prodotti tensori con l'identità: $\sigma_z^1\otimes \bb{I} + \bb{I}\otimes \sigma_z^2$).\\
-Gli autovalori sono le entrate sulla diagonale, e gli autovettori sono gli stati della base computazionale. Stiamo quindi descrivendo un sistema a quattro livelli, con due coppie di livelli con differenza di energie:
+$H_s$ è l'Hamiltoniana che descrive due particelle di spin 1/2 sottoposte ad un campo magnetico $B_0$. Le direzioni di spin delle due particelle non sono indipendenti, ma interagiscono tra loro mediante il termine $J\sigma_z^{(1)}\sigma_z^{(2)}$, che ha l'effetto di aggiungere una \textit{correlazione}\footnote{L'idea è quella del modello di Ising, che caratterizza il ferromagnetismo in meccanica statistica.} tra le due. Nello specifico, per $J>0$ gli spin tenderanno a disporsi antiparallelamente (per minimizzare l'energia $H_s$), o parallelamente per $J<0$.\\
+$H_p(t)$, d'altro canto, è il potenziale perturbativo che consente di controllare dall'esterno il sistema (es. impulso laser).
+
+\textbf{Nota}: $H_s$ è una matrice $4\times 4$, dato che agisce su stati di $2$ qubit. Perciò $\sigma_z^{(1)}\sigma_z^{(2)}$ sottintende in realtà un prodotto tensore: $\sigma_z^{(1)}\otimes \sigma_z^{(2)}$. Analogamente, quando un operatore agisce su un solo qubit, va inteso moltiplicato per un'opportuna matrice identità. In questo caso:
 \begin{align*}
-\Delta \mathcal{E} = - 2(\mu_2 B - J) \qquad \Delta\mathcal{E} = -2(\mu_2 B + J)
+    \mu_1 \sigma_z^{(1)} = \mu_1 \sigma_z^{(1)} \otimes \bb{I}_2
 \end{align*}
-Inserendo quindi una radiazione in risonanza con le due transizioni avremo oscillazioni di Rabi per entrambi.\\
-Se settiamo $J=0$, i due qubit non interagiscono tra loro, ed è possibile mandare in risonanza ciascuno singolarmente. Tuttavia, contando l'interazione, lo stato del secondo qubit modula la differenza di energia tra i livelli del primo, e perciò l'oscillazione si ha solo in certi casi, e in altri no. Questa è, in breve, la ricetta per una CNOT.
+
+
+Nella base computazionale $\{\ket{00}, \ket{01}, \ket{10}, \ket{11}\}$, dove $\ket{0}$ e $\ket{1}$ sono autostati di $\sigma_z$, troviamo che $H_s$ è diagonale:
+\begin{align*}
+    H_s = \op{diag} \big[ -(\mu_1 + \mu_2) B_0 + J, -(\mu_1-\mu_2)B_0 - J, (\mu_1 - \mu_2) B_0 - J, (\mu_1+\mu_2)B_0 + J \big]
+\end{align*}
+
+Esaminiamo le energie necessarie per le transizioni $\ket{00} \to \ket{01}$ e $\ket{10} \to \ket{11}$ (spin flip della seconda particella):
+\begin{align*}
+    \Delta\mathcal{E}_1 &= \mathcal{E}_{01}- \mathcal{E}_{00} = 2(B_0 \mu_2 - J)\\
+    \Delta\mathcal{E}_2 &= \mathcal{E}_{11}-\mathcal{E}_{10} = 2(\mu_2 B_0 + J)
+\end{align*}
+Notiamo che, se $J = 0$ (qubit non interagenti), $\Delta \mathcal{E}_1 = \Delta \mathcal{E}_2$. In tal caso, un laser di pulsazione $\omega = \Delta \mathcal{E}/\hbar$, ossia:
+\begin{align*}
+    \omega = \frac{2\mu_2 B_0}{\hbar}
+\end{align*}
+realizza entrambe le transizioni. In altre parole, per $J=0$, l'azione di \textit{invertire} il secondo qubit non dipende in alcun modo dallo stato del primo.\\
+Nel caso $J\neq 0$, tuttavia, $\Delta \mathcal{E}_1 \neq \Delta \mathcal{E}_2$. Perciò, usando un laser con $\omega = \mathcal{E}_2/\hbar$, si può selezionare la sola transizione $\ket{11} \leftrightarrow \ket{10}$. In altre parole, il secondo qubit viene \textit{invertito} solamente nel caso il primo sia nello stato $\ket{1}$ - replicando così il comportamento di un gate CNOT.
 \end{document}
 
